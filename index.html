@@ -19,7 +19,7 @@
             height: 150px; 
             object-fit: cover; 
             border-radius: 6px; 
-            background: #f0f0f0; 
+            background: #f0f0f0;
             padding: 5px;
         }
         .producto h3 { font-size: 16px; margin: 10px 0 5px; color: #333; }
@@ -87,80 +87,81 @@
         .modal-contenido h2 { 
             text-align: center; 
             color: #D4AF37; 
-            margin-bottom: 20px; 
+            margin-bottom: 15px; 
             padding-bottom: 10px; 
             border-bottom: 2px solid #D4AF37;
         }
         .factura-linea { margin: 8px 0; padding-bottom: 5px; border-bottom: 1px dashed #ddd; }
-        .factura-total { 
-            font-size: 20px; 
-            font-weight: bold; 
-            margin: 20px 0; 
-            text-align: right; 
-            color: #D4AF37;
-        }
+        .factura-total { font-size: 20px; font-weight: bold; margin: 20px 0; text-align: right; color: #D4AF37; }
     </style>
-    <!-- Librerías para PDF funcional -->
+
+    <!-- Librerías para PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <header>VIVA TEAM SHOP - JOYERÍA</header>
 
+    <!-- PRODUCTOS -->
     <div class="productos">
-        <!-- PRODUCTOS ORIGINALES -->
         <div class="producto">
             <h3>Pulso Oro 18k</h3>
             <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Pulso Oro 18k">
             <p>Precio: $130.000</p>
-            <button onclick="agregar(1, 'Pulso Oro 18k', 130000)">Agregar al Carrito</button>
+            <button onclick="agregarProducto(1, 'Pulso Oro 18k', 130000)">Agregar al Carrito</button>
         </div>
+
         <div class="producto">
             <h3>Oso Inglés 18k</h3>
             <img src="https://images.unsplash.com/photo-1551524905-142875a901a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Oso Inglés 18k">
             <p>Precio: $210.000</p>
-            <button onclick="agregar(2, 'Oso Inglés 18k', 210000)">Agregar al Carrito</button>
+            <button onclick="agregarProducto(2, 'Oso Inglés 18k', 210000)">Agregar al Carrito</button>
         </div>
 
-        <!-- NUEVAS CADENAS DE ORO CON IMÁGENES DIFERENTES -->
         <div class="producto">
             <h3>Cadena Digen 18k</h3>
             <img src="https://images.unsplash.com/photo-1549925245-100ddd75af48?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cadena Digen 18k">
             <p>Precio: $180.000</p>
-            <button onclick="agregar(3, 'Cadena Digen 18k', 180000)">Agregar al Carrito</button>
+            <button onclick="agregarProducto(3, 'Cadena Digen 18k', 180000)">Agregar al Carrito</button>
         </div>
+
         <div class="producto">
             <h3>Cadena Figaro 18k</h3>
             <img src="https://images.unsplash.com/photo-1611541164555-8c6000232987?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cadena Figaro 18k">
             <p>Precio: $220.000</p>
-            <button onclick="agregar(4, 'Cadena Figaro 18k', 220000)">Agregar al Carrito</button>
+            <button onclick="agregarProducto(4, 'Cadena Figaro 18k', 220000)">Agregar al Carrito</button>
         </div>
+
         <div class="producto">
             <h3>Cadena Cuban Link 18k</h3>
             <img src="https://images.unsplash.com/photo-1584559582128-b8be715a1754?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cadena Cuban Link 18k">
             <p>Precio: $350.000</p>
-            <button onclick="agregar(5, 'Cadena Cuban Link 18k', 350000)">Agregar al Carrito</button>
+            <button onclick="agregarProducto(5, 'Cadena Cuban Link 18k', 350000)">Agregar al Carrito</button>
         </div>
+
         <div class="producto">
             <h3>Cadena Rolo 18k</h3>
             <img src="https://images.unsplash.com/photo-1574574410584-03c8946b5996?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cadena Rolo 18k">
             <p>Precio: $190.000</p>
-            <button onclick="agregar(6, 'Cadena Rolo 18k', 190000)">Agregar al Carrito</button>
+            <button onclick="agregarProducto(6, 'Cadena Rolo 18k', 190000)">Agregar al Carrito</button>
         </div>
+
         <div class="producto">
             <h3>Cadena Valentino 18k</h3>
             <img src="https://images.unsplash.com/photo-1605707379325-97b616895622?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cadena Valentino 18k">
             <p>Precio: $240.000</p>
-            <button onclick="agregar(7, 'Cadena Valentino 18k', 240000)">Agregar al Carrito</button>
+            <button onclick="agregarProducto(7, 'Cadena Valentino 18k', 240000)">Agregar al Carrito</button>
         </div>
+
         <div class="producto">
             <h3>Cadena Singapore 18k</h3>
             <img src="https://images.unsplash.com/photo-1555952517-2e8e729e0b44?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cadena Singapore 18k">
             <p>Precio: $200.000</p>
-            <button onclick="agregar(8, 'Cadena Singapore 18k', 200000)">Agregar al Carrito</button>
+            <button onclick="agregarProducto(8, 'Cadena Singapore 18k', 200000)">Agregar al Carrito</button>
         </div>
     </div>
 
+    <!-- CARRITO -->
     <div class="carrito">
         <h2>CARRITO DE COMPRAS</h2>
         <div id="lista-carrito"></div>
@@ -169,7 +170,7 @@
             <input type="text" id="nit" placeholder="NIT/CC *">
             <input type="text" id="celular" placeholder="Celular *">
         </div>
-        <div class="total" id="total">Total: $0</div>
+        <div class="total" id="total-carrito">Total: $0</div>
         <button class="btn btn-enviar" onclick="enviarPedido()">Enviar Pedido por WhatsApp</button>
         <button class="btn btn-ver" onclick="verFactura()">Ver Factura</button>
         <button class="btn btn-descargar" onclick="descargarPDF()">Descargar PDF</button>
@@ -177,31 +178,32 @@
 
     <!-- MODAL FACTURA -->
     <div class="modal" id="modal-factura">
-        <div class="modal-contenido" id="contenido-modal">
-            <h2>FACTURA OFICIAL</h2>
-            <div id="factura-detalle"></div>
+        <div class="modal-contenido">
+            <h2>FACTURA OFICIAL - VIVA TEAM SHOP</h2>
+            <div id="detalle-factura"></div>
         </div>
     </div>
 
     <script>
         let carrito = [];
         let total = 0;
-        const { jsPDF } = window.jspdf;
 
-        // AGREGAR AL CARRITO
-        function agregar(id, nombre, precio) {
-            const prod = carrito.find(p => p.id === id);
-            if (prod) {
-                prod.cantidad++;
-                alert(`✅ +1 ${nombre} agregado!`);
+        // INICIALIZAR CARRITO
+        actualizarCarrito();
+
+        // AGREGAR PRODUCTO AL CARRITO
+        function agregarProducto(id, nombre, precio) {
+            const productoExistente = carrito.find(p => p.id === id);
+            if (productoExistente) {
+                productoExistente.cantidad++;
             } else {
-                carrito.push({id: id, nombre: nombre, precio: precio, cantidad: 1});
-                alert(`✅ ${nombre} agregado al carrito!`);
+                carrito.push({ id: id, nombre: nombre, precio: precio, cantidad: 1 });
             }
             actualizarCarrito();
+            alert(`✅ ${nombre} agregado al carrito!`);
         }
 
-        // ACTUALIZAR CARRITO
+        // ACTUALIZAR VISTA DEL CARRITO
         function actualizarCarrito() {
             const lista = document.getElementById('lista-carrito');
             lista.innerHTML = '';
@@ -209,69 +211,78 @@
 
             if (carrito.length === 0) {
                 lista.innerHTML = '<p style="text-align:center; padding:15px; color:#666;">Carrito vacío</p>';
-                document.getElementById('total').textContent = 'Total: $0';
+                document.getElementById('total-carrito').textContent = 'Total: $0';
                 return;
             }
 
             carrito.forEach(p => {
                 const subtotal = p.precio * p.cantidad;
                 total += subtotal;
-                lista.innerHTML += `<div class="carrito-item"><span>${p.nombre} (${p.cantidad}u)</span><span>$${subtotal.toLocaleString()}</span></div>`;
+                lista.innerHTML += `
+                    <div class="carrito-item">
+                        ${p.nombre} - ${p.cantidad}u - $${subtotal.toLocaleString()}
+                    </div>
+                `;
             });
 
-            document.getElementById('total').textContent = `Total: $${total.toLocaleString()}`;
+            document.getElementById('total-carrito').textContent = `Total: $${total.toLocaleString()}`;
         }
 
-        // ENVIAR PEDIDO
+        // ENVIAR PEDIDO POR WHATSAPP
         function enviarPedido() {
             const nombre = document.getElementById('nombre').value;
             const nit = document.getElementById('nit').value;
             const celular = document.getElementById('celular').value;
 
             if (!nombre || !nit || !celular || carrito.length === 0) {
-                alert('Completa todos los datos primero');
+                alert('Completa todos los datos primero!');
                 return;
             }
 
-            let msg = `PEDIDO VIVA TEAM SHOP\n\nNombre: ${nombre}\nNIT/CC: ${nit}\nCelular: ${celular}\n\n`;
-            carrito.forEach(p => msg += `${p.nombre} - ${p.cantidad}u - $${(p.precio*p.cantidad).toLocaleString()}\n`);
-            msg += `\nTOTAL: $${total.toLocaleString()}`;
+            let mensaje = `PEDIDO VIVA TEAM SHOP\n\nNombre: ${nombre}\nNIT/CC: ${nit}\nCelular: ${celular}\n\nDETALLES:\n`;
+            carrito.forEach((p, i) => {
+                mensaje += `${i+1}. ${p.nombre} - ${p.cantidad}u - $${(p.precio*p.cantidad).toLocaleString()}\n`;
+            });
+            mensaje += `\nTOTAL: $${total.toLocaleString()}`;
 
-            window.open(`https://api.whatsapp.com/send?phone=+573006009881&text=${encodeURIComponent(msg)}`, '_blank');
+            window.open(`https://api.whatsapp.com/send?phone=+573006009881&text=${encodeURIComponent(mensaje)}`, '_blank');
         }
 
-        // VER FACTURA
+        // VER FACTURA EN MODAL
         function verFactura() {
             const nombre = document.getElementById('nombre').value;
             const nit = document.getElementById('nit').value;
             const celular = document.getElementById('celular').value;
 
             if (!nombre || !nit || !celular || carrito.length === 0) {
-                alert('Completa los datos primero');
+                alert('Completa todos los datos primero!');
                 return;
             }
 
-            const detalle = document.getElementById('factura-detalle');
             let contenido = `
-                <div class="factura-linea"><strong>Fecha:</strong> ${new Date().toLocaleDateString('es-CO')} ${new Date().toLocaleTimeString('es-CO')}</div>
-                <div class="factura-linea"><strong>Nombre:</strong> ${nombre}</div>
-                <div class="factura-linea"><strong>NIT/CC:</strong> ${nit}</div>
-                <div class="factura-linea"><strong>Celular:</strong> ${celular}</div>
-                <h3 style="margin:15px 0;">DETALLES DE COMPRA:</h3>
+                <div class="factura-linea">Fecha: ${new Date().toLocaleString('es-CO')}</div>
+                <div class="factura-linea">Nombre: ${nombre}</div>
+                <div class="factura-linea">NIT/CC: ${nit}</div>
+                <div class="factura-linea">Celular: ${celular}</div>
+                <h3 style="margin:15px 0;">COMPRA:</h3>
             `;
 
             carrito.forEach((p, i) => {
-                contenido += `<div class="factura-linea">${i+1}. ${p.nombre} - ${p.cantidad} unidad(es) - $${(p.precio*p.cantidad).toLocaleString()}</div>`;
+                contenido += `<div class="factura-linea">${i+1}. ${p.nombre} - ${p.cantidad}u - $${(p.precio*p.cantidad).toLocaleString()}</div>`;
             });
 
             contenido += `<div class="factura-total">TOTAL: $${total.toLocaleString()}</div>`;
-            contenido += `<p style="text-align:center; margin-top:10px;">¡Gracias por tu preferencia!</p>`;
+            contenido += `<p style="text-align:center;">¡Gracias por tu compra!</p>`;
 
-            detalle.innerHTML = contenido;
+            document.getElementById('detalle-factura').innerHTML = contenido;
             document.getElementById('modal-factura').style.display = 'flex';
         }
 
+        // CERRAR MODAL AL TOCAR FUERA
+        window.onclick = function(e) {
+            const modal = document.getElementById('modal-factura');
+            if (e.target === modal) modal.style.display = 'none';
+        }
+
         // DESCARGAR PDF FUNCIONAL
-        function descargarPDF() {
-            const nombre = document.getElementById('nombre').value;
-            const nit = document.getElementById('nit').value
+        function desc
