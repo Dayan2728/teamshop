@@ -9,7 +9,7 @@ const productos = [
     { id: 7, titulo: "Cadena HM 18K Lm", precio: 130000, imagen: "img/cadena10.jpg" },
     { id: 8, titulo: "Cadena Ceuz OR18k", precio: 140000, imagen: "img/cruz5.jpg" },
     { id: 9, titulo: "Pulsera hm 18K", precio: 150000, imagen: "img/pulso11.jpg" }
-];
+
 // Cargar productos en el contenedor
 const contenedorProductos = document.getElementById('contenedor-productos');
 productos.forEach(producto => {
@@ -193,3 +193,4 @@ function notificarTiendaPorWhatsApp(nombreCliente, telefonoCliente, totalPedido,
     document.getElementById('formulario-cliente').reset();
     alert('Pedido procesado! Se ha notificado al WhatsApp de la tienda y se envió la factura por correo.');
 }
+];
