@@ -23,8 +23,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
         }
-        header h1 { color: white; font-size: 28px; border: 2px solid var(--oro); padding: 10px 20px; border-radius: 8px; }
+        header h1 { font-size: 28px; border: 2px solid var(--oro); padding: 10px 20px; border-radius: 8px; }
         .contenedor { max-width: 1200px; margin: 20px auto; padding: 0 15px; display: flex; flex-wrap: wrap; gap: 20px; }
         .productos { flex: 1 1 300px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
         .producto {
@@ -34,7 +35,7 @@
             text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        .producto img { width: 100%; height: 150px; object-fit: contain; margin: 10px 0; }
+        .producto img { width: 100%; height: 150px; object-fit: contain; }
         .producto button {
             background: var(--oro);
             color: white;
@@ -53,14 +54,20 @@
             position: sticky;
             top: 20px;
         }
-        .carrito h2 { background: var(--oro); color: white; padding: 10px; border-radius: 6px; text-align: center; margin-bottom: 15px; }
+        .carrito h2 {
+            background: var(--oro);
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
         .carrito-item {
             display: flex;
             align-items: center;
             padding: 10px 0;
             border-bottom: 1px solid var(--gris);
         }
-        .carrito-item img { width: 50px; height: 50px; object-fit: cover; margin-right: 10px; }
         .selector-cantidad { display: flex; gap: 10px; margin: 0 10px; }
         .selector-cantidad i {
             background: var(--oro);
@@ -110,12 +117,8 @@
             cursor: pointer;
             width: 100%;
             font-size: 16px;
-            font-weight: bold;
         }
-        .vacío { text-align: center; color: var(--gris); padding: 20px; }
-
-        /* Estilos para la factura visual */
-        #modal-factura {
+        .factura-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -123,25 +126,18 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.8);
-            z-index: 100;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            z-index: 100;
         }
-        .factura-visual {
+        .factura-contenido {
             background: white;
-            width: 100%;
-            max-width: 500px;
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 500px;
         }
-        .factura-visual h2 { color: var(--oro); text-align: center; margin-bottom: 20px; }
-        .factura-datos { display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--oro); }
-        .factura-productos { margin: 20px 0; }
-        .factura-producto { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dashed var(--gris); }
-        .factura-total { font-size: 18px; font-weight: bold; margin-top: 15px; text-align: right; }
-        .btn-cerrar-factura {
+        .cerrar-modal {
             background: red;
             color: white;
             border: none;
@@ -149,23 +145,12 @@
             border-radius: 6px;
             cursor: pointer;
             margin-top: 15px;
-            width: 100%;
-        }
-        .btn-descargar-factura {
-            background: var(--oro);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 10px;
-            width: 100%;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Viva Team Shop</h1>
+        <h1>Viva Team Shop - Joyería</h1>
     </header>
 
     <div class="contenedor">
@@ -174,107 +159,85 @@
             <div class="producto">
                 <h3>Pulso Oro 18k Lm</h3>
                 <img src="https://picsum.photos/200/200?pulso" alt="Pulso">
-                <p>$130.000</p>
-                <button onclick="agregar(1, 'Pulso Oro 18k Lm', 130000, 'https://picsum.photos/200/200?pulso')">Agregar al Carrito</button>
+                <p>Precio: $130.000</p>
+                <button onclick="agregarAlCarrito(1, 'Pulso Oro 18k Lm', 130000, 'https://picsum.photos/200/200?pulso')">Agregar al Carrito</button>
             </div>
             <div class="producto">
-                <h3>Oso Ingles 18K Lm</h3>
+                <h3>Oso Inglés 18k</h3>
                 <img src="https://picsum.photos/200/200?oso" alt="Oso">
-                <p>$210.000</p>
-                <button onclick="agregar(2, 'Oso Ingles 18K Lm', 210000, 'https://picsum.photos/200/200?oso')">Agregar al Carrito</button>
+                <p>Precio: $210.000</p>
+                <button onclick="agregarAlCarrito(2, 'Oso Inglés 18k', 210000, 'https://picsum.photos/200/200?oso')">Agregar al Carrito</button>
             </div>
             <div class="producto">
-                <h3>Cadena Digen 18K Lm</h3>
+                <h3>Cadena Digen 18k</h3>
                 <img src="https://picsum.photos/200/200?cadena" alt="Cadena">
-                <p>$180.000</p>
-                <button onclick="agregar(3, 'Cadena Digen 18K Lm', 180000, 'https://picsum.photos/200/200?cadena')">Agregar al Carrito</button>
+                <p>Precio: $180.000</p>
+                <button onclick="agregarAlCarrito(3, 'Cadena Digen 18k', 180000, 'https://picsum.photos/200/200?cadena')">Agregar al Carrito</button>
             </div>
         </div>
 
         <!-- CARRITO -->
         <div class="carrito">
             <h2>Tu Carrito</h2>
-            <div id="items-carrito" class="vacío">El carrito está vacío</div>
-            
+            <div id="carrito-items"></div>
             <div class="form-datos">
-                <input type="text" id="nombre" placeholder="Tu nombre completo *">
+                <input type="text" id="nombre" placeholder="Nombre completo *">
                 <input type="text" id="celular" placeholder="Celular *">
-                <input type="text" id="direccion" placeholder="Dirección de entrega *">
                 <input type="text" id="nit" placeholder="NIT/CC para factura *">
-                <input type="text" id="empresa" placeholder="Nombre de la empresa (si aplica)">
+                <input type="text" id="direccion" placeholder="Dirección *">
             </div>
-
             <div class="total">
                 <span>Total a pagar:</span>
                 <span id="total">$0</span>
             </div>
-
-            <button class="btn-enviar" onclick="procesarPedido()">ENVIAR PEDIDO & GENERAR FACTURA</button>
+            <button class="btn-enviar" onclick="generarYEnviar()">Enviar Pedido & Generar Factura</button>
         </div>
     </div>
 
-    <!-- MODAL DE FACTURA VISUAL -->
-    <div id="modal-factura" onclick="cerrarModal()">
-        <div class="factura-visual" onclick="event.stopPropagation()">
-            <h2>📄 FACTURA OFICIAL</h2>
-            <div class="factura-datos">
-                <div>
-                    <p><strong>VIVA TEAM SHOP</strong></p>
-                    <p>NIT: 123456789-0</p>
-                    <p>Dirección: Barranquilla, Atlántico</p>
-                </div>
-                <div>
-                    <p><strong>NÚMERO DE FACTURA:</strong> <span id="num-factura"></span></p>
-                    <p><strong>FECHA:</strong> <span id="fecha-factura"></span></p>
-                </div>
-            </div>
-
-            <div>
-                <p><strong>DATOS DEL CLIENTE:</strong></p>
-                <p id="datos-cliente"></p>
-            </div>
-
-            <div class="factura-productos">
-                <p><strong>DETALLES DE LA COMPRA:</strong></p>
-                <div id="lista-factura"></div>
-            </div>
-
-            <div class="factura-total" id="total-factura"></div>
-
-            <button class="btn-descargar-factura" onclick="descargarFactura()">DESCARGAR FACTURA EN PDF</button>
-            <button class="btn-cerrar-factura" onclick="cerrarModal()">CERRAR</button>
+    <!-- MODAL DE FACTURA -->
+    <div class="factura-modal" id="factura-modal">
+        <div class="factura-contenido">
+            <h2>FACTURA OFICIAL</h2>
+            <div id="factura-detalle"></div>
+            <button class="cerrar-modal" onclick="cerrarModal()">Cerrar</button>
         </div>
     </div>
 
     <script>
         let carrito = [];
+        const carritoItems = document.getElementById('carrito-items');
+        const totalElemento = document.getElementById('total');
+        const facturaModal = document.getElementById('factura-modal');
+        const facturaDetalle = document.getElementById('factura-detalle');
 
-        // AGREGAR PRODUCTOS AL CARRITO
-        function agregar(id, nombre, precio, imagen) {
-            const productoExistente = carrito.find(p => p.id === id);
-            if (productoExistente) {
-                productoExistente.cantidad++;
-                alert(`✅ +1 ${nombre} | Total: ${productoExistente.cantidad}`);
+        // AGREGAR AL CARRITO
+        function agregarAlCarrito(id, nombre, precio, imagen) {
+            const producto = carrito.find(p => p.id === id.toString());
+            if (producto) {
+                producto.cantidad++;
             } else {
-                carrito.push({ id, nombre, precio, cantidad: 1, imagen });
-                alert(`✅ ${nombre} agregado al carrito`);
+                carrito.push({
+                    id: id.toString(),
+                    nombre: nombre,
+                    precio: parseInt(precio),
+                    cantidad: 1,
+                    imagen: imagen
+                });
             }
-            mostrarCarrito();
+            actualizarCarrito();
         }
 
-        // MOSTRAR CARRITO
-        function mostrarCarrito() {
-            const contenedor = document.getElementById('items-carrito');
-            const totalSpan = document.getElementById('total');
+        // ACTUALIZAR CARRITO
+        function actualizarCarrito() {
+            carritoItems.innerHTML = '';
             let total = 0;
 
             if (carrito.length === 0) {
-                contenedor.innerHTML = '<p class="vacío">El carrito está vacío</p>';
-                totalSpan.textContent = '$0';
+                carritoItems.innerHTML = '<p style="padding: 20px; text-align: center; color: #666;">Carrito vacío</p>';
+                totalElemento.textContent = '$0';
                 return;
             }
 
-            contenedor.innerHTML = '';
             carrito.forEach(p => {
                 const subtotal = p.precio * p.cantidad;
                 total += subtotal;
@@ -286,55 +249,78 @@
                     <div>
                         <h4>${p.nombre}</h4>
                         <div class="selector-cantidad">
-                            <i onclick="cambiarCantidad(${p.id}, 'restar')">-</i>
-                            <input type="text" class="carrito-item-cantidad" value="${p.cantidad}" readonly>
-                            <i onclick="cambiarCantidad(${p.id}, 'sumar')">+</i>
+                            <i class="fas fa-minus" onclick="cambiarCantidad(${p.id}, 'restar')"></i>
+                            <input type="text" value="${p.cantidad}" readonly>
+                            <i class="fas fa-plus" onclick="cambiarCantidad(${p.id}, 'sumar')"></i>
                         </div>
+                        <span>$${subtotal.toLocaleString()}</span>
+                        <div class="btn-eliminar" onclick="eliminarProducto(${p.id})">×</div>
                     </div>
-                    <span class="carrito-item-precio">$${subtotal.toLocaleString()}</span>
-                    <div class="btn-eliminar" onclick="eliminar(${p.id})">×</div>
                 `;
-                contenedor.appendChild(item);
+                carritoItems.appendChild(item);
             });
 
-            totalSpan.textContent = `$${total.toLocaleString()}`;
+            totalElemento.textContent = `$${total.toLocaleString()}`;
         }
 
         // CAMBIAR CANTIDAD
         function cambiarCantidad(id, accion) {
-            const producto = carrito.find(p => p.id === id);
+            const producto = carrito.find(p => p.id === id.toString());
             if (!producto) return;
 
             if (accion === 'sumar') producto.cantidad++;
             else if (producto.cantidad > 1) producto.cantidad--;
-            else eliminar(id);
 
-            mostrarCarrito();
+            actualizarCarrito();
         }
 
         // ELIMINAR PRODUCTO
-        function eliminar(id) {
-            carrito = carrito.filter(p => p.id !== id);
-            mostrarCarrito();
+        function eliminarProducto(id) {
+            carrito = carrito.filter(p => p.id !== id.toString());
+            actualizarCarrito();
         }
 
-        // PROCESAR PEDIDO Y MOSTRAR FACTURA
-        function procesarPedido() {
-            const nombre = document.getElementById('nombre').value.trim();
-            const celular = document.getElementById('celular').value.trim();
-            const direccion = document.getElementById('direccion').value.trim();
-            const nit = document.getElementById('nit').value.trim();
-            const empresa = document.getElementById('empresa').value.trim() || 'Persona natural';
+        // GENERAR Y ENVIAR
+        function generarYEnviar() {
+            const nombre = document.getElementById('nombre').value;
+            const celular = document.getElementById('celular').value;
+            const nit = document.getElementById('nit').value;
+            const direccion = document.getElementById('direccion').value;
 
-            if (!nombre || !celular || !direccion || !nit || carrito.length === 0) {
-                alert('⚠️ Completa todos los campos obligatorios y agrega productos');
+            if (!nombre || !celular || !nit || !direccion || carrito.length === 0) {
+                alert('Completa todos los campos y agrega productos');
                 return;
             }
 
-            // DATOS DE LA FACTURA
-            const fecha = new Date();
-            const numFactura = `FAC-${fecha.getFullYear()}${(fecha.getMonth()+1).toString().padStart(2, '0')}${fecha.getDate().toString().padStart(2, '0')}-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`;
+            // CREAR FACTURA
+            let factura = `FACTURA OFICIAL - VIVA TEAM SHOP\n\n`;
+            factura += `Cliente: ${nombre}\n`;
+            factura += `Celular: ${celular}\n`;
+            factura += `NIT/CC: ${nit}\n`;
+            factura += `Dirección: ${direccion}\n\n`;
+            factura += `DETALLES:\n`;
             
-            // LLENAR MODAL DE FACTURA
-            document.getElementById('num-factura').textContent = numFactura;
-            document.getElementById('fecha-factura').textContent
+            carrito.forEach(p => {
+                factura += `${p.nombre} - ${p.cantidad}u - $${(p.precio * p.cantidad).toLocaleString()}\n`;
+            });
+            factura += `\nTOTAL: $${totalElemento.textContent}`;
+
+            // MOSTRAR FACTURA EN MODAL
+            facturaDetalle.innerHTML = factura.replace(/\n/g, '<br>');
+            facturaModal.style.display = 'flex';
+
+            // ENVIAR POR WHATSAPP
+            const mensaje = encodeURIComponent(factura);
+            window.open(`https://api.whatsapp.com/send?phone=+573006009000&text=${mensaje}`, '_blank');
+        }
+
+        // CERRAR MODAL
+        function cerrarModal() {
+            facturaModal.style.display = 'none';
+        }
+
+        // INICIALIZAR
+        actualizarCarrito();
+    </script>
+</body>
+</html>
