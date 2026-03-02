@@ -164,7 +164,9 @@
     <!-- CARRITO -->
     <div class="carrito">
         <h2>CARRITO DE COMPRAS</h2>
-        <div id="lista-carrito"></div>
+        <div id="lista-carrito">
+            <p style="text-align:center; padding:15px; color:#666;">Carrito vacío</p>
+        </div>
         <div class="form-datos">
             <input type="text" id="nombre" placeholder="Tu nombre *">
             <input type="text" id="nit" placeholder="NIT/CC *">
@@ -186,25 +188,21 @@
     </div>
 
     <script>
+        // VARIABLES GLOBALES
         let carrito = [];
         let total = 0;
         const { jsPDF } = window.jspdf;
 
-        // INICIALIZAMOS EL CARRITO CUANDO CARGA LA PÁGINA
-        window.onload = function() {
-            actualizarCarrito();
-        }
-
-        // FUNCIÓN PARA AGREGAR AL CARRITO
+        // FUNCIÓN PARA AGREGAR PRODUCTOS AL CARRITO
         function agregar(id, nombre, precio) {
-            // BUSCAMOS SI EL PRODUCTO YA EXISTE
-            let producto = carrito.find(item => item.id === id);
-            
-            if(producto) {
+            // BUSCAMOS SI EL PRODUCTO YA ESTÁ EN EL CARRITO
+            const productoExistente = carrito.find(item => item.id === id);
+
+            if (productoExistente) {
                 // SI EXISTE, AUMENTAMOS LA CANTIDAD
-                producto.cantidad += 1;
+                productoExistente.cantidad++;
             } else {
-                // SI NO EXISTE, LO AGREGAMOS
+                // SI NO EXISTE, LO AGREGAMOS NUEVO
                 carrito.push({
                     id: id,
                     nombre: nombre,
@@ -213,78 +211,77 @@
                 });
             }
 
-            // ACTUALIZAMOS LA VISTA
-            actualizarCarrito();
-            alert(`✅ ${nombre} agregado al carrito!`);
+            // ACTUALIZAMOS LA VISTA DEL CARRITO
+            mostrarCarrito();
+            alert(`✅ ${nombre} agregado!\nCantidad: ${productoExistente ? productoExistente.cantidad : 1}`);
         }
 
-        // FUNCIÓN PARA ACTUALIZAR LO QUE SE VE EN EL CARRITO
-        function actualizarCarrito() {
-            const lista = document.getElementById('lista-carrito');
-            lista.innerHTML = '';
+        // FUNCIÓN PARA MOSTRAR EL CARRITO EN PANTALLA
+        function mostrarCarrito() {
+            const listaCarrito = document.getElementById('lista-carrito');
+            const totalCarrito = document.getElementById('total-carrito');
+            let html = '';
             total = 0;
 
-            // SI EL CARRITO ESTÁ VACÍO
-            if(carrito.length === 0) {
-                lista.innerHTML = '<p style="text-align:center; padding:15px; color:#666;">Carrito vacío</p>';
-                document.getElementById('total-carrito').textContent = 'Total: $0';
-                return;
+            // SI HAY PRODUCTOS EN EL CARRITO
+            if (carrito.length > 0) {
+                carrito.forEach(item => {
+                    const subtotal = item.precio * item.cantidad;
+                    total += subtotal;
+                    html += `
+                        <div class="carrito-item">
+                            <span>${item.nombre} (${item.cantidad}u)</span>
+                            <span>$${subtotal.toLocaleString()}</span>
+                        </div>
+                    `;
+                });
+            } else {
+                // SI EL CARRITO ESTÁ VACÍO
+                html = '<p style="text-align:center; padding:15px; color:#666;">Carrito vacío</p>';
             }
 
-            // SI HAY PRODUCTOS, LOS MOSTRAMOS
-            carrito.forEach(item => {
-                let subtotal = item.precio * item.cantidad;
-                total += subtotal;
-                lista.innerHTML += `
-                    <div class="carrito-item">
-                        <span>${item.nombre} (${item.cantidad}u)</span>
-                        <span>$${subtotal.toLocaleString()}</span>
-                    </div>
-                `;
-            });
-
-            // ACTUALIZAMOS EL TOTAL
-            document.getElementById('total-carrito').textContent = `Total: $${total.toLocaleString()}`;
+            // ACTUALIZAMOS EL CONTENIDO
+            listaCarrito.innerHTML = html;
+            totalCarrito.textContent = `Total: $${total.toLocaleString()}`;
         }
 
-        // FUNCIÓN PARA ENVIAR POR WHATSAPP
+        // FUNCIÓN PARA ENVIAR PEDIDO POR WHATSAPP
         function enviarPedido() {
             const nombre = document.getElementById('nombre').value;
             const nit = document.getElementById('nit').value;
             const celular = document.getElementById('celular').value;
 
-            if(!nombre || !nit || !celular || carrito.length === 0) {
-                alert('Por favor completa todos los datos y agrega productos al carrito!');
+            if (!nombre || !nit || !celular || carrito.length === 0) {
+                alert('⚠️ Completa todos los datos y agrega productos al carrito!');
                 return;
             }
 
-            let mensaje = `PEDIDO VIVA TEAM SHOP\n\n`;
-            mensaje += `Nombre: ${nombre}\n`;
-            mensaje += `NIT/CC: ${nit}\n`;
-            mensaje += `Celular: ${celular}\n\n`;
-            mensaje += `DETALLES DEL PEDIDO:\n`;
+            let mensaje = `📦 PEDIDO VIVA TEAM SHOP 📦\n\n`;
+            mensaje += `👤 Nombre: ${nombre}\n`;
+            mensaje += `🆔 NIT/CC: ${nit}\n`;
+            mensaje += `📱 Celular: ${celular}\n\n`;
+            mensaje += `🛒 DETALLES:\n`;
 
-            carrito.forEach((item, index) => {
-                mensaje += `${index+1}. ${item.nombre} - ${item.cantidad}u - $${(item.precio * item.cantidad).toLocaleString()}\n`;
+            carrito.forEach((item, i) => {
+                mensaje += `${i+1}. ${item.nombre} - ${item.cantidad}u - $${(item.precio * item.cantidad).toLocaleString()}\n`;
             });
 
-            mensaje += `\nTOTAL A PAGAR: $${total.toLocaleString()}`;
+            mensaje += `\n💲 TOTAL: $${total.toLocaleString()}`;
+            mensaje += `\n\n¡Gracias por tu preferencia!`;
 
             window.open(`https://api.whatsapp.com/send?phone=+573006009881&text=${encodeURIComponent(mensaje)}`, '_blank');
         }
 
-        // FUNCIÓN PARA VER LA FACTURA EN MODAL
+        // FUNCIÓN PARA VER FACTURA EN MODAL
         function verFactura() {
             const nombre = document.getElementById('nombre').value;
             const nit = document.getElementById('nit').value;
             const celular = document.getElementById('celular').value;
 
-            if(!nombre || !nit || !celular || carrito.length === 0) {
-                alert('Por favor completa todos los datos y agrega productos al carrito!');
+            if (!nombre || !nit || !celular || carrito.length === 0) {
+                alert('⚠️ Completa todos los datos primero!');
                 return;
             }
 
             let contenido = `
-                <div class="factura-linea"><strong>Fecha:</strong> ${new Date().toLocaleString('es-CO')}</div>
-                <div class="factura-linea"><strong>Nombre:</strong> ${nombre}</div>
-                <div class="factura-linea"><strong>NIT/
+                <div class="factura
