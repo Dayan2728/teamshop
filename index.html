@@ -2,304 +2,371 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Librería para PDFs (si se necesita para respaldo) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- Tus estilos CSS -->
-    <link rel="stylesheet" href="estilo.css">
-    <title>Viva Team Shop</title>
+    <title>Generador de Facturas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .form-section, .invoice-section {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .items-container {
+            margin: 20px 0;
+        }
+        .item-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 10px;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .btn-add {
+            background-color: #2ecc71;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .btn-add:hover {
+            background-color: #27ae60;
+        }
+        .btn-generate {
+            background-color: #3498db;
+            color: white;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .btn-generate:hover {
+            background-color: #2980b9;
+        }
+        .btn-print {
+            background-color: #f39c12;
+            color: white;
+            margin-top: 20px;
+        }
+        .btn-print:hover {
+            background-color: #e67e22;
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+        .invoice-logo h1 {
+            color: #3498db;
+        }
+        .invoice-info p {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .invoice-client, .invoice-details {
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        .invoice-table th, .invoice-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .invoice-table th {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+        }
+        .invoice-total {
+            text-align: right;
+            margin-right: 10px;
+        }
+        .invoice-total div {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .invoice-total .grand-total {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #3498db;
+        }
+        @media print {
+            .form-section, .btn-print, .btn-add, .btn-generate {
+                display: none;
+            }
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .invoice-section {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-	<!-- Botón flotante WhatsApp -->
-	<a href="https://api.whatsapp.com/send?phone=+573052804631" class="btn-wsp" target="_blank">
-	    <i class="fa fa-whatsapp icono"></i>
-	</a>
+    <div class="container">
+        <!-- Sección del formulario -->
+        <div class="form-section">
+            <h2><i class="fas fa-file-invoice"></i> Datos de la Factura</h2>
+            
+            <div class="form-group">
+                <label for="business-name">Nombre de la Empresa</label>
+                <input type="text" id="business-name" placeholder="Nombre de tu empresa">
+            </div>
+            <div class="form-group">
+                <label for="business-address">Dirección de la Empresa</label>
+                <textarea id="business-address" rows="2" placeholder="Dirección completa"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="business-phone">Teléfono de la Empresa</label>
+                <input type="text" id="business-phone" placeholder="Número de teléfono">
+            </div>
 
-    <header>
-        <h1>V I V A    T E A M    S H O P  </h1>
-    </header>
+            <hr>
 
-    <section class="contenedor">
-        <!-- Contenedor de productos -->
-        <div class="contenedor-items">
-            <div class="item">
-                <span class="titulo-item">Pulso Oro 18k Lm</span>
-                <img src="img/pulso2.jpg" alt="Pulso Oro 18k Lm" class="img-item">
-                <span class="precio-item">$130.000</span>
-                <button class="boton-item" data-id="pulso-oro-18k-lm">Agregar al Carrito</button>
+            <div class="form-group">
+                <label for="client-name">Nombre del Cliente</label>
+                <input type="text" id="client-name" placeholder="Nombre completo del cliente">
             </div>
-            <div class="item">
-                <span class="titulo-item">Oso Ingles 18K Lm</span>
-                <img src="img/oso1.jpg" alt="Oso Ingles 18K Lm" class="img-item">
-                <span class="precio-item">$210.000</span>
-                <button class="boton-item" data-id="oso-ingles-18k-lm">Agregar al Carrito</button>
+            <div class="form-group">
+                <label for="client-address">Dirección del Cliente</label>
+                <textarea id="client-address" rows="2" placeholder="Dirección completa del cliente"></textarea>
             </div>
-            <div class="item">
-                <span class="titulo-item">Cadena Digen 18K Lm</span>
-                <img src="img/cadena4.jpg" alt="Cadena Digen 18K Lm" class="img-item">
-                <span class="precio-item">$180.000</span>
-                <button class="boton-item" data-id="cadena-digen-18k-lm">Agregar al Carrito</button>
+            <div class="form-group">
+                <label for="client-email">Email del Cliente</label>
+                <input type="email" id="client-email" placeholder="Email del cliente">
             </div>
-            <div class="item">
-                <span class="titulo-item">Pulsera 18K Lm</span>
-                <img src="img/pulso8.jpg" alt="Pulsera 18K Lm" class="img-item">
-                <span class="precio-item">$85.000</span>
-                <button class="boton-item" data-id="pulsera-18k-lm">Agregar al Carrito</button>
+
+            <hr>
+
+            <div class="form-group">
+                <label for="invoice-number">Número de Factura</label>
+                <input type="text" id="invoice-number" placeholder="Número único de factura">
             </div>
+            <div class="form-group">
+                <label for="invoice-date">Fecha de Factura</label>
+                <input type="date" id="invoice-date">
+            </div>
+            <div class="form-group">
+                <label for="payment-terms">Términos de Pago</label>
+                <select id="payment-terms">
+                    <option value="Contado">Contado</option>
+                    <option value="7 días">7 días</option>
+                    <option value="15 días">15 días</option>
+                    <option value="30 días">30 días</option>
+                </select>
+            </div>
+
+            <hr>
+
+            <h3><i class="fas fa-shopping-cart"></i> Artículos</h3>
+            <div class="items-container" id="items-container">
+                <div class="item-row">
+                    <input type="text" class="item-description" placeholder="Descripción del artículo">
+                    <input type="number" class="item-quantity" placeholder="Cantidad" min="1" value="1">
+                    <input type="number" class="item-price" placeholder="Precio unitario" min="0" step="0.01">
+                    <button type="button" class="btn-remove" onclick="removeItem(this)"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <button type="button" class="btn-add" onclick="addItem()"><i class="fas fa-plus"></i> Agregar Artículo</button>
+
+            <button type="button" class="btn-generate" onclick="generateInvoice()"><i class="fas fa-magic"></i> Generar Factura</button>
         </div>
 
-        <!-- Carrito de Compras -->
-        <div class="carrito" id="carrito">
-            <div class="header-carrito">
-                <h2>Tu Carrito</h2>
+        <!-- Sección de la factura -->
+        <div class="invoice-section">
+            <h2><i class="fas fa-file-pdf"></i> Factura Generada</h2>
+            <div id="invoice-preview">
+                <p style="text-align: center; color: #7f8c8d; padding: 50px 0;">Completa los datos y haz clic en "Generar Factura"</p>
             </div>
-
-            <div class="carrito-items">
-                <!-- Productos cargados aquí -->
-            </div>
-
-            <div class="carrito-total">
-                <div class="fila">
-                    <strong>Tu Total</strong>
-                    <span class="carrito-precio-total">$0</span>
-                </div>
-
-                <!-- Datos obligatorios (AGREGADO CAMPO DE CORREO) -->
-                <div class="datos-cliente">
-                    <h3>Datos del Pedido</h3>
-                    <input id="datoNombre" type="text" placeholder="Tu nombre completo *" required>
-                    <input id="datoCorreo" type="email" placeholder="Tu correo electrónico *" required>
-                    <input id="datoDireccion" type="text" placeholder="Dirección de entrega *" required>
-                    <input id="datoCiudad" type="text" placeholder="Ciudad *" required>
-                    <input id="datoTelefono" type="tel" placeholder="Número de contacto *" required>
-                    <br>
-                    <strong>Detalles adicionales:</strong>
-                    <input id="datoMensaje" type="text" placeholder="Referencia de captura o comentarios (opcional)">
-                </div>
-
-                <!-- Botones -->
-                <div class="botones-accion">
-                    <button id="btnGenerarFactura" class="btn-factura">
-                        <i class="fa fa-file-pdf-o"></i> Generar y Enviar Factura
-                    </button>
-                    
-                    <button class="btn-pagar">
-                        <strong>
-                            <a id="btnEnviar" href="#" style="text-decoration:none; color:inherit;">
-                                <span>Enviar Pedido Por Whatsapp >></span> <i class="fa fa-whatsapp icono"></i>
-                            </a>
-                        </strong>
-                    </button>
-                </div>
-
-                <!-- Área de confirmación -->
-                <div id="areaFactura" class="area-factura" style="display: none;">
-                    <h3>✅ Operación Exitosa</h3>
-                    <div id="contenidoFactura" class="contenido-factura"></div>
-                </div>
-            </div>
+            <button type="button" class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> Imprimir Factura</button>
         </div>
-    </section>
+    </div>
 
-    <!-- Script de tu carrito -->
-    <script src="app.js" defer></script>
-
-    <!-- CÓDIGO CORREGIDO PARA MANYAPIS Y ENVÍO -->
     <script>
-        // Datos de Manyapis (CREA TU CUENTA GRATIS EN https://manyapis.com/)
-        const MANYAPIS_API_KEY = "sk_bd554655fc154267baa4b82cb43941f4"; // REEMPLAZA CON TU CLAVE
-        const TU_CORREO = "dayansmanosmagicas@gmail.com"; // TU CORREO PARA COPIA
-        const TU_WHATSAPP = "+573052804631"; // TU NÚMERO DE WHATSAPP
+        // Establecer fecha actual por defecto
+        document.getElementById('invoice-date').valueAsDate = new Date();
 
-        // Referencias a elementos
-        const btnGenerarFactura = document.getElementById('btnGenerarFactura');
-        const areaFactura = document.getElementById('areaFactura');
-        const contenidoFactura = document.getElementById('contenidoFactura');
-
-        // Función para obtener datos del carrito
-        function obtenerDatosCarrito() {
-            const items = document.querySelectorAll('.carrito-item');
-            let productos = [];
-            items.forEach(item => {
-                const nombre = item.querySelector('.carrito-item-titulo').textContent;
-                const precio = item.querySelector('.carrito-item-precio').textContent.replace('$', '').replace('.', '');
-                const cantidad = item.querySelector('.carrito-item-cantidad').value;
-                const subtotal = (parseFloat(precio) * parseInt(cantidad)).toLocaleString('es-CO');
-                
-                productos.push({
-                    name: nombre,
-                    quantity: cantidad,
-                    price: precio,
-                    total: subtotal
-                });
-            });
-            return {
-                items: productos,
-                total: document.querySelector('.carrito-precio-total').textContent.replace('$', '').replace('.', '')
-            };
+        // Agregar nuevo artículo
+        function addItem() {
+            const container = document.getElementById('items-container');
+            const newRow = document.createElement('div');
+            newRow.className = 'item-row';
+            newRow.innerHTML = `
+                <input type="text" class="item-description" placeholder="Descripción del artículo">
+                <input type="number" class="item-quantity" placeholder="Cantidad" min="1" value="1">
+                <input type="number" class="item-price" placeholder="Precio unitario" min="0" step="0.01">
+                <button type="button" class="btn-remove" onclick="removeItem(this)"><i class="fas fa-trash"></i></button>
+            `;
+            container.appendChild(newRow);
         }
 
-        // Función para generar factura con Manyapis
-        async function generarFacturaManyapis(datosCliente, datosCarrito) {
-            try {
-                const respuesta = await fetch('https://manyapis.com/api/v1/invoice-generator', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${MANYAPIS_API_KEY}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        from: {
-                            name: "Viva Team Shop",
-                            address: "Barranquilla, Atlántico - Colombia",
-                            email: TU_CORREO,
-                            phone: TU_WHATSAPP
-                        },
-                        to: {
-                            name: datosCliente.nombre,
-                            email: datosCliente.correo,
-                            phone: datosCliente.telefono,
-                            address: `${datosCliente.direccion}, ${datosCliente.ciudad}`
-                        },
-                        invoice_number: Math.floor(Math.random() * 10000),
-                        date: new Date().toISOString().split('T')[0],
-                        notes: datosCliente.mensaje || "Gracias por tu compra!",
-                        currency: "COP",
-                        items: datosCarrito.items,
-                        total: datosCarrito.total
-                    })
-                });
-
-                if (!respuesta.ok) throw new Error("Error al generar factura");
-                const datos = await respuesta.json();
-                return datos.pdf_url; // URL del PDF generado
-            } catch (error) {
-                console.error("Error Manyapis:", error);
-                return null;
-            }
-        }
-
-        // Función para enviar PDF por WhatsApp y correo
-        async function enviarFactura(cliente, urlPDF) {
-            // Enviar por WhatsApp
-            const mensajeWA = `Hola ${cliente.nombre}! Aquí está tu factura de Viva Team Shop: ${urlPDF}%0A%0ADetalles del pedido:%0ADirección: ${cliente.direccion}%0ACiudad: ${cliente.ciudad}`;
-            const enlaceWA = `https://api.whatsapp.com/send?phone=${cliente.telefono}&text=${mensajeWA}`;
-            window.open(enlaceWA, '_blank');
-
-            // Enviar por correo (usamos EmailJS gratis)
-            try {
-                // Crea cuenta en https://www.emailjs.com/ para obtener las credenciales
-                emailjs.send("TU_SERVICIO_ID", "TU_PLANTILLA_ID", {
-                    to_email: cliente.correo,
-                    to_name: cliente.nombre,
-                    from_email: TU_CORREO,
-                    pdf_url: urlPDF,
-                    message: cliente.mensaje || "Sin comentarios adicionales"
-                }, "TU_USER_ID")
-                .then(() => console.log("Correo enviado"), (err) => console.error("Error correo:", err));
-            } catch (e) {
-                console.log("Para enviar por correo, configura EmailJS");
-            }
-        }
-
-        // Evento de clic en botón
-        btnGenerarFactura.addEventListener('click', async () => {
-            // Validar campos
-            const nombre = document.getElementById('datoNombre').value.trim();
-            const correo = document.getElementById('datoCorreo').value.trim();
-            const direccion = document.getElementById('datoDireccion').value.trim();
-            const ciudad = document.getElementById('datoCiudad').value.trim();
-            const telefono = document.getElementById('datoTelefono').value.trim();
-            const mensaje = document.getElementById('datoMensaje').value.trim();
-            const datosCarrito = obtenerDatosCarrito();
-
-            if (!nombre || !correo || !direccion || !ciudad || !telefono || datosCarrito.items.length === 0) {
-                alert('⚠️ Completa todos los campos obligatorios y agrega productos al carrito!');
-                return;
-            }
-
-            // Mostrar carga
-            contenidoFactura.innerHTML = '<p><i class="fa fa-spinner fa-spin"></i> Generando y enviando factura...</p>';
-            areaFactura.style.display = 'block';
-
-            // Generar factura
-            const datosCliente = { nombre, correo, direccion, ciudad, telefono, mensaje };
-            const urlPDF = await generarFacturaManyapis(datosCliente, datosCarrito);
-
-            if (urlPDF) {
-                contenidoFactura.innerHTML = `
-                    <p>Factura generada correctamente!</p>
-                    <p><a href="${urlPDF}" target="_blank" class="btn-descargar">
-                        <i class="fa fa-download"></i> Descargar Factura
-                    </a></p>
-                    <p>Se está enviando una copia a tu WhatsApp y correo.</p>
-                `;
-                // Enviar al cliente
-                await enviarFactura(datosCliente, urlPDF);
+        // Eliminar artículo
+        function removeItem(button) {
+            const container = document.getElementById('items-container');
+            if (container.children.length > 1) {
+                button.parentElement.remove();
             } else {
-                contenidoFactura.innerHTML = `<p style="color: red;">Error al generar factura. Intenta de nuevo o usa la opción local.</p>
-                <button id="btnFacturaLocal" class="btn-factura">Generar Factura Local</button>`;
-                // Opción de respaldo local
-                document.getElementById('btnFacturaLocal').addEventListener('click', () => generarFacturaLocal(datosCliente, datosCarrito));
+                alert('Debe haber al menos un artículo en la factura');
             }
-        });
+        }
 
-        // Función de respaldo local
-        function generarFacturaLocal(datosCliente, datosCarrito) {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+        // Generar factura
+        function generateInvoice() {
+            // Obtener datos del formulario
+            const businessName = document.getElementById('business-name').value;
+            const businessAddress = document.getElementById('business-address').value;
+            const businessPhone = document.getElementById('business-phone').value;
+            const clientName = document.getElementById('client-name').value;
+            const clientAddress = document.getElementById('client-address').value;
+            const clientEmail = document.getElementById('client-email').value;
+            const invoiceNumber = document.getElementById('invoice-number').value;
+            const invoiceDate = document.getElementById('invoice-date').value;
+            const paymentTerms = document.getElementById('payment-terms').value;
 
-            // Contenido del PDF
-            doc.setFontSize(16);
-            doc.setTextColor(37, 211, 102);
-            doc.text("FACTURA VIVA TEAM SHOP", 105, 15, null, null, 'center');
-            doc.setFontSize(10);
-            doc.setTextColor(0);
-            doc.text("Barranquilla, Atlántico - Colombia", 105, 25, null, null, 'center');
-            doc.line(10, 30, 200, 30);
+            // Obtener artículos
+            const itemRows = document.querySelectorAll('.item-row');
+            let itemsHTML = '';
+            let subtotal = 0;
 
-            // Datos cliente
-            doc.text("DATOS DEL CLIENTE", 10, 45);
-            doc.text(`Nombre: ${datosCliente.nombre}`, 10, 55);
-            doc.text(`Correo: ${datosCliente.correo}`, 10, 65);
-            doc.text(`Dirección: ${datosCliente.direccion}`, 10, 75);
-            doc.text(`Ciudad: ${datosCliente.ciudad}`, 10, 85);
-            doc.text(`Teléfono: ${datosCliente.telefono}`, 10, 95);
-            doc.line(10, 115, 200, 115);
+            for (let i = 0; i < itemRows.length; i++) {
+                const description = itemRows[i].querySelector('.item-description').value;
+                const quantity = parseInt(itemRows[i].querySelector('.item-quantity').value);
+                const price = parseFloat(itemRows[i].querySelector('.item-price').value);
+                const total = quantity * price;
+                subtotal += total;
 
-            // Productos
-            doc.text("DETALLE DE PRODUCTOS", 10, 130);
-            doc.text("Producto", 10, 145);
-            doc.text("Cant.", 70, 145);
-            doc.text("Precio Unit.", 100, 145);
-            doc.text("Subtotal", 150, 145);
-            doc.line(10, 150, 200, 150);
-            let yPos = 160;
-            datosCarrito.items.forEach(item => {
-                doc.text(item.name.substring(0, 20), 10, yPos);
-                doc.text(item.quantity, 70, yPos);
-                doc.text(`$${item.price.toLocaleString('es-CO')}`, 100, yPos);
-                doc.text(`$${item.total}`, 150, yPos);
-                yPos += 10;
-            });
-            doc.line(10, yPos, 200, yPos);
-            yPos += 5;
-            doc.setFontWeight('bold');
-            doc.text("TOTAL A PAGAR", 100, yPos);
-            doc.text(`$${datosCarrito.total.toLocaleString('es-CO')}`, 150, yPos);
+                if (!description || isNaN(quantity) || isNaN(price)) {
+                    alert('Por favor completa todos los datos de los artículos');
+                    return;
+                }
 
-            // Guardar y mostrar
-            const nombrePDF = `Factura_VivaTeamShop_${datosCliente.nombre.replace(/\s+/g, '_')}.pdf`;
-            doc.save(nombrePDF);
-            contenidoFactura.innerHTML = `<p>✅ Factura local generada y descargada!</p>
-            <p>Envíala manualmente al cliente por WhatsApp o correo.</p>`;
+                itemsHTML += `
+                    <tr>
+                        <td>${description}</td>
+                        <td>${quantity}</td>
+                        <td>$${price.toFixed(2)}</td>
+                        <td>$${total.toFixed(2)}</td>
+                    </tr>
+                `;
+            }
+
+            // Calcular impuestos y total (19% IVA por defecto)
+            const taxRate = 0.19;
+            const tax = subtotal * taxRate;
+            const grandTotal = subtotal + tax;
+
+            // Construir HTML de la factura
+            const invoiceHTML = `
+                <div class="invoice-header">
+                    <div class="invoice-logo">
+                        <h1>${businessName || 'Empresa Sin Nombre'}</h1>
+                    </div>
+                    <div class="invoice-info">
+                        <p><strong>Factura #:</strong> ${invoiceNumber || '00000'}</p>
+                        <p><strong>Fecha:</strong> ${invoiceDate || new Date().toLocaleDateString()}</p>
+                        <p><strong>Términos:</strong> ${paymentTerms}</p>
+                    </div>
+                </div>
+
+                <div class="invoice-client">
+                    <div>
+                        <h3>De:</h3>
+                        <p>${businessName || 'Empresa Sin Nombre'}</p>
+                        <p>${businessAddress || 'Dirección no proporcionada'}</p>
+                        <p>${businessPhone || 'Teléfono no proporcionado'}</p>
+                    </div>
+                    <div>
+                        <h3>Para:</h3>
+                        <p>${clientName || 'Cliente Sin Nombre'}</p>
+                        <p>${clientAddress || 'Dirección no proporcionada'}</p>
+                        <p>${clientEmail || 'Email no proporcionado'}</p>
+                    </div>
+                </div>
+
+                <table class="invoice-table">
+                    <thead>
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${itemsHTML}
+                    </tbody>
+                </table>
+
+                <div class="invoice-total">
+                    <div><strong>Subtotal:</strong> $${subtotal.toFixed(2)}</div>
+                    <div><strong>IVA (19%):</strong> $${tax.toFixed(2)}</div>
+                    <div class="grand-total"><strong>Total a Pagar:</strong> $${grandTotal.toFixed(2)}</div>
+                </div>
+
+                <div style="margin-top: 40px; font-size: 14px; color: #7f8c8d; text-align: center;">
+                    <p>¡Gracias por tu negocio!</p>
+                </div>
+            `;
+
+            // Mostrar factura
+            document.getElementById('invoice-preview').innerHTML = invoiceHTML;
         }
     </script>
-
-    <!-- Script para EmailJS (para envío por correo) -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        // Config
+</body>
+</html>
