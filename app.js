@@ -1,27 +1,33 @@
 // Carrito de compras - Array global para almacenar productos
 let carrito = [];
 
-// Función CORREGIDA para agregar productos al carrito
+// Función para agregar productos al carrito
 function agregarAlCarrito(id, nombre, precio, imagen) {
-    const producto = {
-        id: id.toString(),
-        nombre: nombre,
-        precio: parseInt(precio),
-        cantidad: 1,
-        imagen: imagen
-    };
+    // Convertimos el ID a string para evitar problemas de tipo
+    const productoId = id.toString();
+    const productoPrecio = parseInt(precio);
 
-    // Verificar si el producto ya existe en el carrito
-    const productoExistente = carrito.find(p => p.id === producto.id);
+    // Buscamos si el producto ya existe en el carrito
+    const productoExistente = carrito.find(p => p.id === productoId);
+
     if (productoExistente) {
-        productoExistente.cantidad++;
-        alert(`✅ Se agregó otra unidad de ${nombre} al carrito!`);
+        // Si existe, aumentamos la cantidad
+        productoExistente.cantidad += 1;
+        alert(`✅ +1 unidad de ${nombre} | Total: ${productoExistente.cantidad}`);
     } else {
-        carrito.push(producto);
+        // Si no existe, lo agregamos
+        const nuevoProducto = {
+            id: productoId,
+            nombre: nombre,
+            precio: productoPrecio,
+            cantidad: 1,
+            imagen: imagen
+        };
+        carrito.push(nuevoProducto);
         alert(`✅ ${nombre} agregado al carrito!`);
     }
 
-    // Actualizar visualización del carrito
+    // Forzamos la actualización del carrito
     actualizarCarrito();
 }
 
@@ -30,7 +36,7 @@ function actualizarCarrito() {
     const contenedorItems = document.getElementById('carritoItems');
     const contenedorTotal = document.querySelector('.carrito-precio-total');
     
-    // Limpiar contenido anterior del carrito
+    // Limpiamos el contenido anterior
     contenedorItems.innerHTML = '';
     let totalGeneral = 0;
 
@@ -41,112 +47,115 @@ function actualizarCarrito() {
         return;
     }
 
-    // Recorrer productos del carrito y crear elementos HTML
-    carrito.forEach(producto => {
+    // Recorremos cada producto del carrito
+    carrito.forEach((producto, index) => {
         const subtotal = producto.precio * producto.cantidad;
         totalGeneral += subtotal;
 
-        const itemCarritoHTML = `
-            <div class="carrito-item" data-id="${producto.id}">
-                <img src="${producto.imagen}" alt="${producto.nombre}">
-                <div class="detalles-item">
-                    <span class="carrito-item-titulo">${producto.nombre}</span>
-                    <div class="selector-cantidad">
-                        <i class="fa fa-minus" onclick="cambiarCantidad('${producto.id}', 'restar')"></i>
-                        <input type="text" class="carrito-item-cantidad" value="${producto.cantidad}" readonly>
-                        <i class="fa fa-plus" onclick="cambiarCantidad('${producto.id}', 'sumar')"></i>
-                    </div>
-                    <span class="carrito-item-precio">$${subtotal.toLocaleString()}</span>
+        // Creamos el elemento HTML del producto en el carrito
+        const itemHTML = document.createElement('div');
+        itemHTML.className = 'carrito-item';
+        itemHTML.dataset.id = producto.id;
+
+        itemHTML.innerHTML = `
+            <img src="${producto.imagen}" alt="${producto.nombre}">
+            <div class="detalles-item">
+                <span class="carrito-item-titulo">${producto.nombre}</span>
+                <div class="selector-cantidad">
+                    <i class="fa fa-minus" onclick="cambiarCantidad('${producto.id}', 'restar')"></i>
+                    <input type="text" class="carrito-item-cantidad" value="${producto.cantidad}" readonly>
+                    <i class="fa fa-plus" onclick="cambiarCantidad('${producto.id}', 'sumar')"></i>
                 </div>
-                <button class="btn-eliminar" onclick="eliminarProducto('${producto.id}')">
-                    <i class="fa fa-trash"></i>
-                </button>
+                <span class="carrito-item-precio">$${subtotal.toLocaleString()}</span>
             </div>
+            <button class="btn-eliminar" onclick="eliminarProducto('${producto.id}')">
+                <i class="fa fa-trash"></i>
+            </button>
         `;
 
-        contenedorItems.innerHTML += itemCarritoHTML;
+        // Agregamos el elemento al contenedor
+        contenedorItems.appendChild(itemHTML);
     });
 
-    // Actualizar total a pagar
+    // Actualizamos el total
     contenedorTotal.textContent = `$${totalGeneral.toLocaleString()}`;
 }
 
-// Función para aumentar o disminuir la cantidad de un producto
+// Función para cambiar la cantidad de un producto
 function cambiarCantidad(idProducto, accion) {
     const producto = carrito.find(p => p.id === idProducto);
     if (!producto) return;
 
+    // Modificamos la cantidad según la acción
     if (accion === 'sumar') {
-        producto.cantidad++;
+        producto.cantidad += 1;
     } else if (accion === 'restar' && producto.cantidad > 1) {
-        producto.cantidad--;
+        producto.cantidad -= 1;
+    } else if (accion === 'restar' && producto.cantidad === 1) {
+        // Si la cantidad es 1 y se resta, eliminamos el producto
+        eliminarProducto(idProducto);
+        return;
     }
 
+    // Actualizamos el carrito
     actualizarCarrito();
 }
 
 // Función para eliminar un producto del carrito
 function eliminarProducto(idProducto) {
-    const nombreProducto = carrito.find(p => p.id === idProducto).nombre;
-    carrito = carrito.filter(p => p.id !== idProducto);
+    const productoIndex = carrito.findIndex(p => p.id === idProducto);
+    if (productoIndex === -1) return;
+
+    const nombreProducto = carrito[productoIndex].nombre;
+    carrito.splice(productoIndex, 1);
     alert(`❌ ${nombreProducto} eliminado del carrito!`);
+
+    // Actualizamos el carrito
     actualizarCarrito();
 }
 
-// Función principal para enviar pedido y generar factura por WhatsApp
+// Función para enviar pedido y factura
 function enviarPedidoYFactura() {
-    // Obtener datos del formulario
     const nombre = document.getElementById('nombreCliente').value.trim();
     const celular = document.getElementById('celularCliente').value.trim();
     const direccion = document.getElementById('direccionCliente').value.trim();
     const datosFactura = document.getElementById('datosFactura').value.trim();
-    const comentarios = document.getElementById('comentariosCliente').value.trim();
     const total = document.querySelector('.carrito-precio-total').textContent;
 
-    // Validación de campos obligatorios
     if (!nombre || !celular || !direccion || !datosFactura || carrito.length === 0) {
-        alert('⚠️ Por favor completa TODOS los campos obligatorios (*) y agrega productos al carrito.');
+        alert('⚠️ Completa todos los campos y agrega productos al carrito');
         return;
     }
 
-    // Generar número de pedido único (basado en fecha y hora)
     const fechaActual = new Date();
     const numeroPedido = `PED-${fechaActual.getFullYear()}${(fechaActual.getMonth()+1).toString().padStart(2, '0')}${fechaActual.getDate().toString().padStart(2, '0')}-${fechaActual.getHours().toString().padStart(2, '0')}${fechaActual.getMinutes().toString().padStart(2, '0')}`;
 
-    // Construir mensaje estructurado para WhatsApp
     let mensaje = `*📦 PEDIDO Y FACTURA - VIVA TEAM SHOP*%0A%0A`;
     mensaje += `*🔢 NÚMERO DE PEDIDO:* ${numeroPedido}%0A%0A`;
-    
-    // Sección 1: Datos del cliente
     mensaje += `*👤 DATOS DEL CLIENTE*%0A`;
     mensaje += `• Nombre: ${nombre}%0A`;
     mensaje += `• Celular: ${celular}%0A`;
-    mensaje += `• Dirección de entrega: ${direccion}%0A%0A`;
-
-    // Sección 2: Detalles del pedido
+    mensaje += `• Dirección: ${direccion}%0A%0A`;
     mensaje += `*🛒 DETALLES DEL PEDIDO*%0A`;
+
     carrito.forEach((producto, index) => {
         mensaje += `${index + 1}. ${producto.nombre}%0A`;
-        mensaje += `   - Cantidad: ${producto.cantidad} unidad(es)%0A`;
-        mensaje += `   - Valor unitario: $${producto.precio.toLocaleString()}%0A`;
+        mensaje += `   - Cantidad: ${producto.cantidad}%0A`;
+        mensaje += `   - Unitario: $${producto.precio.toLocaleString()}%0A`;
         mensaje += `   - Subtotal: $${(producto.precio * producto.cantidad).toLocaleString()}%0A%0A`;
     });
-    mensaje += `*💵 TOTAL A PAGAR: ${total}*%0A%0A`;
 
-    // Sección 3: Datos para factura
-    mensaje += `*📄 DATOS DE FACTURACIÓN*%0A`;
-    mensaje += `• Identificación: ${datosFactura}%0A`;
-    mensaje += `• Moneda: Pesos Colombianos (COP)%0A`;
-    mensaje += `• Concepto: Venta de joyería%0A`;
-    mensaje += `• Fecha de emisión: ${fechaActual.toLocaleDateString('es-CO')}%0A%0A`;
+    mensaje += `*💵 TOTAL: ${total}*%0A%0A`;
+    mensaje += `*📄 FACTURACIÓN*%0A`;
+    mensaje += `• Datos: ${datosFactura}%0A`;
+    mensaje += `• Fecha: ${fechaActual.toLocaleDateString('es-CO')}%0A%0A`;
+    mensaje += `*¡Gracias por tu compra!*`;
 
-    // Sección 4: Observaciones
-    mensaje += `*💬 OBSERVACIONES*%0A`;
-    mensaje += comentarios || 'Sin observaciones adicionales.%0A%0A';
-    mensaje += `*¡Gracias por tu compra! En breve te confirmaremos la entrega y enviaremos la factura formal al correo o número registrado.*`;
-
-    // Abrir WhatsApp con el mensaje generado
-    const numeroWhatsApp = '+573006009881'; // Número configurado
-    const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${mensaje}`;
+    const urlWhatsApp = `https://api.whatsapp.com/send?phone=+573006009881&text=${mensaje}`;
     window.open(urlWhatsApp, '_blank');
 }
+
+// Inicializamos el carrito al cargar la página
+window.onload = function() {
+    actualizarCarrito();
+};
