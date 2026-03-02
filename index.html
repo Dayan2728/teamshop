@@ -19,7 +19,7 @@
             height: 150px; 
             object-fit: cover; 
             border-radius: 6px; 
-            background: #f0f0f0; /* Fondo uniforme */
+            background: #f0f0f0; 
             padding: 5px;
         }
         .producto h3 { font-size: 16px; margin: 10px 0 5px; color: #333; }
@@ -100,7 +100,7 @@
             color: #D4AF37;
         }
     </style>
-    <!-- Librerías 100% confiables para PDF -->
+    <!-- Librerías para PDF funcional -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -108,9 +108,9 @@
     <header>VIVA TEAM SHOP - JOYERÍA</header>
 
     <div class="productos">
+        <!-- PRODUCTOS ORIGINALES -->
         <div class="producto">
             <h3>Pulso Oro 18k</h3>
-            <!-- Imágenes de joyería profesional -->
             <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Pulso Oro 18k">
             <p>Precio: $130.000</p>
             <button onclick="agregar(1, 'Pulso Oro 18k', 130000)">Agregar al Carrito</button>
@@ -121,11 +121,43 @@
             <p>Precio: $210.000</p>
             <button onclick="agregar(2, 'Oso Inglés 18k', 210000)">Agregar al Carrito</button>
         </div>
+
+        <!-- NUEVAS CADENAS DE ORO CON IMÁGENES DIFERENTES -->
         <div class="producto">
             <h3>Cadena Digen 18k</h3>
             <img src="https://images.unsplash.com/photo-1549925245-100ddd75af48?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cadena Digen 18k">
             <p>Precio: $180.000</p>
             <button onclick="agregar(3, 'Cadena Digen 18k', 180000)">Agregar al Carrito</button>
+        </div>
+        <div class="producto">
+            <h3>Cadena Figaro 18k</h3>
+            <img src="https://images.unsplash.com/photo-1611541164555-8c6000232987?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cadena Figaro 18k">
+            <p>Precio: $220.000</p>
+            <button onclick="agregar(4, 'Cadena Figaro 18k', 220000)">Agregar al Carrito</button>
+        </div>
+        <div class="producto">
+            <h3>Cadena Cuban Link 18k</h3>
+            <img src="https://images.unsplash.com/photo-1584559582128-b8be715a1754?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cadena Cuban Link 18k">
+            <p>Precio: $350.000</p>
+            <button onclick="agregar(5, 'Cadena Cuban Link 18k', 350000)">Agregar al Carrito</button>
+        </div>
+        <div class="producto">
+            <h3>Cadena Rolo 18k</h3>
+            <img src="https://images.unsplash.com/photo-1574574410584-03c8946b5996?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cadena Rolo 18k">
+            <p>Precio: $190.000</p>
+            <button onclick="agregar(6, 'Cadena Rolo 18k', 190000)">Agregar al Carrito</button>
+        </div>
+        <div class="producto">
+            <h3>Cadena Valentino 18k</h3>
+            <img src="https://images.unsplash.com/photo-1605707379325-97b616895622?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cadena Valentino 18k">
+            <p>Precio: $240.000</p>
+            <button onclick="agregar(7, 'Cadena Valentino 18k', 240000)">Agregar al Carrito</button>
+        </div>
+        <div class="producto">
+            <h3>Cadena Singapore 18k</h3>
+            <img src="https://images.unsplash.com/photo-1555952517-2e8e729e0b44?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Cadena Singapore 18k">
+            <p>Precio: $200.000</p>
+            <button onclick="agregar(8, 'Cadena Singapore 18k', 200000)">Agregar al Carrito</button>
         </div>
     </div>
 
@@ -161,8 +193,10 @@
             const prod = carrito.find(p => p.id === id);
             if (prod) {
                 prod.cantidad++;
+                alert(`✅ +1 ${nombre} agregado!`);
             } else {
                 carrito.push({id: id, nombre: nombre, precio: precio, cantidad: 1});
+                alert(`✅ ${nombre} agregado al carrito!`);
             }
             actualizarCarrito();
         }
@@ -240,48 +274,4 @@
         // DESCARGAR PDF FUNCIONAL
         function descargarPDF() {
             const nombre = document.getElementById('nombre').value;
-            const nit = document.getElementById('nit').value;
-            const celular = document.getElementById('celular').value;
-
-            if (!nombre || !nit || !celular || carrito.length === 0) {
-                alert('Completa los datos primero');
-                return;
-            }
-
-            // Primero creamos la factura en el modal
-            verFactura();
-            setTimeout(() => {
-                // Convertimos el contenido del modal a PDF
-                const elemento = document.getElementById('contenido-modal');
-                html2canvas(elemento).then(canvas => {
-                    const imgData = canvas.toDataURL('image/png');
-                    const pdf = new jsPDF({
-                        orientation: 'portrait',
-                        unit: 'mm',
-                        format: 'a4'
-                    });
-                    const imgWidth = 210;
-                    const imgHeight = canvas.height * imgWidth / canvas.width;
-                    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                    const fecha = new Date().toLocaleDateString('es-CO').replace(/\//g, '-');
-                    pdf.save(`Factura-VivaTeamShop-${fecha}.pdf`);
-                    
-                    // Cerramos el modal después de descargar
-                    document.getElementById('modal-factura').style.display = 'none';
-                    alert('✅ PDF descargado exitosamente! Revisa tu carpeta de Descargas.');
-                });
-            }, 500); // Pequeña espera para que el modal se cargue completamente
-        }
-
-        // Cerrar modal al tocar fuera
-        window.onclick = function(e) {
-            if (e.target.classList.contains('modal')) {
-                document.getElementById('modal-factura').style.display = 'none';
-            }
-        }
-
-        // INICIALIZAR
-        actualizarCarrito();
-    </script>
-</body>
-</html>
+            const nit = document.getElementById('nit').value
