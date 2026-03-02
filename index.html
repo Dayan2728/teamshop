@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Librería para generar PDFs -->
+    <!-- Librería para PDFs (DEBE ESTAR AQUÍ) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- Estilos -->
+    <!-- Tus estilos CSS -->
     <link rel="stylesheet" href="estilo.css">
     <title>Viva Team Shop</title>
 </head>
@@ -25,66 +25,14 @@
     <section class="contenedor">
         <!-- Contenedor de productos -->
         <div class="contenedor-items">
+            <!-- TODOS TUS PRODUCTOS AQUÍ (COMO YA LOS TIENES) -->
             <div class="item">
                 <span class="titulo-item">Pulso Oro 18k Lm</span>
                 <img src="img/pulso2.jpg" alt="Pulso Oro 18k Lm" class="img-item">
                 <span class="precio-item">$130.000</span>
                 <button class="boton-item" data-id="pulso-oro-18k-lm">Agregar al Carrito</button>
             </div>
-            <div class="item">
-                <span class="titulo-item">Oso Ingles 18K Lm</span>
-                <img src="img/oso1.jpg" alt="Oso Ingles 18K Lm" class="img-item">
-                <span class="precio-item">$210.000</span>
-                <button class="boton-item" data-id="oso-ingles-18k-lm">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Cadena Digen 18K Lm</span>
-                <img src="img/cadena4.jpg" alt="Cadena Digen 18K Lm" class="img-item">
-                <span class="precio-item">$180.000</span>
-                <button class="boton-item" data-id="cadena-digen-18k-lm">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Cadena DigeXr 18K Lm</span>
-                <img src="img/cadena6.jpg" alt="Cadena DigeXr 18K Lm" class="img-item">
-                <span class="precio-item">$160.000</span>
-                <button class="boton-item" data-id="cadena-digexr-18k-lm">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Pulsera 18K Lm</span>
-                <img src="img/pulso8.jpg" alt="Pulsera 18K Lm" class="img-item">
-                <span class="precio-item">$85.000</span>
-                <button class="boton-item" data-id="pulsera-18k-lm">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Cadena Coz 18K Lm</span>
-                <img src="img/cadena9.jpg" alt="Cadena Coz 18K Lm" class="img-item">
-                <span class="precio-item">$110.000</span>
-                <button class="boton-item" data-id="cadena-coz-18k-lm">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Cadena HM 18K Lm</span>
-                <img src="img/cadena10.jpg" alt="Cadena HM 18K Lm" class="img-item">
-                <span class="precio-item">$130.000</span>
-                <button class="boton-item" data-id="cadena-hm-18k-lm">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Pulso Oro 18K Lm</span>
-                <img src="img/pulso3.jpg" alt="Pulso Oro 18K Lm" class="img-item">
-                <span class="precio-item">$130.000</span>
-                <button class="boton-item" data-id="pulso-oro-18k-lm-2">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Cadena Ceuz OR18k</span>
-                <img src="img/cruz5.jpg" alt="Cadena Ceuz OR18k" class="img-item">
-                <span class="precio-item">$140.000</span>
-                <button class="boton-item" data-id="cadena-ceuz-or18k">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Pulsera hm 18K</span>
-                <img src="img/pulso11.jpg" alt="Pulsera hm 18K" class="img-item">
-                <span class="precio-item">$150.000</span>
-                <button class="boton-item" data-id="pulsera-hm-18k">Agregar al Carrito</button>
-            </div>
+            <!-- ... RESTO DE PRODUCTOS ... -->
         </div>
 
         <!-- Carrito de Compras -->
@@ -142,178 +90,182 @@
         </div>
     </section>
 
-    <!-- Scripts de lógica -->
+    <!-- SCRIPT DE TU CARRITO (app.js) - DEBE QUEDAR AQUÍ -->
     <script src="app.js" defer></script>
-    <script>
-        // --- CONFIGURACIÓN DE OPENAI ---
-        const OPENAI_API_KEY = "/* Estilos para datos del cliente y factura */
-.datos-cliente {
-    margin: 15px 0;
-    padding: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-}
-.datos-cliente h3 {
-    margin-top: 0;
-    color: #25d366;
-}
-.datos-cliente input {
-    width: 100%;
-    padding: 8px;
-    margin: 6px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-.botones-accion {
-    display: flex;
-    gap: 10px;
-    margin: 10px 0;
-    flex-wrap: wrap;
-}
-.btn-factura {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-.btn-factura:hover {
-    background-color: #0056b3;
-}
-.area-factura {
-    margin: 15px 0;
-    padding: 15px;
-    border: 2px solid #25d366;
-    border-radius: 8px;
-}
-.area-factura h3 {
-    margin-top: 0;
-    color: #25d366;
-}
-.contenido-factura {
-    margin: 10px 0;
-    line-height: 1.5;
-}
-.contenido-factura table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 10px 0;
-}
-.contenido-factura th, .contenido-fact
- "; // REEMPLAZA CON TU CLAVE
-        const OPENAI_ENDPOINT = "https://api.openai.com/v1/chat/completions";
+	   sk_bd554655fc154267baa4b82cb43941f4 
 
-        // Referencias a elementos
+    <!-- ============================== -->
+    <!-- sk_bd554655fc154267baa4b82cb43941f4 -->
+    <!-- ============================== -->
+    <script>
+        // Referencias a elementos de la página
         const btnGenerarFactura = document.getElementById('btnGenerarFactura');
         const areaFactura = document.getElementById('areaFactura');
         const contenidoFactura = document.getElementById('contenidoFactura');
         const btnDescargarFactura = document.getElementById('btnDescargarFactura');
         const { jsPDF } = window.jspdf;
 
-        // Función para obtener datos del carrito
+        // Función para obtener los productos y totales del carrito
         function obtenerDatosCarrito() {
             const items = document.querySelectorAll('.carrito-item');
             let productos = [];
             items.forEach(item => {
+                // Obtener datos de cada producto
+                const nombre = item.querySelector('.carrito-item-titulo').textContent;
+                const precioTexto = item.querySelector('.carrito-item-precio').textContent;
+                const cantidad = item.querySelector('.carrito-item-cantidad').value;
+                // Calcular subtotal
+                const precioNumerico = parseFloat(precioTexto.replace('$', '').replace('.', ''));
+                const subtotal = precioNumerico * parseInt(cantidad);
+                
                 productos.push({
-                    nombre: item.querySelector('.carrito-item-titulo').textContent,
-                    precio: item.querySelector('.carrito-item-precio').textContent,
-                    cantidad: item.querySelector('.carrito-item-cantidad').value
+                    nombre: nombre,
+                    precio: precioTexto,
+                    cantidad: cantidad,
+                    subtotal: "$" + subtotal.toLocaleString('es-CO')
                 });
             });
             return {
-                productos,
+                productos: productos,
                 total: document.querySelector('.carrito-precio-total').textContent
             };
         }
 
-        // Función para generar factura con IA de OpenAI
-        btnGenerarFactura.addEventListener('click', async () => {
-            // Validaciones
+        // CUANDO SE HACE CLIC EN "GENERAR FACTURA IA"
+        btnGenerarFactura.addEventListener('click', () => {
+            // Obtener datos de los campos obligatorios
             const nombre = document.getElementById('datoNombre').value.trim();
             const direccion = document.getElementById('datoDireccion').value.trim();
             const ciudad = document.getElementById('datoCiudad').value.trim();
             const telefono = document.getElementById('datoTelefono').value.trim();
+            const detalles = document.getElementById('datoMensaje').value.trim();
             const { productos, total } = obtenerDatosCarrito();
 
+            // Validar que todo esté completo
             if (!nombre || !direccion || !ciudad || !telefono || productos.length === 0) {
-                alert('Completa todos los campos obligatorios y agrega productos al carrito');
+                alert('⚠️ Completa todos los campos obligatorios y agrega productos al carrito!');
                 return;
             }
 
-            // Mostrar carga
-            contenidoFactura.innerHTML = '<p><i class="fa fa-spinner fa-spin"></i> Generando factura con IA...</p>';
+            // CREAR EL CONTENIDO DE LA FACTURA
+            const facturaHTML = `
+                <div style="font-family: Arial, sans-serif;">
+                    <h2 style="text-align: center; color: #25d366; margin-bottom: 0;">VIVA TEAM SHOP</h2>
+                    <p style="text-align: center; margin-top: 0;">Barranquilla, Atlántico - Colombia</p>
+                    <hr style="border: 1px solid #25d366;">
+                    
+                    <h3 style="color: #333;">📋 DATOS DEL CLIENTE</h3>
+                    <p><strong>Nombre:</strong> ${nombre}</p>
+                    <p><strong>Dirección:</strong> ${direccion}</p>
+                    <p><strong>Ciudad:</strong> ${ciudad}</p>
+                    <p><strong>Teléfono:</strong> ${telefono}</p>
+                    <p><strong>Fecha:</strong> ${new Date().toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    ${detalles ? `<p><strong>Detalles adicionales:</strong> ${detalles}</p>` : ''}
+                    <hr style="border: 1px solid #25d366;">
+                    
+                    <h3 style="color: #333;">🛒 DETALLE DE PRODUCTOS</h3>
+                    <table>
+                        <thead>
+                            <tr style="background-color: #f8f9fa;">
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${productos.map(item => `
+                                <tr>
+                                    <td>${item.nombre}</td>
+                                    <td>${item.cantidad}</td>
+                                    <td>${item.precio}</td>
+                                    <td>${item.subtotal}</td>
+                                </tr>
+                            `).join('')}
+                            <tr style="font-weight: bold; background-color: #f8f9fa;">
+                                <td colspan="3">TOTAL A PAGAR</td>
+                                <td>${total}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr style="border: 1px solid #25d366;">
+                    
+                    <p style="text-align: center; font-style: italic;">Gracias por tu compra! 🛍️</p>
+                </div>
+            `;
+
+            // MOSTRAR LA FACTURA EN LA PÁGINA
+            contenidoFactura.innerHTML = facturaHTML;
             areaFactura.style.display = 'block';
-
-            try {
-                // Petición a API de OpenAI
-                const respuesta = await fetch(OPENAI_ENDPOINT, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${OPENAI_API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        model: "gpt-3.5-turbo",
-                        messages: [
-                            {
-                                role: "system",
-                                content: "Eres un asistente que genera facturas profesionales en formato HTML para una tienda de joyería llamada Viva Team Shop. La factura debe incluir datos del cliente, lista de productos, total, fecha y ser clara y ordenada."
-                            },
-                            {
-                                role: "user",
-                                content: `Genera una factura en HTML para:
-                                - Cliente: ${nombre}
-                                - Dirección: ${direccion}, ${ciudad}
-                                - Teléfono: ${telefono}
-                                - Productos: ${JSON.stringify(productos)}
-                                - Total: ${total}
-                                - Fecha: ${new Date().toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' })}
-                                - Detalles adicionales: ${document.getElementById('datoMensaje').value.trim() || 'Ninguno'}
-                                Incluye título, encabezado de la tienda, sección de cliente, tabla de productos, total y pie de página. No uses etiquetas HTML externas como html, body o head.`
-                            }
-                        ],
-                        temperature: 0.2 // Para que la respuesta sea más precisa
-                    })
-                });
-
-                const datos = await respuesta.json();
-                const facturaHTML = datos.choices[0].message.content;
-                
-                // Mostrar factura generada
-                contenidoFactura.innerHTML = facturaHTML;
-
-            } catch (error) {
-                contenidoFactura.innerHTML = `<p style="color: red;">Error al generar factura: ${error.message}</p>`;
-                console.error(error);
-            }
         });
 
-        // Función para descargar factura como PDF
+        // CUANDO SE HACE CLIC EN "DESCARGAR PDF"
         btnDescargarFactura.addEventListener('click', () => {
+            const nombreCliente = document.getElementById('datoNombre').value.trim();
             const doc = new jsPDF();
-            const textoFactura = contenidoFactura.textContent;
-            const lineHeight = 10;
-            let yPos = 10;
 
-            // Título del PDF
+            // TÍTULO DEL PDF
             doc.setFontSize(16);
-            doc.text("FACTURA VIVA TEAM SHOP", 10, yPos);
-            yPos += lineHeight * 2;
-
-            // Contenido de la factura
+            doc.setTextColor(37, 211, 102);
+            doc.text("FACTURA VIVA TEAM SHOP", 105, 15, null, null, 'center');
             doc.setFontSize(10);
-            const lineas = doc.splitTextToSize(textoFactura, 190);
-            doc.text(lineas, 10, yPos);
+            doc.setTextColor(0);
+            doc.text("Barranquilla, Atlántico - Colombia", 105, 25, null, null, 'center');
+            doc.line(10, 30, 200, 30); // Línea separadora
 
-            // Guardar PDF
-            doc.save(`Factura_VivaTeamShop_${nombre.replace(/\s+/g, '_')}_${new Date().getTime()}.pdf`);
+            // DATOS DEL CLIENTE
+            doc.setFontSize(12);
+            doc.text("📋 DATOS DEL CLIENTE", 10, 45);
+            doc.setFontSize(10);
+            doc.text(`Nombre: ${document.getElementById('datoNombre').value.trim()}`, 10, 55);
+            doc.text(`Dirección: ${document.getElementById('datoDireccion').value.trim()}`, 10, 65);
+            doc.text(`Ciudad: ${document.getElementById('datoCiudad').value.trim()}`, 10, 75);
+            doc.text(`Teléfono: ${document.getElementById('datoTelefono').value.trim()}`, 10, 85);
+            doc.text(`Fecha: ${new Date().toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' })}`, 10, 95);
+            if (document.getElementById('datoMensaje').value.trim()) {
+                doc.text(`Detalles: ${document.getElementById('datoMensaje').value.trim()}`, 10, 105);
+            }
+            doc.line(10, 115, 200, 115);
+
+            // DETALLE DE PRODUCTOS
+            doc.setFontSize(12);
+            doc.text("🛒 DETALLE DE PRODUCTOS", 10, 130);
+            doc.setFontSize(10);
+            // Encabezados de tabla
+            doc.text("Producto", 10, 145);
+            doc.text("Cant.", 70, 145);
+            doc.text("Precio Unit.", 100, 145);
+            doc.text("Subtotal", 150, 145);
+            doc.line(10, 150, 200, 150);
+            // Productos
+            const { productos, total } = obtenerDatosCarrito();
+            let yPos = 160;
+            productos.forEach(item => {
+                doc.text(item.nombre.substring(0, 20) + (item.nombre.length > 20 ? '...' : ''), 10, yPos);
+                doc.text(item.cantidad, 70, yPos);
+                doc.text(item.precio, 100, yPos);
+                doc.text(item.subtotal, 150, yPos);
+                yPos += 10;
+            });
+            doc.line(10, yPos, 200, yPos);
+            yPos += 5;
+            doc.setFontWeight('bold');
+            doc.text("TOTAL A PAGAR", 100, yPos);
+            doc.text(total, 150, yPos);
+            doc.setFontWeight('normal');
+
+            // PIE DE PÁGINA
+            doc.setFontSize(9);
+            doc.setTextColor(100);
+            doc.text("Gracias por tu compra! 🛍️", 105, 270, null, null, 'center');
+
+            // GUARDAR EL PDF
+            doc.save(`Factura_VivaTeamShop_${nombreCliente.replace(/\s+/g, '_')}.pdf`);
         });
     </script>
+    <!-- ============================== -->
+    <!-- FIN DEL CÓDIGO NUEVO -->
+    <!-- ============================== -->
+
 </body>
 </html>
