@@ -4,87 +4,88 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viva Team Shop - Joyería de Oro 18k</title>
+    <title>Viva Team Shop - Joyería</title>
     
-    <!-- Dependencias Externas -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
-    
+    <!-- Fuente + Iconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>emailjs.init('TU_CLAVE_PUBLICA_AQUI');</script> <!-- CAMBIA ESTO -->
 
-    <!-- Estilos Adaptados -->
+    <!-- CSS ÚNICO -->
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <!-- Botón WhatsApp Fijo -->
+    <!-- Botón WhatsApp -->
     <a href="https://api.whatsapp.com/send?phone=+573006009881" class="btn-wsp" target="_blank">
-        <i class="fa fa-whatsapp icono"></i>
+        <i class="fa-brands fa-whatsapp"></i>
     </a>
 
     <!-- Header -->
-    <header class="header-principal">
+    <header>
         <h1>V I V A    T E A M    S H O P</h1>
-        <p class="header-subtitulo">Joyería de Oro 18k - Calidad Garantizada</p>
+        <p>Joyería de Oro 18k - Calidad Garantizada</p>
     </header>
 
     <!-- Contenedor Principal -->
-    <main class="contenedor">
-        <!-- Sección Productos -->
-        <section class="contenedor-items" id="contenedor-productos">
-            <!-- Productos cargados dinámicamente desde JS -->
-        </section>
+    <div class="contenedor">
+        <!-- Productos -->
+        <div class="contenedor-items" id="contenedor-productos">
+            <!-- Productos cargados automáticamente -->
+        </div>
 
-        <!-- Sección Carrito -->
-        <aside class="carrito" id="carrito-compras">
+        <!-- Carrito -->
+        <div class="carrito" id="carrito">
             <div class="header-carrito">
                 <h2>Tu Carrito</h2>
             </div>
 
             <div class="carrito-items" id="carrito-items">
-                <!-- Elementos del carrito cargados dinámicamente -->
+                <p style="text-align:center; padding:20px;">El carrito está vacío</p>
             </div>
 
             <div class="carrito-total">
                 <div class="fila">
                     <strong>Subtotal:</strong>
-                    <span id="carrito-subtotal">$0</span>
+                    <span id="subtotal">$0</span>
                 </div>
                 <div class="fila">
                     <strong>Total:</strong>
-                    <span id="carrito-total">$0</span>
+                    <span id="total">$0</span>
                 </div>
             </div>
 
-            <!-- Formulario Datos Cliente -->
-            <form class="formulario-cliente" id="formulario-cliente">
-                <label for="cliente-nombre">Nombre completo:</label>
-                <input type="text" id="cliente-nombre" required placeholder="Juan Pérez">
+            <!-- Formulario -->
+            <form class="formulario-cliente" id="formulario">
+                <label>Nombre completo:</label>
+                <input type="text" id="nombre" required placeholder="Juan Pérez">
 
-                <label for="cliente-correo">Correo electrónico:</label>
-                <input type="email" id="cliente-correo" required placeholder="juan@ejemplo.com">
+                <label>Correo electrónico:</label>
+                <input type="email" id="correo" required placeholder="juan@ejemplo.com">
 
-                <label for="cliente-telefono">Teléfono:</label>
-                <input type="tel" id="cliente-telefono" required placeholder="+57 300 123 4567">
+                <label>Teléfono:</label>
+                <input type="tel" id="telefono" required placeholder="+57 300 123 4567">
 
-                <label for="cliente-mensaje">Mensaje adicional:</label>
-                <textarea id="cliente-mensaje" placeholder="Especifica tallas, diseños o comentarios..."></textarea>
+                <label>Mensaje adicional:</label>
+                <textarea id="mensaje" placeholder="Especifica detalles..."></textarea>
 
-                <button type="button" class="btn-pagar" onclick="procesarPedido()">
-                    <span>Enviar Pedido & Generar Factura</span>
-                    <i class="fa fa-shopping-cart"></i>
+                <button type="button" class="btn-pagar" onclick="enviarPedido()">
+                    <span>Enviar Pedido</span>
+                    <i class="fa-solid fa-cart-shopping"></i>
                 </button>
             </form>
-        </aside>
-    </main>
+        </div>
+    </div>
 
     <!-- Footer -->
-    <footer class="footer-principal">
+    <footer>
         <p>&copy; 2026 Viva Team Shop - Todos los derechos reservados</p>
         <p>Contacto: <a href="https://api.whatsapp.com/send?phone=+573006009881">+57 300 600 9881</a></p>
     </footer>
 
-    <!-- Lógica Principal -->
+    <!-- JS ÚNICO -->
     <script src="js/app.js"></script>
 </body>
-
+</html>
