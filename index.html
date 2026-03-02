@@ -2,90 +2,433 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viva Team Shop - Joyería</title>
-    
-    <!-- Fuente + Iconos -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Viva Team Shop</title>
+    <!-- Librería jsPDF para facturas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-    <!-- EmailJS -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>emailjs.init('p_bYKh0pv5mfT4');</script> <!-- CAMBIA ESTO -->
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    <!-- CSS ÚNICO -->
-    <link rel="stylesheet" href="css/estilos.css">
+        .carrito-btn {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .carrito-contador {
+            background-color: #f39c12;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            padding: 0.2rem 0.5rem;
+            border-radius: 50%;
+            font-size: 0.9rem;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .producto-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: box-shadow 0.3s;
+        }
+
+        .producto-card:hover {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .producto-imagen {
+            width: 100%;
+            height: 200px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+        }
+
+        .producto-precio {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #27ae60;
+            margin: 0.5rem 0;
+        }
+
+        .agregar-carrito {
+            background-color: #3498db;
+            border: none;
+            color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        /* Modal Carrito */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+
+        .modal-contenido {
+            background-color: white;
+            width: 90%;
+            max-width: 600px;
+            margin: 5rem auto;
+            padding: 2rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .cerrar-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        #carrito-items {
+            margin: 1rem 0;
+            max-height: 300px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 1rem;
+        }
+
+        .item-carrito {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-top: 1px solid #eee;
+        }
+
+        .total-carrito {
+            text-align: right;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .acciones-carrito {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .btn-pedido {
+            background-color: #27ae60;
+            border: none;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-factura {
+            background-color: #9b59b6;
+            border: none;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Formulario Datos */
+        #datos-formulario {
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .form-group {
+            margin: 1rem 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- Botón WhatsApp -->
-    <a href="https://api.whatsapp.com/send?phone=+573006009881" class="btn-wsp" target="_blank">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
-
-    <!-- Header -->
     <header>
-        <h1>V I V A    T E A M    S H O P</h1>
-        <p>Joyería de Oro 18k - Calidad Garantizada</p>
+        <h1>Viva Team Shop</h1>
+        <button class="carrito-btn" id="abrir-carrito">
+            Carrito <span class="carrito-contador" id="contador-carrito">0</span>
+        </button>
     </header>
 
-    <!-- Contenedor Principal -->
-    <div class="contenedor">
-        <!-- Productos -->
-        <div class="contenedor-items" id="contenedor-productos">
-            <!-- Productos cargados automáticamente -->
+    <main>
+        <h2>Nuestros Productos</h2>
+        <div class="productos-grid" id="productos-container">
+            <!-- Productos se cargan desde JavaScript -->
         </div>
+    </main>
 
-        <!-- Carrito -->
-        <div class="carrito" id="carrito">
-            <div class="header-carrito">
-                <h2>Tu Carrito</h2>
-            </div>
-
-            <div class="carrito-items" id="carrito-items">
-                <p style="text-align:center; padding:20px;">El carrito está vacío</p>
-            </div>
-
-            <div class="carrito-total">
-                <div class="fila">
-                    <strong>Subtotal:</strong>
-                    <span id="subtotal">$0</span>
+    <!-- Modal Carrito -->
+    <div class="modal" id="modal-carrito">
+        <div class="modal-contenido">
+            <span class="cerrar-modal" id="cerrar-carrito">&times;</span>
+            <h2>Tu Carrito</h2>
+            <div id="carrito-items"></div>
+            <div class="total-carrito">Total: $<span id="total-carrito">0</span></div>
+            
+            <div id="datos-formulario">
+                <h3>Datos para Pedido y Factura</h3>
+                <div class="form-group">
+                    <label for="nombre-cliente">Nombre Completo:</label>
+                    <input type="text" id="nombre-cliente" required>
                 </div>
-                <div class="fila">
-                    <strong>Total:</strong>
-                    <span id="total">$0</span>
+                <div class="form-group">
+                    <label for="correo-cliente">Correo Electrónico:</label>
+                    <input type="email" id="correo-cliente" required>
+                </div>
+                <div class="form-group">
+                    <label for="direccion-cliente">Dirección de Entrega:</label>
+                    <input type="text" id="direccion-cliente" required>
+                </div>
+                <div class="form-group">
+                    <label for="nit-cliente">NIT/Cédula:</label>
+                    <input type="text" id="nit-cliente" required>
                 </div>
             </div>
 
-            <!-- Formulario -->
-            <form class="formulario-cliente" id="formulario">
-                <label>Nombre completo:</label>
-                <input type="text" id="nombre" required placeholder="Juan Pérez">
-
-                <label>Correo electrónico:</label>
-                <input type="email" id="correo" required placeholder="juan@ejemplo.com">
-
-                <label>Teléfono:</label>
-                <input type="tel" id="telefono" required placeholder="+57 300 123 4567">
-
-                <label>Mensaje adicional:</label>
-                <textarea id="mensaje" placeholder="Especifica detalles..."></textarea>
-
-                <button type="button" class="btn-pagar" onclick="enviarPedido()">
-                    <span>Enviar Pedido</span>
-                    <i class="fa-solid fa-cart-shopping"></i>
-                </button>
-            </form>
+            <div class="acciones-carrito">
+                <button class="btn-pedido" id="btn-whatsapp">Enviar Pedido por WhatsApp</button>
+                <button class="btn-factura" id="btn-generar-factura">Generar Factura</button>
+            </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Viva Team Shop - Todos los derechos reservados</p>
-        <p>Contacto: <a href="https://api.whatsapp.com/send?phone=+573006009881">+57 300 600 9881</a></p>
+        <p>Contacto: WhatsApp +57 3006009881</p>
     </footer>
 
-    <!-- JS ÚNICO -->
-    <script src="js/app.js"></script>
-</body>
-</html>
+    <script>
+        // Datos de productos (puedes editar o agregar más)
+        const productos = [
+            { id: 1, nombre: "Camiseta Equipo", precio: 45000, imagen: "Camiseta Team" },
+            { id: 2, nombre: "Pantalón Deportivo", precio: 80000, imagen: "Pantalón Deportivo" },
+            { id: 3, nombre: "Gorra Team", precio: 30000, imagen: "Gorra Team" },
+            { id: 4, nombre: "Botines de Fútbol", precio: 150000, imagen: "Botines Fútbol" }
+        ];
+
+        // Elementos del DOM
+        const productosContainer = document.getElementById('productos-container');
+        const contadorCarrito = document.getElementById('contador-carrito');
+        const carritoItems = document.getElementById('carrito-items');
+        const totalCarrito = document.getElementById('total-carrito');
+        const modalCarrito = document.getElementById('modal-carrito');
+        const abrirCarrito = document.getElementById('abrir-carrito');
+        const cerrarCarrito = document.getElementById('cerrar-carrito');
+        const btnWhatsapp = document.getElementById('btn-whatsapp');
+        const btnGenerarFactura = document.getElementById('btn-generar-factura');
+        const datosFormulario = document.getElementById('datos-formulario');
+
+        // Carrito de compras
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+        // Cargar productos en la página
+        function cargarProductos() {
+            productosContainer.innerHTML = '';
+            productos.forEach(producto => {
+                const card = document.createElement('div');
+                card.className = 'producto-card';
+                card.innerHTML = `
+                    <div class="producto-imagen">${producto.imagen}</div>
+                    <h3>${producto.nombre}</h3>
+                    <p class="producto-precio">$${producto.precio.toLocaleString('es-CO')}</p>
+                    <button class="agregar-carrito" data-id="${producto.id}">Agregar al Carrito</button>
+                `;
+                productosContainer.appendChild(card);
+            });
+            agregarEventosBotones();
+        }
+
+        // Agregar eventos a botones de productos
+        function agregarEventosBotones() {
+            document.querySelectorAll('.agregar-carrito').forEach(btn => {
+                btn.addEventListener('click', agregarAlCarrito);
+            });
+        }
+
+        // Agregar producto al carrito
+        function agregarAlCarrito(e) {
+            const idProducto = parseInt(e.target.dataset.id);
+            const producto = productos.find(p => p.id === idProducto);
+            
+            const itemExistente = carrito.find(item => item.id === idProducto);
+            if (itemExistente) {
+                itemExistente.cantidad++;
+            } else {
+                carrito.push({ ...producto, cantidad: 1 });
+            }
+
+            actualizarCarrito();
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+        }
+
+        // Actualizar visualización del carrito
+        function actualizarCarrito() {
+            // Contador
+            contadorCarrito.textContent = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+            
+            // Items en modal
+            carritoItems.innerHTML = '';
+            let total = 0;
+
+            carrito.forEach(item => {
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item-carrito';
+                itemDiv.innerHTML = `
+                    <div>
+                        <span>${item.nombre}</span> - $${item.precio.toLocaleString('es-CO')} x ${item.cantidad}
+                    </div>
+                    <div>$${subtotal.toLocaleString('es-CO')}</div>
+                `;
+                carritoItems.appendChild(itemDiv);
+            });
+
+            totalCarrito.textContent = total.toLocaleString('es-CO');
+        }
+
+        // Mostrar/ocultar modal carrito
+        abrirCarrito.addEventListener('click', () => {
+            modalCarrito.style.display = 'block';
+            datosFormulario.style.display = 'block'; // Mostrar formulario al abrir carrito
+        });
+
+        cerrarCarrito.addEventListener('click', () => {
+            modalCarrito.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modalCarrito) {
+                modalCarrito.style.display = 'none';
+            }
+        });
+
+        // Enviar pedido por WhatsApp
+        btnWhatsapp.addEventListener('click', () => {
+            const nombre = document.getElementById('nombre-cliente').value;
+            const direccion = document.getElementById('direccion-cliente').value;
+            const nit = document.getElementById('nit-cliente').value;
+
+            if (!nombre || !direccion || !nit || carrito.length === 0) {
+                alert('Completa todos los datos y asegúrate de tener productos en el carrito');
+                return;
+            }
+
+            let mensaje = `*PEDIDO VIVA TEAM SHOP*\n\n`;
+            mensaje += `Cliente: ${nombre}\n`;
+            mensaje += `Dirección: ${direccion}\n`;
+            mensaje += `NIT/Cédula: ${nit}\n\n`;
+            mensaje += `*Productos:*\n`;
+
+            carrito.forEach(item => {
+                mensaje += `- ${item.nombre}: ${item.cantidad} x $${item.precio.toLocaleString('es-CO')} = $${(item.precio * item.cantidad).toLocaleString('es-CO')}\n`;
+            });
+
+            mensaje += `\n*Total: $${totalCarrito.textContent}*\n`;
+            mensaje += `---\nPor favor confirmar pedido y detalles de entrega`;
+
+            const urlWhatsapp = `https://wa.me/+573006009881?text=${encodeURIComponent(mensaje)}`;
+            window.open(urlWhatsapp, '_blank');
+        });
+
+        // Generar factura en PDF
+        btnGenerarFactura.addEventListener('click', () => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const nombre = document.getElementById('nombre-cliente').value;
+            const correo = document.getElementById('correo-cliente').value;
+            const direccion = document.getElementById('direccion-cliente').value;
+            const nit = document.getElementById('nit-cliente').value;
+
+            if (!nombre || !correo || !direccion || !nit || carrito.length === 0) {
+                alert('Completa todos los datos y asegúrate de tener productos en el carrito');
+                return;
+            }
+
+            // Configuración de la factura
+            const fecha = new Date().toLocaleDateString('es-CO');
+            const numeroFactura = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+
+            // Título
+            doc.setFontSize(18);
+            doc.text('VIVA TEAM SHOP', 105, 20, { align: 'center' });
+            doc.setFontSize(12);
+            doc.text('Factura Electrónica', 105, 30, { align: 'center' });
+            doc.line(20, 35, 190, 35);
+
+            // Datos de la tienda
+            doc.setFontSize(10);
+            doc.text('Tienda: Viva Team Shop', 20, 45);
+            doc.text('Contacto: WhatsApp +57 3006009881', 20, 52);
+            doc.text('Fecha: ' + fecha, 140, 45);
+            doc.text('N° Factura: ' + numeroFactura, 140, 52);
+
+            // Datos del cliente
+            doc.line(20, 60, 190, 60);
+            doc.text('Datos del Cliente:', 20, 
