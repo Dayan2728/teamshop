@@ -146,7 +146,66 @@
     <script src="app.js" defer></script>
     <script>
         // --- CONFIGURACIÓN DE OPENAI ---
-        const OPENAI_API_KEY = "TU_CLAVE_API_AQUI"; // REEMPLAZA CON TU CLAVE
+        const OPENAI_API_KEY = "/* Estilos para datos del cliente y factura */
+.datos-cliente {
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+.datos-cliente h3 {
+    margin-top: 0;
+    color: #25d366;
+}
+.datos-cliente input {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.botones-accion {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+    flex-wrap: wrap;
+}
+.btn-factura {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.btn-factura:hover {
+    background-color: #0056b3;
+}
+.area-factura {
+    margin: 15px 0;
+    padding: 15px;
+    border: 2px solid #25d366;
+    border-radius: 8px;
+}
+.area-factura h3 {
+    margin-top: 0;
+    color: #25d366;
+}
+.contenido-factura {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+.contenido-factura table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+.contenido-factura th, .contenido-fact
+ "; // REEMPLAZA CON TU CLAVE
         const OPENAI_ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
         // Referencias a elementos
