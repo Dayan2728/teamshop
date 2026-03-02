@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Librería para generar PDFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Estilos -->
     <link rel="stylesheet" href="estilo.css">
-    <script src="app.js" defer></script>
     <title>Viva Team Shop</title>
 </head>
 <body>
+	<!-- Botón flotante WhatsApp -->
 	<a href="https://api.whatsapp.com/send?phone=+573052804631" class="btn-wsp" target="_blank">
 	    <i class="fa fa-whatsapp icono"></i>
 	</a>
@@ -19,7 +23,7 @@
     </header>
 
     <section class="contenedor">
-        <!-- Contenedor de elementos -->
+        <!-- Contenedor de productos -->
         <div class="contenedor-items">
             <div class="item">
                 <span class="titulo-item">Pulso Oro 18k Lm</span>
@@ -81,7 +85,6 @@
                 <span class="precio-item">$150.000</span>
                 <button class="boton-item" data-id="pulsera-hm-18k">Agregar al Carrito</button>
             </div>
-            <!-- Puedes agregar más productos aquí con su data-id único -->
         </div>
 
         <!-- Carrito de Compras -->
@@ -91,7 +94,7 @@
             </div>
 
             <div class="carrito-items">
-                <!-- Aquí se cargarán los productos agregados -->
+                <!-- Productos cargados aquí -->
             </div>
 
             <div class="carrito-total">
@@ -100,23 +103,158 @@
                     <span class="carrito-precio-total">$0</span>
                 </div>
 
-				<input id="datoNombre" type="text" placeholder="Tu nombre completo">
-<input id="datoMensaje" type="text" placeholder="Detalles adicionales">
-				
-                <button class="btn-pagar">
-                    <strong>
-                        <a id="btnEnviar" href="#" style="text-decoration:none; color:inherit;">
-                            <span>Enviar Pedido Por Whatsapp >></span> <i class="fa fa-whatsapp icono"></i>
-                        </a>
-                    </strong>
-                </button>
-                
-                <input id="datoNombre" type="text" placeholder="Tu nombre completo *" required>
-                <br>
-                <strong>Detalles adicionales o captura:</strong>
-                <input id="datoMensaje" type="text" placeholder="Referencia de captura o comentarios (opcional)">
+                <!-- Datos obligatorios -->
+                <div class="datos-cliente">
+                    <h3>Datos del Pedido</h3>
+                    <input id="datoNombre" type="text" placeholder="Tu nombre completo *" required>
+                    <input id="datoDireccion" type="text" placeholder="Dirección de entrega *" required>
+                    <input id="datoCiudad" type="text" placeholder="Ciudad *" required>
+                    <input id="datoTelefono" type="tel" placeholder="Número de contacto *" required>
+                    <br>
+                    <strong>Detalles adicionales:</strong>
+                    <input id="datoMensaje" type="text" placeholder="Referencia de captura o comentarios (opcional)">
+                </div>
+
+                <!-- Botones -->
+                <div class="botones-accion">
+                    <button id="btnGenerarFactura" class="btn-factura">
+                        <i class="fa fa-file-pdf-o"></i> Generar Factura IA
+                    </button>
+                    
+                    <button class="btn-pagar">
+                        <strong>
+                            <a id="btnEnviar" href="#" style="text-decoration:none; color:inherit;">
+                                <span>Enviar Pedido Por Whatsapp >></span> <i class="fa fa-whatsapp icono"></i>
+                            </a>
+                        </strong>
+                    </button>
+                </div>
+
+                <!-- Área de factura -->
+                <div id="areaFactura" class="area-factura" style="display: none;">
+                    <h3>Factura Generada (IA)</h3>
+                    <div id="contenidoFactura" class="contenido-factura"></div>
+                    <button id="btnDescargarFactura" class="btn-descargar">
+                        <i class="fa fa-download"></i> Descargar PDF
+                    </button>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Scripts de lógica -->
+    <script src="app.js" defer></script>
+    <script>
+        // --- CONFIGURACIÓN DE OPENAI ---
+        const OPENAI_API_KEY = "TU_CLAVE_API_AQUI"; // REEMPLAZA CON TU CLAVE
+        const OPENAI_ENDPOINT = "https://api.openai.com/v1/chat/completions";
+
+        // Referencias a elementos
+        const btnGenerarFactura = document.getElementById('btnGenerarFactura');
+        const areaFactura = document.getElementById('areaFactura');
+        const contenidoFactura = document.getElementById('contenidoFactura');
+        const btnDescargarFactura = document.getElementById('btnDescargarFactura');
+        const { jsPDF } = window.jspdf;
+
+        // Función para obtener datos del carrito
+        function obtenerDatosCarrito() {
+            const items = document.querySelectorAll('.carrito-item');
+            let productos = [];
+            items.forEach(item => {
+                productos.push({
+                    nombre: item.querySelector('.carrito-item-titulo').textContent,
+                    precio: item.querySelector('.carrito-item-precio').textContent,
+                    cantidad: item.querySelector('.carrito-item-cantidad').value
+                });
+            });
+            return {
+                productos,
+                total: document.querySelector('.carrito-precio-total').textContent
+            };
+        }
+
+        // Función para generar factura con IA de OpenAI
+        btnGenerarFactura.addEventListener('click', async () => {
+            // Validaciones
+            const nombre = document.getElementById('datoNombre').value.trim();
+            const direccion = document.getElementById('datoDireccion').value.trim();
+            const ciudad = document.getElementById('datoCiudad').value.trim();
+            const telefono = document.getElementById('datoTelefono').value.trim();
+            const { productos, total } = obtenerDatosCarrito();
+
+            if (!nombre || !direccion || !ciudad || !telefono || productos.length === 0) {
+                alert('Completa todos los campos obligatorios y agrega productos al carrito');
+                return;
+            }
+
+            // Mostrar carga
+            contenidoFactura.innerHTML = '<p><i class="fa fa-spinner fa-spin"></i> Generando factura con IA...</p>';
+            areaFactura.style.display = 'block';
+
+            try {
+                // Petición a API de OpenAI
+                const respuesta = await fetch(OPENAI_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${OPENAI_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-3.5-turbo",
+                        messages: [
+                            {
+                                role: "system",
+                                content: "Eres un asistente que genera facturas profesionales en formato HTML para una tienda de joyería llamada Viva Team Shop. La factura debe incluir datos del cliente, lista de productos, total, fecha y ser clara y ordenada."
+                            },
+                            {
+                                role: "user",
+                                content: `Genera una factura en HTML para:
+                                - Cliente: ${nombre}
+                                - Dirección: ${direccion}, ${ciudad}
+                                - Teléfono: ${telefono}
+                                - Productos: ${JSON.stringify(productos)}
+                                - Total: ${total}
+                                - Fecha: ${new Date().toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                - Detalles adicionales: ${document.getElementById('datoMensaje').value.trim() || 'Ninguno'}
+                                Incluye título, encabezado de la tienda, sección de cliente, tabla de productos, total y pie de página. No uses etiquetas HTML externas como html, body o head.`
+                            }
+                        ],
+                        temperature: 0.2 // Para que la respuesta sea más precisa
+                    })
+                });
+
+                const datos = await respuesta.json();
+                const facturaHTML = datos.choices[0].message.content;
+                
+                // Mostrar factura generada
+                contenidoFactura.innerHTML = facturaHTML;
+
+            } catch (error) {
+                contenidoFactura.innerHTML = `<p style="color: red;">Error al generar factura: ${error.message}</p>`;
+                console.error(error);
+            }
+        });
+
+        // Función para descargar factura como PDF
+        btnDescargarFactura.addEventListener('click', () => {
+            const doc = new jsPDF();
+            const textoFactura = contenidoFactura.textContent;
+            const lineHeight = 10;
+            let yPos = 10;
+
+            // Título del PDF
+            doc.setFontSize(16);
+            doc.text("FACTURA VIVA TEAM SHOP", 10, yPos);
+            yPos += lineHeight * 2;
+
+            // Contenido de la factura
+            doc.setFontSize(10);
+            const lineas = doc.splitTextToSize(textoFactura, 190);
+            doc.text(lineas, 10, yPos);
+
+            // Guardar PDF
+            doc.save(`Factura_VivaTeamShop_${nombre.replace(/\s+/g, '_')}_${new Date().getTime()}.pdf`);
+        });
+    </script>
 </body>
 </html>
