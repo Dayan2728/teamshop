@@ -12,14 +12,9 @@
     
     <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        emailjs.init('LLwus0IwuSHqJi1tS'); // Reemplaza con tu clave de EmailJS
-    </script>
 
-    <!-- Estilos (modularizados) -->
-    <link rel="stylesheet" href="css/estilos-base.css">
-    <link rel="stylesheet" href="css/estilos-productos.css">
-    <link rel="stylesheet" href="css/estilos-carrito.css">
+    <!-- Estilos Adaptados -->
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
     <!-- Botón WhatsApp Fijo -->
@@ -34,29 +29,28 @@
     </header>
 
     <!-- Contenedor Principal -->
-    <main class="contenedor-principal">
+    <main class="contenedor">
         <!-- Sección Productos -->
-        <section class="contenedor-productos" id="contenedor-productos">
+        <section class="contenedor-items" id="contenedor-productos">
             <!-- Productos cargados dinámicamente desde JS -->
         </section>
 
         <!-- Sección Carrito -->
-        <aside class="carrito-compras" id="carrito-compras">
-            <div class="carrito-header">
+        <aside class="carrito" id="carrito-compras">
+            <div class="header-carrito">
                 <h2>Tu Carrito</h2>
-                <span class="carrito-cantidad" id="carrito-cantidad">0 productos</span>
             </div>
 
             <div class="carrito-items" id="carrito-items">
                 <!-- Elementos del carrito cargados dinámicamente -->
             </div>
 
-            <div class="carrito-resumen">
-                <div class="resumen-fila">
+            <div class="carrito-total">
+                <div class="fila">
                     <strong>Subtotal:</strong>
                     <span id="carrito-subtotal">$0</span>
                 </div>
-                <div class="resumen-fila">
+                <div class="fila">
                     <strong>Total:</strong>
                     <span id="carrito-total">$0</span>
                 </div>
@@ -76,8 +70,9 @@
                 <label for="cliente-mensaje">Mensaje adicional:</label>
                 <textarea id="cliente-mensaje" placeholder="Especifica tallas, diseños o comentarios..."></textarea>
 
-                <button type="button" class="btn-enviar-pedido" onclick="procesarPedido()">
-                    <i class="fa fa-shopping-cart"></i> Enviar Pedido & Generar Factura
+                <button type="button" class="btn-pagar" onclick="procesarPedido()">
+                    <span>Enviar Pedido & Generar Factura</span>
+                    <i class="fa fa-shopping-cart"></i>
                 </button>
             </form>
         </aside>
@@ -89,9 +84,7 @@
         <p>Contacto: <a href="https://api.whatsapp.com/send?phone=+573006009881">+57 300 600 9881</a></p>
     </footer>
 
-    <!-- Lógica JS Modularizada -->
-    <script src="js/datos-productos.js"></script>
-    <script src="js/logica-carrito.js"></script>
-    <script src="js/logica-pedido-factura.js"></script>
+    <!-- Lógica Principal -->
+    <script src="js/app.js"></script>
 </body>
-</html>
+
