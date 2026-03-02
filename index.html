@@ -6,6 +6,9 @@
     <title>Viva Team Shop - Pedido y Factura</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <!-- Librería para generar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Open Sans', sans-serif; }
         :root {
@@ -137,14 +140,34 @@
             width: 90%;
             max-width: 500px;
         }
-        .cerrar-modal {
-            background: red;
-            color: white;
-            border: none;
+        .factura-contenido h2 {
+            color: var(--oro);
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--oro);
+            padding-bottom: 10px;
+        }
+        .btn-accion {
             padding: 10px;
+            border: none;
             border-radius: 6px;
             cursor: pointer;
             margin-top: 15px;
+            width: 48%;
+            font-size: 14px;
+        }
+        .btn-descargar {
+            background: var(--oro);
+            color: white;
+            margin-right: 4%;
+        }
+        .btn-cerrar {
+            background: red;
+            color: white;
+        }
+        #factura-para-pdf {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -198,8 +221,9 @@
     <div class="factura-modal" id="factura-modal">
         <div class="factura-contenido">
             <h2>FACTURA OFICIAL</h2>
-            <div id="factura-detalle"></div>
-            <button class="cerrar-modal" onclick="cerrarModal()">Cerrar</button>
+            <div id="factura-para-pdf"></div>
+            <button class="btn-accion btn-descargar" onclick="descargarFacturaPDF()">📥 Descargar como PDF</button>
+            <button class="btn-accion btn-cerrar" onclick="cerrarModal()">❌ Cerrar</button>
         </div>
     </div>
 
@@ -208,7 +232,8 @@
         const carritoItems = document.getElementById('carrito-items');
         const totalElemento = document.getElementById('total');
         const facturaModal = document.getElementById('factura-modal');
-        const facturaDetalle = document.getElementById('factura-detalle');
+        const facturaParaPDF = document.getElementById('factura-para-pdf');
+        const { jsPDF } = window.jspdf;
 
         // AGREGAR AL CARRITO
         function agregarAlCarrito(id, nombre, precio, imagen) {
@@ -245,15 +270,15 @@
                 const item = document.createElement('div');
                 item.className = 'carrito-item';
                 item.innerHTML = `
-                    <img src="${p.imagen}" alt="${p.nombre}">
+                    <img src="${p.imagen}" alt="${p.nombre}" width="50" height="50">
                     <div>
                         <h4>${p.nombre}</h4>
                         <div class="selector-cantidad">
                             <i class="fas fa-minus" onclick="cambiarCantidad(${p.id}, 'restar')"></i>
-                            <input type="text" value="${p.cantidad}" readonly>
+                            <input type="text" value="${p.cantidad}" readonly class="carrito-item-cantidad">
                             <i class="fas fa-plus" onclick="cambiarCantidad(${p.id}, 'sumar')"></i>
                         </div>
-                        <span>$${subtotal.toLocaleString()}</span>
+                        <span class="carrito-item-precio">$${subtotal.toLocaleString()}</span>
                         <div class="btn-eliminar" onclick="eliminarProducto(${p.id})">×</div>
                     </div>
                 `;
@@ -280,7 +305,7 @@
             actualizarCarrito();
         }
 
-        // GENERAR Y ENVIAR
+        // GENERAR FACTURA Y ENVIAR
         function generarYEnviar() {
             const nombre = document.getElementById('nombre').value;
             const celular = document.getElementById('celular').value;
@@ -292,35 +317,36 @@
                 return;
             }
 
-            // CREAR FACTURA
-            let factura = `FACTURA OFICIAL - VIVA TEAM SHOP\n\n`;
-            factura += `Cliente: ${nombre}\n`;
-            factura += `Celular: ${celular}\n`;
-            factura += `NIT/CC: ${nit}\n`;
-            factura += `Dirección: ${direccion}\n\n`;
-            factura += `DETALLES:\n`;
-            
-            carrito.forEach(p => {
-                factura += `${p.nombre} - ${p.cantidad}u - $${(p.precio * p.cantidad).toLocaleString()}\n`;
+            // DATOS DE LA FACTURA
+            const fecha = new Date();
+            const numFactura = `FAC-${fecha.getFullYear()}${(fecha.getMonth()+1).toString().padStart(2, '0')}${fecha.getDate().toString().padStart(2, '0')}-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`;
+
+            // CONTENIDO DE LA FACTURA
+            let contenidoFactura = `
+                <h3 style="text-align: center; margin-bottom: 15px;">VIVA TEAM SHOP</h3>
+                <p><strong>Número de Factura:</strong> ${numFactura}</p>
+                <p><strong>Fecha de Emisión:</strong> ${fecha.toLocaleDateString('es-CO')} ${fecha.toLocaleTimeString('es-CO')}</p>
+                <p><strong>_______________________________________</strong></p>
+                <p><strong>Datos del Cliente:</strong></p>
+                <p>• Nombre: ${nombre}</p>
+                <p>• Celular: ${celular}</p>
+                <p>• NIT/CC: ${nit}</p>
+                <p>• Dirección: ${direccion}</p>
+                <p><strong>_______________________________________</strong></p>
+                <p><strong>Detalles de la Compra:</strong></p>
+            `;
+
+            carrito.forEach((p, index) => {
+                contenidoFactura += `
+                    <p>${index + 1}. ${p.nombre}</p>
+                    <p>   - Cantidad: ${p.cantidad} unidad(es)</p>
+                    <p>   - Valor unitario: $${p.precio.toLocaleString()}</p>
+                    <p>   - Subtotal: $${(p.precio * p.cantidad).toLocaleString()}</p>
+                `;
             });
-            factura += `\nTOTAL: $${totalElemento.textContent}`;
 
-            // MOSTRAR FACTURA EN MODAL
-            facturaDetalle.innerHTML = factura.replace(/\n/g, '<br>');
-            facturaModal.style.display = 'flex';
-
-            // ENVIAR POR WHATSAPP
-            const mensaje = encodeURIComponent(factura);
-            window.open(`https://api.whatsapp.com/send?phone=+573006009881&text=${mensaje}`, '_blank');
-        }
-
-        // CERRAR MODAL
-        function cerrarModal() {
-            facturaModal.style.display = 'none';
-        }
-
-        // INICIALIZAR
-        actualizarCarrito();
-    </script>
-</body>
-</html>
+            contenidoFactura += `
+                <p><strong>_______________________________________</strong></p>
+                <p style="font-size: 18px; font-weight: bold; margin-top: 10px;">TOTAL A PAGAR: ${totalElemento.textContent}</p>
+                <p style="text-align: center; margin-top: 20px;">¡Gracias por tu compra!</p>
+            `;
