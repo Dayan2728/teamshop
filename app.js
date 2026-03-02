@@ -1,23 +1,24 @@
 // Carrito de compras - Array global para almacenar productos
 let carrito = [];
 
-// Función para agregar productos al carrito
-function agregarAlCarrito(boton) {
-    const item = boton.parentElement;
+// Función CORREGIDA para agregar productos al carrito
+function agregarAlCarrito(id, nombre, precio, imagen) {
     const producto = {
-        id: item.dataset.id,
-        nombre: item.dataset.nombre,
-        precio: parseInt(item.dataset.precio),
+        id: id.toString(),
+        nombre: nombre,
+        precio: parseInt(precio),
         cantidad: 1,
-        imagen: item.querySelector('.img-item').src
+        imagen: imagen
     };
 
     // Verificar si el producto ya existe en el carrito
     const productoExistente = carrito.find(p => p.id === producto.id);
     if (productoExistente) {
         productoExistente.cantidad++;
+        alert(`✅ Se agregó otra unidad de ${nombre} al carrito!`);
     } else {
         carrito.push(producto);
+        alert(`✅ ${nombre} agregado al carrito!`);
     }
 
     // Actualizar visualización del carrito
@@ -32,6 +33,13 @@ function actualizarCarrito() {
     // Limpiar contenido anterior del carrito
     contenedorItems.innerHTML = '';
     let totalGeneral = 0;
+
+    // Si el carrito está vacío
+    if (carrito.length === 0) {
+        contenedorItems.innerHTML = `<p style="padding: 20px; text-align: center; color: var(--color-gris-oscuro);">El carrito está vacío</p>`;
+        contenedorTotal.textContent = '$0';
+        return;
+    }
 
     // Recorrer productos del carrito y crear elementos HTML
     carrito.forEach(producto => {
@@ -79,7 +87,9 @@ function cambiarCantidad(idProducto, accion) {
 
 // Función para eliminar un producto del carrito
 function eliminarProducto(idProducto) {
+    const nombreProducto = carrito.find(p => p.id === idProducto).nombre;
     carrito = carrito.filter(p => p.id !== idProducto);
+    alert(`❌ ${nombreProducto} eliminado del carrito!`);
     actualizarCarrito();
 }
 
