@@ -31,37 +31,37 @@
                 <span class="titulo-item">Pulso Oro 18k Lm</span>
                 <img src="img/pulso2.jpg" alt="Pulso Oro 18k Lm" class="img-item">
                 <span class="precio-item">$130.000</span>
-                <button class="boton-item" onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+                <button class="boton-item" onclick="agregarAlCarrito(1, 'Pulso Oro 18k Lm', 130000, 'img/pulso2.jpg')">Agregar al Carrito</button>
             </div>
             <div class="item" data-id="2" data-nombre="Oso Ingles 18K Lm" data-precio="210000">
                 <span class="titulo-item">Oso Ingles 18K Lm</span>
                 <img src="img/oso1.jpg" alt="Oso Ingles 18K Lm" class="img-item">
                 <span class="precio-item">$210.000</span>
-                <button class="boton-item" onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+                <button class="boton-item" onclick="agregarAlCarrito(2, 'Oso Ingles 18K Lm', 210000, 'img/oso1.jpg')">Agregar al Carrito</button>
             </div>
             <div class="item" data-id="3" data-nombre="Cadena Digen 18K Lm" data-precio="180000">
                 <span class="titulo-item">Cadena Digen 18K Lm</span>
                 <img src="img/cadena4.jpg" alt="Cadena Digen 18K Lm" class="img-item">
                 <span class="precio-item">$180.000</span>
-                <button class="boton-item" onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+                <button class="boton-item" onclick="agregarAlCarrito(3, 'Cadena Digen 18K Lm', 180000, 'img/cadena4.jpg')">Agregar al Carrito</button>
             </div>
             <div class="item" data-id="4" data-nombre="Cadena DigeXr 18K Lm" data-precio="160000">
                 <span class="titulo-item">Cadena DigeXr 18K Lm</span>
                 <img src="img/cadena6.jpg" alt="Cadena DigeXr 18K Lm" class="img-item">
                 <span class="precio-item">$160.000</span>
-                <button class="boton-item" onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+                <button class="boton-item" onclick="agregarAlCarrito(4, 'Cadena DigeXr 18K Lm', 160000, 'img/cadena6.jpg')">Agregar al Carrito</button>
             </div>
             <div class="item" data-id="5" data-nombre="Pulsera 18K Lm" data-precio="85000">
                 <span class="titulo-item">Pulsera 18K Lm</span>
                 <img src="img/pulso8.jpg" alt="Pulsera 18K Lm" class="img-item">
                 <span class="precio-item">$85.000</span>
-                <button class="boton-item" onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+                <button class="boton-item" onclick="agregarAlCarrito(5, 'Pulsera 18K Lm', 85000, 'img/pulso8.jpg')">Agregar al Carrito</button>
             </div>
             <div class="item" data-id="6" data-nombre="Cadena Coz 18K Lm" data-precio="110000">
                 <span class="titulo-item">Cadena Coz 18K Lm</span>
                 <img src="img/cadena9.jpg" alt="Cadena Coz 18K Lm" class="img-item">
                 <span class="precio-item">$110.000</span>
-                <button class="boton-item" onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+                <button class="boton-item" onclick="agregarAlCarrito(6, 'Cadena Coz 18K Lm', 110000, 'img/cadena9.jpg')">Agregar al Carrito</button>
             </div>
         </div>
 
@@ -73,6 +73,7 @@
 
             <div class="carrito-items" id="carritoItems">
                 <!-- Elementos del carrito se cargan aquí -->
+                <p style="padding: 20px; text-align: center; color: var(--color-gris-oscuro);">El carrito está vacío</p>
             </div>
 
             <!-- Formulario de datos -->
