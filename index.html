@@ -137,6 +137,10 @@
                     <button id="btnDescargarFactura" class="btn-descargar">
                         <i class="fa fa-download"></i> Descargar PDF
                     </button>
+                    <!-- Botón para enviar factura por WhatsApp al despachar -->
+                    <button id="btnEnviarFacturaWsp" class="btn-enviar-factura" style="display: none; margin-top: 10px;">
+                        <i class="fa fa-whatsapp"></i> Enviar Factura por WhatsApp (Despachado)
+                    </button>
                 </div>
             </div>
         </div>
@@ -145,8 +149,10 @@
     <!-- Scripts de lógica -->
     <script src="app.js" defer></script>
     <script>
-        // --- CONFIGURACIÓN DE OPENAI ---
-        const OPENAI_API_KEY = "TU_CLAVE_API_AQUI"; // REEMPLAZA CON TU CLAVE
+        // --- CONFIGURACIÓN DE API'S ---
+        const MANYAPIS_API_KEY = "TU_CLAVE_MANYAPIS_AQUI"; // Reemplaza con tu clave de ManyAPIs
+        const MANYAPIS_WSP_ENDPOINT = "https://api.manyapis.com/whatsapp/send-document"; // Verifica el endpoint correcto en ManyAPIs
+        const OPENAI_API_KEY = "TU_CLAVE_API_AQUI"; // Reemplaza con tu clave de OpenAI
         const OPENAI_ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
         // Referencias a elementos
@@ -154,7 +160,10 @@
         const areaFactura = document.getElementById('areaFactura');
         const contenidoFactura = document.getElementById('contenidoFactura');
         const btnDescargarFactura = document.getElementById('btnDescargarFactura');
+        const btnEnviarFacturaWsp = document.getElementById('btnEnviarFacturaWsp');
+        const btnEnviarPedido = document.getElementById('btnEnviar');
         const { jsPDF } = window.jspdf;
+        let facturaPDFBlob = null; // Variable para almacenar el PDF generado
 
         // Función para obtener datos del carrito
         function obtenerDatosCarrito() {
@@ -219,7 +228,7 @@
                                 Incluye título, encabezado de la tienda, sección de cliente, tabla de productos, total y pie de página. No uses etiquetas HTML externas como html, body o head.`
                             }
                         ],
-                        temperature: 0.2 // Para que la respuesta sea más precisa
+                        temperature: 0.2
                     })
                 });
 
@@ -228,6 +237,10 @@
                 
                 // Mostrar factura generada
                 contenidoFactura.innerHTML = facturaHTML;
+                // Generar PDF automáticamente para almacenarlo
+                generarPDF(nombre);
+                // Mostrar botón de envío de factura
+                btnEnviarFacturaWsp.style.display = 'block';
 
             } catch (error) {
                 contenidoFactura.innerHTML = `<p style="color: red;">Error al generar factura: ${error.message}</p>`;
@@ -235,8 +248,8 @@
             }
         });
 
-        // Función para descargar factura como PDF
-        btnDescargarFactura.addEventListener('click', () => {
+        // Función para generar PDF y almacenarlo como Blob
+        function generarPDF(nombreCliente) {
             const doc = new jsPDF();
             const textoFactura = contenidoFactura.textContent;
             const lineHeight = 10;
@@ -252,9 +265,44 @@
             const lineas = doc.splitTextToSize(textoFactura, 190);
             doc.text(lineas, 10, yPos);
 
-            // Guardar PDF
-            doc.save(`Factura_VivaTeamShop_${nombre.replace(/\s+/g, '_')}_${new Date().getTime()}.pdf`);
+            // Obtener Blob del PDF
+            facturaPDFBlob = doc.output('blob');
+        }
+
+        // Función para descargar factura como PDF
+        btnDescargarFactura.addEventListener('click', () => {
+            if (!facturaPDFBlob) {
+                alert('Primero genera la factura');
+                return;
+            }
+            const nombre = document.getElementById('datoNombre').value.trim();
+            const nombreArchivo = `Factura_VivaTeamShop_${nombre.replace(/\s+/g, '_')}_${new Date().getTime()}.pdf`;
+            const enlace = document.createElement('a');
+            enlace.href = URL.createObjectURL(facturaPDFBlob);
+            enlace.download = nombreArchivo;
+            enlace.click();
+            URL.revokeObjectURL(enlace.href);
         });
-    </script>
-</body>
-</html>
+
+        // Función para enviar pedido por WhatsApp
+        btnEnviarPedido.addEventListener('click', (e) => {
+            e.preventDefault();
+            const nombre = document.getElementById('datoNombre').value.trim();
+            const direccion = document.getElementById('datoDireccion').value.trim();
+            const ciudad = document.getElementById('datoCiudad').value.trim();
+            const telefono = document.getElementById('datoTelefono').value.trim();
+            const mensaje = document.getElementById('datoMensaje').value.trim();
+            const { productos, total } = obtenerDatosCarrito();
+
+            if (!nombre || !direccion || !ciudad || !telefono || productos.length === 0) {
+                alert('Completa todos los campos obligatorios y agrega productos al carrito');
+                return;
+            }
+
+            // Formatear mensaje del pedido
+            let mensajePedido = `📦 NUEVO PEDIDO - VIVA TEAM SHOP 📦\n\n`;
+            mensajePedido += `Cliente: ${nombre}\n`;
+            mensajePedido += `Teléfono: ${telefono}\n`;
+            mensajePedido +=
+
+El texto del archivo es muy largo. Cici solo leyó el primer 45%.
