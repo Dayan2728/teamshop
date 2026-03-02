@@ -6,7 +6,7 @@
     <title>Viva Team Shop - Pedido y Factura</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <!-- Librería para generar PDF -->
+    <!-- Librerías para PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -233,13 +233,17 @@
         const totalElemento = document.getElementById('total');
         const facturaModal = document.getElementById('factura-modal');
         const facturaParaPDF = document.getElementById('factura-para-pdf');
-        const { jsPDF } = window.jspdf;
+        
+        // Inicializar jsPDF
+        let docPDF = null;
 
-        // AGREGAR AL CARRITO
+        // AGREGAR AL CARRITO - FUNCIÓN COMPLETA Y CORREGIDA
         function agregarAlCarrito(id, nombre, precio, imagen) {
-            const producto = carrito.find(p => p.id === id.toString());
-            if (producto) {
-                producto.cantidad++;
+            const productoExistente = carrito.find(p => p.id === id.toString());
+            
+            if (productoExistente) {
+                productoExistente.cantidad++;
+                alert(`✅ +1 ${nombre} | Total: ${productoExistente.cantidad}`);
             } else {
                 carrito.push({
                     id: id.toString(),
@@ -248,14 +252,16 @@
                     cantidad: 1,
                     imagen: imagen
                 });
+                alert(`✅ ${nombre} agregado al carrito!`);
             }
+            
             actualizarCarrito();
         }
 
-        // ACTUALIZAR CARRITO
+        // ACTUALIZAR CARRITO - FUNCIÓN COMPLETA
         function actualizarCarrito() {
             carritoItems.innerHTML = '';
-            let total = 0;
+            let totalGeneral = 0;
 
             if (carrito.length === 0) {
                 carritoItems.innerHTML = '<p style="padding: 20px; text-align: center; color: #666;">Carrito vacío</p>';
@@ -263,29 +269,29 @@
                 return;
             }
 
-            carrito.forEach(p => {
-                const subtotal = p.precio * p.cantidad;
-                total += subtotal;
+            carrito.forEach(producto => {
+                const subtotal = producto.precio * producto.cantidad;
+                totalGeneral += subtotal;
 
-                const item = document.createElement('div');
-                item.className = 'carrito-item';
-                item.innerHTML = `
-                    <img src="${p.imagen}" alt="${p.nombre}" width="50" height="50">
-                    <div>
-                        <h4>${p.nombre}</h4>
-                        <div class="selector-cantidad">
-                            <i class="fas fa-minus" onclick="cambiarCantidad(${p.id}, 'restar')"></i>
-                            <input type="text" value="${p.cantidad}" readonly class="carrito-item-cantidad">
-                            <i class="fas fa-plus" onclick="cambiarCantidad(${p.id}, 'sumar')"></i>
+                const itemHTML = `
+                    <div class="carrito-item">
+                        <img src="${producto.imagen}" alt="${producto.nombre}" width="50" height="50">
+                        <div>
+                            <h4>${producto.nombre}</h4>
+                            <div class="selector-cantidad">
+                                <i class="fas fa-minus" onclick="cambiarCantidad(${producto.id}, 'restar')"></i>
+                                <input type="text" value="${producto.cantidad}" readonly class="carrito-item-cantidad">
+                                <i class="fas fa-plus" onclick="cambiarCantidad(${producto.id}, 'sumar')"></i>
+                            </div>
+                            <span class="carrito-item-precio">$${subtotal.toLocaleString()}</span>
+                            <div class="btn-eliminar" onclick="eliminarProducto(${producto.id})">×</div>
                         </div>
-                        <span class="carrito-item-precio">$${subtotal.toLocaleString()}</span>
-                        <div class="btn-eliminar" onclick="eliminarProducto(${p.id})">×</div>
                     </div>
                 `;
-                carritoItems.appendChild(item);
+                carritoItems.innerHTML += itemHTML;
             });
 
-            totalElemento.textContent = `$${total.toLocaleString()}`;
+            totalElemento.textContent = `$${totalGeneral.toLocaleString()}`;
         }
 
         // CAMBIAR CANTIDAD
@@ -293,27 +299,34 @@
             const producto = carrito.find(p => p.id === id.toString());
             if (!producto) return;
 
-            if (accion === 'sumar') producto.cantidad++;
-            else if (producto.cantidad > 1) producto.cantidad--;
+            if (accion === 'sumar') {
+                producto.cantidad++;
+            } else if (producto.cantidad > 1) {
+                producto.cantidad--;
+            } else {
+                eliminarProducto(id);
+            }
 
             actualizarCarrito();
         }
 
         // ELIMINAR PRODUCTO
         function eliminarProducto(id) {
+            const nombreProducto = carrito.find(p => p.id === id.toString()).nombre;
             carrito = carrito.filter(p => p.id !== id.toString());
+            alert(`❌ ${nombreProducto} eliminado del carrito`);
             actualizarCarrito();
         }
 
         // GENERAR FACTURA Y ENVIAR
         function generarYEnviar() {
-            const nombre = document.getElementById('nombre').value;
-            const celular = document.getElementById('celular').value;
-            const nit = document.getElementById('nit').value;
-            const direccion = document.getElementById('direccion').value;
+            const nombre = document.getElementById('nombre').value.trim();
+            const celular = document.getElementById('celular').value.trim();
+            const nit = document.getElementById('nit').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
 
             if (!nombre || !celular || !nit || !direccion || carrito.length === 0) {
-                alert('Completa todos los campos y agrega productos');
+                alert('⚠️ Completa todos los campos obligatorios y agrega productos al carrito');
                 return;
             }
 
@@ -340,13 +353,4 @@
                 contenidoFactura += `
                     <p>${index + 1}. ${p.nombre}</p>
                     <p>   - Cantidad: ${p.cantidad} unidad(es)</p>
-                    <p>   - Valor unitario: $${p.precio.toLocaleString()}</p>
-                    <p>   - Subtotal: $${(p.precio * p.cantidad).toLocaleString()}</p>
-                `;
-            });
-
-            contenidoFactura += `
-                <p><strong>_______________________________________</strong></p>
-                <p style="font-size: 18px; font-weight: bold; margin-top: 10px;">TOTAL A PAGAR: ${totalElemento.textContent}</p>
-                <p style="text-align: center; margin-top: 20px;">¡Gracias por tu compra!</p>
-            `;
+                    <p>   - Valor unitario:
