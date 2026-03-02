@@ -4,71 +4,1044 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Librería para convertir HTML a PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <!-- EmailJS para envío por correo -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <!-- Tus estilos CSS -->
     <link rel="stylesheet" href="estilo.css">
-    <title>Viva Team Shop</title>
-    <style>
-        /* Estilos para la factura HTML */
-        #facturaHTML { display: none; }
-        .factura-contenedor {
-            width: 210mm;
-            padding: 15mm;
-            background: white;
-            font-family: Arial, sans-serif;
-        }
-        .factura-header { text-align: center; border-bottom: 2px solid #25D366; margin-bottom: 20px; }
-        .factura-datos { margin: 20px 0; display: flex; justify-content: space-between; }
-        .factura-tabla { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        .factura-tabla th, .factura-tabla td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        .factura-tabla th { background-color: #f2f2f2; }
-        .factura-total { text-align: right; font-weight: bold; font-size: 1.2em; margin-top: 20px; }
-    </style>
+    <link rel="stylesheet" href="estilos.css">
+    <script src="app.js" async></script>
+
+
+
+    <!--Icon-Font-->
+  <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<!-- Botón flotante WhatsApp -->
-	<a href="https://api.whatsapp.com/send?phone=+573052804631" class="btn-wsp" target="_blank">
+	<a href="https://api.whatsapp.com/send?phone=+573006009881" class="btn-wsp" target="_blank">
 	    <i class="fa fa-whatsapp icono"></i>
 	</a>
+
+
+
+
+<title>Viva Team Shop</title>
+</head>
+<body>      
 
     <header>
         <h1>V I V A    T E A M    S H O P  </h1>
     </header>
 
     <section class="contenedor">
-        <!-- Contenedor de productos -->
+        <!-- Contenedor de elementos -->
         <div class="contenedor-items">
             <div class="item">
                 <span class="titulo-item">Pulso Oro 18k Lm</span>
-                <img src="img/pulso2.jpg" alt="Pulso Oro 18k Lm" class="img-item">
+                <img src="img/pulso2.jpg" alt="" class="img-item">
                 <span class="precio-item">$130.000</span>
-                <button class="boton-item" data-id="pulso-oro-18k-lm">Agregar al Carrito</button>
+                <button class="boton-item">Agregar al Carrito</button>
             </div>
             <div class="item">
                 <span class="titulo-item">Oso Ingles 18K Lm</span>
-                <img src="img/oso1.jpg" alt="Oso Ingles 18K Lm" class="img-item">
+                <img src="img/oso1.jpg" alt="" class="img-item">
                 <span class="precio-item">$210.000</span>
-                <button class="boton-item" data-id="oso-ingles-18k-lm">Agregar al Carrito</button>
+                <button class="boton-item">Agregar al Carrito</button>
             </div>
             <div class="item">
                 <span class="titulo-item">Cadena Digen 18K Lm</span>
-                <img src="img/cadena4.jpg" alt="Cadena Digen 18K Lm" class="img-item">
+                <img src="img/cadena4.jpg" alt="" class="img-item">
                 <span class="precio-item">$180.000</span>
-                <button class="boton-item" data-id="cadena-digen-18k-lm">Agregar al Carrito</button>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena DigeXr 18K Lm</span>
+                <img src="img/cadena6.jpg" alt="" class="img-item">
+                <span class="precio-item">$160.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
             </div>
             <div class="item">
                 <span class="titulo-item">Pulsera 18K Lm</span>
-                <img src="img/pulso8.jpg" alt="Pulsera 18K Lm" class="img-item">
+                <img src="img/pulso8.jpg" alt="" class="img-item">
                 <span class="precio-item">$85.000</span>
-                <button class="boton-item" data-id="pulsera-18k-lm">Agregar al Carrito</button>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Coz 18K Lm</span>
+                <img src="img/cadena9.jpg" alt="" class="img-item">
+                <span class="precio-item">$110.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena HM 18K Lm</span>
+                <img src="img/cadena10.jpg" alt="" class="img-item">
+                <span class="precio-item">$130.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulso Oro 18K Lm</span>
+                <img src="img/pulso3.jpg" alt="" class="img-item">
+                <span class="precio-item">$130.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Cadena Ceuz OR18k</span>
+                <img src="img/cruz5.jpg" alt="" class="img-item">
+                <span class="precio-item">$140.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Pulsera hm 18K</span>
+                <img src="img/pulso11.jpg" alt="" class="img-item">
+                <span class="precio-item">$150.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
             </div>
         </div>
-
         <!-- Carrito de Compras -->
         <div class="carrito" id="carrito">
             <div class="header-carrito">
@@ -76,239 +1049,60 @@
             </div>
 
             <div class="carrito-items">
-                <!-- Productos cargados aquí -->
+                <!-- 
+                <div class="carrito-item">
+                    <img src="img/boxengasse.png" width="80px" alt="">
+                    <div class="carrito-item-detalles">
+                        <span class="carrito-item-titulo">Box Engasse</span>
+                        <div class="selector-cantidad">
+                            <i class="fa-solid fa-minus restar-cantidad"></i>
+                            <input type="text" value="1" class="carrito-item-cantidad" disabled>
+                            <i class="fa-solid fa-plus sumar-cantidad"></i>
+                        </div>
+                        <span class="carrito-item-precio">$15.000,00</span>
+                    </div>
+                   <span class="btn-eliminar">
+                        <i class="fa-solid fa-trash"></i>
+                   </span>
+                </div>
+                <div class="carrito-item">
+                    <img src="img/skinglam.png" width="80px" alt="">
+                    <div class="carrito-item-detalles">
+                        <span class="carrito-item-titulo">Skin Glam</span>
+                        <div class="selector-cantidad">
+                            <i class="fa-solid fa-minus restar-cantidad"></i>
+                            <input type="text" value="3" class="carrito-item-cantidad" disabled>
+                            <i class="fa-solid fa-plus sumar-cantidad"></i>
+                        </div>
+                        <span class="carrito-item-precio">$18.000,00</span>
+                    </div>
+                   <button class="btn-eliminar">
+                        <i class="fa-solid fa-trash"></i>
+                   </button>
+                </div>
+                 -->
             </div>
-
             <div class="carrito-total">
                 <div class="fila">
                     <strong>Tu Total</strong>
-                    <span class="carrito-precio-total">$0</span>
+                    <span class="carrito-precio-total">
+                        $120.000,00
+                    </span>
                 </div>
+                <button class="btn-pagar"><strong><a onclick="enviar()" id="btnEnviar" href=""><span>Enviar Pedido Por Whatsapp>></span></a> <i class="fa fa-whatsapp icono"></i> </button></strong>
+                
+        <input id="datoNombre" type="text">
+        <br>
+       <strong>Envia Captura Para Hacer Tu Pedido</strong>
+        <input id="datoMensaje" type="text">
 
-                <!-- Datos obligatorios -->
-                <div class="datos-cliente">
-                    <h3>Datos del Pedido</h3>
-                    <input id="datoNombre" type="text" placeholder="Tu nombre completo *" required>
-                    <input id="datoCorreo" type="email" placeholder="Tu correo electrónico *" required>
-                    <input id="datoDireccion" type="text" placeholder="Dirección de entrega *" required>
-                    <input id="datoCiudad" type="text" placeholder="Ciudad *" required>
-                    <input id="datoTelefono" type="tel" placeholder="Número de contacto *" required>
-                    <br>
-                    <strong>Detalles adicionales:</strong>
-                    <input id="datoMensaje" type="text" placeholder="Referencia de captura o comentarios (opcional)">
-                </div>
-
-                <!-- Botones -->
-                <div class="botones-accion">
-                    <button id="btnGenerarFactura" class="btn-factura">
-                        <i class="fa fa-file-pdf-o"></i> Generar y Enviar Factura
-                    </button>
-                    
-                    <button class="btn-pagar">
-                        <strong>
-                            <a id="btnEnviar" href="#" style="text-decoration:none; color:inherit;">
-                                <span>Enviar Pedido Por Whatsapp >></span> <i class="fa fa-whatsapp icono"></i>
-                            </a>
-                        </strong>
-                    </button>
-                </div>
-
-                <!-- Área de confirmación -->
-                <div id="areaFactura" class="area-factura" style="display: none;">
-                    <h3>✅ Operación Exitosa</h3>
-                    <div id="contenidoFactura" class="contenido-factura"></div>
-                </div>
+        
+        
             </div>
         </div>
     </section>
+</body>
+</html>
 
-    <!-- Estructura HTML de la factura (oculta por defecto) -->
-    <div id="facturaHTML">
-        <div class="factura-contenedor">
-            <div class="factura-header">
-                <h1>VIVA TEAM SHOP</h1>
-                <p>Barranquilla, Atlántico - Colombia</p>
-                <p>Factura Electrónica</p>
-            </div>
-            <div class="factura-datos">
-                <div>
-                    <h3>DATOS DEL CLIENTE</h3>
-                    <p id="facturaNombre">-</p>
-                    <p id="facturaCorreo">-</p>
-                    <p id="facturaDireccion">-</p>
-                    <p id="facturaCiudad">-</p>
-                    <p id="facturaTelefono">-</p>
-                </div>
-                <div>
-                    <h3>DETALLES DEL PEDIDO</h3>
-                    <p>Fecha: <span id="facturaFecha">-</span></p>
-                    <p>Número de factura: <span id="facturaNumero">-</span></p>
-                    <p>Notas: <span id="facturaNotas">-</span></p>
-                </div>
-            </div>
-            <table class="factura-tabla">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio Unitario</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody id="facturaProductos">
-                    <!-- Productos cargados aquí dinámicamente -->
-                </tbody>
-            </table>
-            <div class="factura-total">
-                <p>Total a pagar: <span id="facturaTotal">-</span> COP</p>
-            </div>
-            <p style="text-align: center; margin-top: 30px;">Gracias por tu compra!</p>
-        </div>
-    </div>
-
-    <!-- Script de tu carrito -->
-    <script src="app.js" defer></script>
-
-    <!-- Script para generación y envío -->
-    <script>
-        // Configuración EmailJS (REEMPLAZA CON TUS DATOS DE https://www.emailjs.com/)
-        const EMAILJS_SERVICE_ID = "service_3gax93e";
-        const EMAILJS_TEMPLATE_ID = "template_5jg8led";
-        const EMAILJS_USER_ID = "LLwus0IwuSHqJi1tS";
-        emailjs.init(EMAILJS_USER_ID);
-
-        // Datos de la tienda
-        const TU_CORREO = "dayansmanosmagicas@gmail.com";
-        const TU_WHATSAPP = "+573052804631";
-
-        // Referencias a elementos
-        const btnGenerarFactura = document.getElementById('btnGenerarFactura');
-        const areaFactura = document.getElementById('areaFactura');
-        const contenidoFactura = document.getElementById('contenidoFactura');
-        const facturaHTML = document.getElementById('facturaHTML');
-
-        // Función para obtener datos del carrito
-        function obtenerDatosCarrito() {
-            const items = document.querySelectorAll('.carrito-item');
-            let productos = [];
-            let total = 0;
-            items.forEach(item => {
-                const nombre = item.querySelector('.carrito-item-titulo').textContent;
-                const precio = parseFloat(item.querySelector('.carrito-item-precio').textContent.replace('$', '').replace('.', ''));
-                const cantidad = parseInt(item.querySelector('.carrito-item-cantidad').value);
-                const subtotal = precio * cantidad;
-                total += subtotal;
-                
-                productos.push({
-                    nombre,
-                    cantidad,
-                    precio: precio.toLocaleString('es-CO'),
-                    subtotal: subtotal.toLocaleString('es-CO')
-                });
-            });
-            return {
-                productos,
-                total: total.toLocaleString('es-CO')
-            };
-        }
-
-        // Función para llenar la factura HTML
-        function llenarFacturaHTML(datosCliente, datosCarrito) {
-            const fecha = new Date();
-            const numeroFactura = Math.floor(Math.random() * 10000);
-
-            // Llenar datos del cliente
-            document.getElementById('facturaNombre').textContent = datosCliente.nombre;
-            document.getElementById('facturaCorreo').textContent = datosCliente.correo;
-            document.getElementById('facturaDireccion').textContent = datosCliente.direccion;
-            document.getElementById('facturaCiudad').textContent = datosCliente.ciudad;
-            document.getElementById('facturaTelefono').textContent = datosCliente.telefono;
-            
-            // Llenar detalles del pedido
-            document.getElementById('facturaFecha').textContent = fecha.toLocaleDateString('es-CO');
-            document.getElementById('facturaNumero').textContent = numeroFactura;
-            document.getElementById('facturaNotas').textContent = datosCliente.mensaje || "Sin comentarios";
-            
-            // Llenar productos
-            const tbody = document.getElementById('facturaProductos');
-            tbody.innerHTML = "";
-            datosCarrito.productos.forEach(prod => {
-                const fila = document.createElement('tr');
-                fila.innerHTML = `
-                    <td>${prod.nombre}</td>
-                    <td>${prod.cantidad}</td>
-                    <td>$${prod.precio}</td>
-                    <td>$${prod.subtotal}</td>
-                `;
-                tbody.appendChild(fila);
-            });
-            
-            // Llenar total
-            document.getElementById('facturaTotal').textContent = `$${datosCarrito.total}`;
-        }
-
-        // Función para convertir HTML a PDF
-        async function convertirHTMLaPDF(datosCliente) {
-            const opciones = {
-                margin: 10,
-                filename: `Factura_VivaTeamShop_${datosCliente.nombre.replace(/\s+/g, '_')}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            // Generar PDF y obtenerlo como blob
-            const pdfBlob = await html2pdf().set(opciones).from(facturaHTML).output('blob');
-            return { blob: pdfBlob, nombre: opciones.filename };
-        }
-
-        // Función para enviar PDF por correo y WhatsApp
-        async function enviarFactura(datosCliente, pdf) {
-            // Envío por correo automático con EmailJS
-            try {
-                // Preparar archivo para enviar
-                const archivo = new File([pdf.blob], pdf.nombre, { type: 'application/pdf' });
-                const adjunto = {
-                    data: archivo,
-                    name: pdf.nombre,
-                    type: 'application/pdf'
-                };
-
-                await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                    to_email: datosCliente.correo,
-                    to_name: datosCliente.nombre,
-                    from_email: TU_CORREO,
-                    mensaje: datosCliente.mensaje || "Gracias por tu compra!",
-                    archivo_factura: adjunto
-                });
-                console.log("Correo enviado exitosamente");
-            } catch (error) {
-                console.error("Error al enviar correo:", error);
-                alert("⚠️ No se pudo enviar el correo automáticamente, pero la factura está lista para descargar.");
-            }
-
-            // Envío por WhatsApp (abre ventana con mensaje y PDF listo)
-            const formData = new FormData();
-            formData.append('file', pdf.blob, pdf.nombre);
-            
-            // Usamos un servicio temporal para subir el PDF y obtener una URL (necesario para WhatsApp)
-            try {
-                const respuestaSubida = await fetch('https://tmpfiles.org/api/v1/upload', {
-                    method: 'POST',
-                    body: formData
-                });
-                const datosSubida = await respuestaSubida.json();
-                const urlPDF = datosSubida.data.url.replace('/tmp/', '/dl/');
-
-                const mensajeWA = `Hola ${datosCliente.nombre}! Aquí está tu factura de Viva Team Shop: ${urlPDF}%0A%0ADetalles del pedido:%0ADirección: ${datosCliente.direccion}%0ACiudad: ${datosCliente.ciudad}`;
-                const enlaceWA = `https://api.whatsapp.com/send?phone=${datosCliente.telefono}&text=${mensajeWA}`;
-                window.open(enlaceWA, '_blank');
-            } catch (error) {
-                console.error("Error al preparar envío por WhatsApp:", error);
-                alert("⚠️ No se pudo generar el enlace de WhatsApp automáticamente, pero puedes enviar el PDF manualmente.");
-            }
-        }
-
-        //
 
 
