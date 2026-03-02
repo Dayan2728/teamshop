@@ -4,109 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viva Team Shop - Joyería</title>
+    <!-- Fuente Google -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap">
+    <!-- Iconos Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        /* Estilos básicos para funcionalidad y apariencia */
-        .btn-wsp {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            line-height: 60px;
-            bottom: 25px;
-            right: 25px;
-            background: #25d366;
-            color: #fff;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 0px 1px 10px rgba(0,0,0,0.3);
-            z-index: 100;
-            text-decoration: none;
-        }
-        .btn-pagar, .btn-factura {
-            background: #25d366;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 5px 0;
-            width: 100%;
-        }
-        .carrito-item {
-            border-bottom: 1px solid #eee;
-            padding: 10px 0;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .carrito-item img {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-        }
-        .contenedor {
-            display: flex;
-            gap: 20px;
-            padding: 20px;
-            flex-wrap: wrap;
-        }
-        .contenedor-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            flex: 3;
-        }
-        .item {
-            border: 1px solid #eee;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .item img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-        }
-        .boton-item {
-            background: #000;
-            color: white;
-            border: none;
-            padding: 8px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .carrito {
-            flex: 1;
-            border: 1px solid #eee;
-            padding: 20px;
-            border-radius: 5px;
-            min-width: 300px;
-        }
-        .form-datos {
-            margin: 10px 0;
-        }
-        .form-datos input {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            box-sizing: border-box;
-        }
-    </style>
-    <title>Viva Team Shop</title>
+    <!-- Enlace a CSS externo -->
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <!-- Botón flotante de WhatsApp -->
+    <!-- Botón flotante WhatsApp -->
     <a href="https://api.whatsapp.com/send?phone=+573006009881&text=Hola! Quiero consultar sobre los productos de Viva Team Shop" class="btn-wsp" target="_blank">
-        <i class="fa fa-whatsapp icono"></i>
+        <i class="fa fa-whatsapp"></i>
     </a>
 
+    <!-- Encabezado -->
     <header>
-        <h1>V I V A    T E A M    S H O P</h1>
+        <h1>Viva Team Shop</h1>
     </header>
 
+    <!-- Contenido principal -->
     <section class="contenedor">
-        <!-- Contenedor de elementos -->
+        <!-- Productos -->
         <div class="contenedor-items">
             <div class="item" data-id="1" data-nombre="Pulso Oro 18k Lm" data-precio="130000">
                 <span class="titulo-item">Pulso Oro 18k Lm</span>
@@ -146,151 +65,40 @@
             </div>
         </div>
 
-        <!-- Carrito de Compras -->
-        <div class="carrito" id="carrito">
+        <!-- Carrito de compras -->
+        <div class="carrito">
             <div class="header-carrito">
                 <h2>Tu Carrito</h2>
             </div>
 
             <div class="carrito-items" id="carritoItems">
-                <!-- Elementos del carrito se cargarán aquí -->
+                <!-- Elementos del carrito se cargan aquí -->
             </div>
 
+            <!-- Formulario de datos -->
             <div class="form-datos">
-                <h3>Datos para tu pedido y factura</h3>
-                <input type="text" id="nombreCliente" placeholder="Tu nombre completo" required>
-                <input type="text" id="celularCliente" placeholder="Tu número de celular" required>
-                <input type="text" id="direccionCliente" placeholder="Dirección de entrega (si aplica)" required>
-                <input type="text" id="datosFactura" placeholder="Datos para factura (NIT/CC, razón social)" required>
-                <textarea id="comentariosCliente" placeholder="Comentarios adicionales (captura, detalles de entrega)"></textarea>
+                <h3>Datos para pedido y factura</h3>
+                <input type="text" id="nombreCliente" placeholder="Tu nombre completo *" required>
+                <input type="text" id="celularCliente" placeholder="Tu número de celular *" required>
+                <input type="text" id="direccionCliente" placeholder="Dirección de entrega *" required>
+                <input type="text" id="datosFactura" placeholder="Datos para factura (NIT/CC, razón social) *" required>
+                <textarea id="comentariosCliente" placeholder="Comentarios adicionales"></textarea>
             </div>
 
+            <!-- Total y botón único -->
             <div class="carrito-total" id="carritoTotal">
                 <div class="fila">
                     <strong>Total a pagar</strong>
                     <span class="carrito-precio-total">$0</span>
                 </div>
-                <!-- Botón enviar pedido por WhatsApp -->
-                <button class="btn-pagar" onclick="enviarPedidoWhatsApp()">
-                    <i class="fa fa-whatsapp"></i> Enviar Pedido y Solicitar Pago
-                </button>
-                <!-- Botón solicitar factura por WhatsApp -->
-                <button class="btn-factura" onclick="solicitarFacturaWhatsApp()">
-                    <i class="fa fa-file-text"></i> Solicitar Factura del Pedido
+                <button class="btn-pedido-factura" onclick="enviarPedidoYFactura()">
+                    <i class="fa fa-shopping-cart"></i> Enviar Pedido & Generar Factura
                 </button>
             </div>
         </div>
     </section>
 
-    <script>
-        // Carrito de compras
-        let carrito = [];
-
-        // Agregar producto al carrito
-        function agregarAlCarrito(boton) {
-            const item = boton.parentElement;
-            const producto = {
-                id: item.dataset.id,
-                nombre: item.dataset.nombre,
-                precio: parseInt(item.dataset.precio),
-                cantidad: 1
-            };
-
-            const existe = carrito.find(p => p.id === producto.id);
-            if (existe) {
-                existe.cantidad++;
-            } else {
-                carrito.push(producto);
-            }
-
-            actualizarCarrito();
-        }
-
-        // Actualizar visualización del carrito
-        function actualizarCarrito() {
-            const contenedorItems = document.getElementById('carritoItems');
-            const contenedorTotal = document.querySelector('.carrito-precio-total');
-            contenedorItems.innerHTML = '';
-            let total = 0;
-
-            carrito.forEach(producto => {
-                total += producto.precio * producto.cantidad;
-                const itemHTML = `
-                    <div class="carrito-item">
-                        <span>${producto.nombre}</span>
-                        <div>
-                            <span>Cant: ${producto.cantidad}</span>
-                            <span> - $${(producto.precio * producto.cantidad).toLocaleString()}</span>
-                        </div>
-                    </div>
-                `;
-                contenedorItems.innerHTML += itemHTML;
-            });
-
-            contenedorTotal.textContent = `$${total.toLocaleString()}`;
-        }
-
-        // Enviar pedido completo por WhatsApp
-        function enviarPedidoWhatsApp() {
-            const nombre = document.getElementById('nombreCliente').value.trim();
-            const celular = document.getElementById('celularCliente').value.trim();
-            const direccion = document.getElementById('direccionCliente').value.trim();
-            const comentarios = document.getElementById('comentariosCliente').value.trim();
-            const total = document.querySelector('.carrito-precio-total').textContent;
-
-            if (!nombre || !celular || !direccion || carrito.length === 0) {
-                alert('Por favor completa todos los datos y agrega productos al carrito');
-                return;
-            }
-
-            // Construir mensaje de pedido
-            let mensaje = `*📦 PEDIDO - VIVA TEAM SHOP*%0A%0A`;
-            mensaje += `*Cliente:* ${nombre}%0A`;
-            mensaje += `*Celular:* ${celular}%0A`;
-            mensaje += `*Dirección de entrega:* ${direccion}%0A%0A`;
-            mensaje += `*Productos solicitados:*%0A`;
-            
-            carrito.forEach(producto => {
-                mensaje += `- ${producto.nombre} | Cant: ${producto.cantidad} | Valor: $${(producto.precio * producto.cantidad).toLocaleString()}%0A`;
-            });
-
-            mensaje += `%0A*TOTAL A PAGAR:* ${total}%0A%0A`;
-            mensaje += `*Comentarios:* ${comentarios || 'Sin comentarios'}%0A`;
-            mensaje += `*Por favor indicar método de pago y confirmar entrega.*`;
-
-            // Abrir WhatsApp con el mensaje
-            const url = `https://api.whatsapp.com/send?phone=+573006009881&text=${mensaje}`;
-            window.open(url, '_blank');
-        }
-
-        // Solicitar factura por WhatsApp
-        function solicitarFacturaWhatsApp() {
-            const nombre = document.getElementById('nombreCliente').value.trim();
-            const datosFactura = document.getElementById('datosFactura').value.trim();
-            const total = document.querySelector('.carrito-precio-total').textContent;
-
-            if (!nombre || !datosFactura || carrito.length === 0) {
-                alert('Por favor completa tus datos y los datos para la factura');
-                return;
-            }
-
-            // Construir mensaje de factura
-            let mensaje = `*📄 SOLICITUD DE FACTURA - VIVA TEAM SHOP*%0A%0A`;
-            mensaje += `*Cliente:* ${nombre}%0A`;
-            mensaje += `*Datos para factura:* ${datosFactura}%0A%0A`;
-            mensaje += `*Detalles del pedido facturado:*%0A`;
-            
-            carrito.forEach(producto => {
-                mensaje += `- ${producto.nombre} | Cant: ${producto.cantidad} | Valor: $${(producto.precio * producto.cantidad).toLocaleString()}%0A`;
-            });
-
-            mensaje += `%0A*VALOR TOTAL DE LA FACTURA:* ${total}%0A`;
-            mensaje += `*Por favor enviar factura a este número o correo (indicar si aplica).*`;
-
-            // Abrir WhatsApp con el mensaje
-            const url = `https://api.whatsapp.com/send?phone=+573006009881&text=${mensaje}`;
-            window.open(url, '_blank');
-        }
-    </script>
+    <!-- Enlace a JavaScript externo -->
+    <script src="script.js"></script>
 </body>
 </html>
