@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Librería para generar PDFs -->
+    <!-- Librería para PDFs (si se necesita para respaldo) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- Estilos -->
+    <!-- Tus estilos CSS -->
     <link rel="stylesheet" href="estilo.css">
     <title>Viva Team Shop</title>
 </head>
@@ -44,46 +44,10 @@
                 <button class="boton-item" data-id="cadena-digen-18k-lm">Agregar al Carrito</button>
             </div>
             <div class="item">
-                <span class="titulo-item">Cadena DigeXr 18K Lm</span>
-                <img src="img/cadena6.jpg" alt="Cadena DigeXr 18K Lm" class="img-item">
-                <span class="precio-item">$160.000</span>
-                <button class="boton-item" data-id="cadena-digexr-18k-lm">Agregar al Carrito</button>
-            </div>
-            <div class="item">
                 <span class="titulo-item">Pulsera 18K Lm</span>
                 <img src="img/pulso8.jpg" alt="Pulsera 18K Lm" class="img-item">
                 <span class="precio-item">$85.000</span>
                 <button class="boton-item" data-id="pulsera-18k-lm">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Cadena Coz 18K Lm</span>
-                <img src="img/cadena9.jpg" alt="Cadena Coz 18K Lm" class="img-item">
-                <span class="precio-item">$110.000</span>
-                <button class="boton-item" data-id="cadena-coz-18k-lm">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Cadena HM 18K Lm</span>
-                <img src="img/cadena10.jpg" alt="Cadena HM 18K Lm" class="img-item">
-                <span class="precio-item">$130.000</span>
-                <button class="boton-item" data-id="cadena-hm-18k-lm">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Pulso Oro 18K Lm</span>
-                <img src="img/pulso3.jpg" alt="Pulso Oro 18K Lm" class="img-item">
-                <span class="precio-item">$130.000</span>
-                <button class="boton-item" data-id="pulso-oro-18k-lm-2">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Cadena Ceuz OR18k</span>
-                <img src="img/cruz5.jpg" alt="Cadena Ceuz OR18k" class="img-item">
-                <span class="precio-item">$140.000</span>
-                <button class="boton-item" data-id="cadena-ceuz-or18k">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Pulsera hm 18K</span>
-                <img src="img/pulso11.jpg" alt="Pulsera hm 18K" class="img-item">
-                <span class="precio-item">$150.000</span>
-                <button class="boton-item" data-id="pulsera-hm-18k">Agregar al Carrito</button>
             </div>
         </div>
 
@@ -103,10 +67,11 @@
                     <span class="carrito-precio-total">$0</span>
                 </div>
 
-                <!-- Datos obligatorios -->
+                <!-- Datos obligatorios (AGREGADO CAMPO DE CORREO) -->
                 <div class="datos-cliente">
                     <h3>Datos del Pedido</h3>
                     <input id="datoNombre" type="text" placeholder="Tu nombre completo *" required>
+                    <input id="datoCorreo" type="email" placeholder="Tu correo electrónico *" required>
                     <input id="datoDireccion" type="text" placeholder="Dirección de entrega *" required>
                     <input id="datoCiudad" type="text" placeholder="Ciudad *" required>
                     <input id="datoTelefono" type="tel" placeholder="Número de contacto *" required>
@@ -118,7 +83,7 @@
                 <!-- Botones -->
                 <div class="botones-accion">
                     <button id="btnGenerarFactura" class="btn-factura">
-                        <i class="fa fa-file-pdf-o"></i> Generar Factura IA
+                        <i class="fa fa-file-pdf-o"></i> Generar y Enviar Factura
                     </button>
                     
                     <button class="btn-pagar">
@@ -130,179 +95,211 @@
                     </button>
                 </div>
 
-                <!-- Área de factura -->
+                <!-- Área de confirmación -->
                 <div id="areaFactura" class="area-factura" style="display: none;">
-                    <h3>Factura Generada (IA)</h3>
+                    <h3>✅ Operación Exitosa</h3>
                     <div id="contenidoFactura" class="contenido-factura"></div>
-                    <button id="btnDescargarFactura" class="btn-descargar">
-                        <i class="fa fa-download"></i> Descargar PDF
-                    </button>
-                    <!-- Botón para enviar factura por WhatsApp al despachar -->
-                    <button id="btnEnviarFacturaWsp" class="btn-enviar-factura" style="display: none; margin-top: 10px;">
-                        <i class="fa fa-whatsapp"></i> Enviar Factura por WhatsApp (Despachado)
-                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Scripts de lógica -->
+    <!-- Script de tu carrito -->
     <script src="app.js" defer></script>
+
+    <!-- CÓDIGO CORREGIDO PARA MANYAPIS Y ENVÍO -->
     <script>
-        // --- CONFIGURACIÓN DE API'S ---
-        const MANYAPIS_API_KEY = " sk_bd554655fc154267baa4b82cb43941f4 "; // Reemplaza con tu clave de ManyAPIs
-        const MANYAPIS_WSP_ENDPOINT = "https://api.manyapis.com/whatsapp/send-document"; // Verifica el endpoint correcto en ManyAPIs
-        const OPENAI_API_KEY = "TU_CLAVE_API_AQUI"; // Reemplaza con tu clave de OpenAI
-        const OPENAI_ENDPOINT = "https://api.openai.com/v1/chat/completions";
+        // Datos de Manyapis (CREA TU CUENTA GRATIS EN https://manyapis.com/)
+        const MANYAPIS_API_KEY = "sk_bd554655fc154267baa4b82cb43941f4"; // REEMPLAZA CON TU CLAVE
+        const TU_CORREO = "dayansmanosmagicas@gmail.com"; // TU CORREO PARA COPIA
+        const TU_WHATSAPP = "+573052804631"; // TU NÚMERO DE WHATSAPP
 
         // Referencias a elementos
         const btnGenerarFactura = document.getElementById('btnGenerarFactura');
         const areaFactura = document.getElementById('areaFactura');
         const contenidoFactura = document.getElementById('contenidoFactura');
-        const btnDescargarFactura = document.getElementById('btnDescargarFactura');
-        const btnEnviarFacturaWsp = document.getElementById('btnEnviarFacturaWsp');
-        const btnEnviarPedido = document.getElementById('btnEnviar');
-        const { jsPDF } = window.jspdf;
-        let facturaPDFBlob = null; // Variable para almacenar el PDF generado
 
         // Función para obtener datos del carrito
         function obtenerDatosCarrito() {
             const items = document.querySelectorAll('.carrito-item');
             let productos = [];
             items.forEach(item => {
+                const nombre = item.querySelector('.carrito-item-titulo').textContent;
+                const precio = item.querySelector('.carrito-item-precio').textContent.replace('$', '').replace('.', '');
+                const cantidad = item.querySelector('.carrito-item-cantidad').value;
+                const subtotal = (parseFloat(precio) * parseInt(cantidad)).toLocaleString('es-CO');
+                
                 productos.push({
-                    nombre: item.querySelector('.carrito-item-titulo').textContent,
-                    precio: item.querySelector('.carrito-item-precio').textContent,
-                    cantidad: item.querySelector('.carrito-item-cantidad').value
+                    name: nombre,
+                    quantity: cantidad,
+                    price: precio,
+                    total: subtotal
                 });
             });
             return {
-                productos,
-                total: document.querySelector('.carrito-precio-total').textContent
+                items: productos,
+                total: document.querySelector('.carrito-precio-total').textContent.replace('$', '').replace('.', '')
             };
         }
 
-        // Función para generar factura con IA de OpenAI
-        btnGenerarFactura.addEventListener('click', async () => {
-            // Validaciones
-            const nombre = document.getElementById('datoNombre').value.trim();
-            const direccion = document.getElementById('datoDireccion').value.trim();
-            const ciudad = document.getElementById('datoCiudad').value.trim();
-            const telefono = document.getElementById('datoTelefono').value.trim();
-            const { productos, total } = obtenerDatosCarrito();
-
-            if (!nombre || !direccion || !ciudad || !telefono || productos.length === 0) {
-                alert('Completa todos los campos obligatorios y agrega productos al carrito');
-                return;
-            }
-
-            // Mostrar carga
-            contenidoFactura.innerHTML = '<p><i class="fa fa-spinner fa-spin"></i> Generando factura con IA...</p>';
-            areaFactura.style.display = 'block';
-
+        // Función para generar factura con Manyapis
+        async function generarFacturaManyapis(datosCliente, datosCarrito) {
             try {
-                // Petición a API de OpenAI
-                const respuesta = await fetch(OPENAI_ENDPOINT, {
+                const respuesta = await fetch('https://manyapis.com/api/v1/invoice-generator', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${OPENAI_API_KEY}`
+                        'Authorization': `Bearer ${MANYAPIS_API_KEY}`,
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: "gpt-3.5-turbo",
-                        messages: [
-                            {
-                                role: "system",
-                                content: "Eres un asistente que genera facturas profesionales en formato HTML para una tienda de joyería llamada Viva Team Shop. La factura debe incluir datos del cliente, lista de productos, total, fecha y ser clara y ordenada."
-                            },
-                            {
-                                role: "user",
-                                content: `Genera una factura en HTML para:
-                                - Cliente: ${nombre}
-                                - Dirección: ${direccion}, ${ciudad}
-                                - Teléfono: ${telefono}
-                                - Productos: ${JSON.stringify(productos)}
-                                - Total: ${total}
-                                - Fecha: ${new Date().toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' })}
-                                - Detalles adicionales: ${document.getElementById('datoMensaje').value.trim() || 'Ninguno'}
-                                Incluye título, encabezado de la tienda, sección de cliente, tabla de productos, total y pie de página. No uses etiquetas HTML externas como html, body o head.`
-                            }
-                        ],
-                        temperature: 0.2
+                        from: {
+                            name: "Viva Team Shop",
+                            address: "Barranquilla, Atlántico - Colombia",
+                            email: TU_CORREO,
+                            phone: TU_WHATSAPP
+                        },
+                        to: {
+                            name: datosCliente.nombre,
+                            email: datosCliente.correo,
+                            phone: datosCliente.telefono,
+                            address: `${datosCliente.direccion}, ${datosCliente.ciudad}`
+                        },
+                        invoice_number: Math.floor(Math.random() * 10000),
+                        date: new Date().toISOString().split('T')[0],
+                        notes: datosCliente.mensaje || "Gracias por tu compra!",
+                        currency: "COP",
+                        items: datosCarrito.items,
+                        total: datosCarrito.total
                     })
                 });
 
+                if (!respuesta.ok) throw new Error("Error al generar factura");
                 const datos = await respuesta.json();
-                const facturaHTML = datos.choices[0].message.content;
-                
-                // Mostrar factura generada
-                contenidoFactura.innerHTML = facturaHTML;
-                // Generar PDF automáticamente para almacenarlo
-                generarPDF(nombre);
-                // Mostrar botón de envío de factura
-                btnEnviarFacturaWsp.style.display = 'block';
-
+                return datos.pdf_url; // URL del PDF generado
             } catch (error) {
-                contenidoFactura.innerHTML = `<p style="color: red;">Error al generar factura: ${error.message}</p>`;
-                console.error(error);
+                console.error("Error Manyapis:", error);
+                return null;
             }
-        });
-
-        // Función para generar PDF y almacenarlo como Blob
-        function generarPDF(nombreCliente) {
-            const doc = new jsPDF();
-            const textoFactura = contenidoFactura.textContent;
-            const lineHeight = 10;
-            let yPos = 10;
-
-            // Título del PDF
-            doc.setFontSize(16);
-            doc.text("FACTURA VIVA TEAM SHOP", 10, yPos);
-            yPos += lineHeight * 2;
-
-            // Contenido de la factura
-            doc.setFontSize(10);
-            const lineas = doc.splitTextToSize(textoFactura, 190);
-            doc.text(lineas, 10, yPos);
-
-            // Obtener Blob del PDF
-            facturaPDFBlob = doc.output('blob');
         }
 
-        // Función para descargar factura como PDF
-        btnDescargarFactura.addEventListener('click', () => {
-            if (!facturaPDFBlob) {
-                alert('Primero genera la factura');
-                return;
-            }
-            const nombre = document.getElementById('datoNombre').value.trim();
-            const nombreArchivo = `Factura_VivaTeamShop_${nombre.replace(/\s+/g, '_')}_${new Date().getTime()}.pdf`;
-            const enlace = document.createElement('a');
-            enlace.href = URL.createObjectURL(facturaPDFBlob);
-            enlace.download = nombreArchivo;
-            enlace.click();
-            URL.revokeObjectURL(enlace.href);
-        });
+        // Función para enviar PDF por WhatsApp y correo
+        async function enviarFactura(cliente, urlPDF) {
+            // Enviar por WhatsApp
+            const mensajeWA = `Hola ${cliente.nombre}! Aquí está tu factura de Viva Team Shop: ${urlPDF}%0A%0ADetalles del pedido:%0ADirección: ${cliente.direccion}%0ACiudad: ${cliente.ciudad}`;
+            const enlaceWA = `https://api.whatsapp.com/send?phone=${cliente.telefono}&text=${mensajeWA}`;
+            window.open(enlaceWA, '_blank');
 
-        // Función para enviar pedido por WhatsApp
-        btnEnviarPedido.addEventListener('click', (e) => {
-            e.preventDefault();
+            // Enviar por correo (usamos EmailJS gratis)
+            try {
+                // Crea cuenta en https://www.emailjs.com/ para obtener las credenciales
+                emailjs.send("TU_SERVICIO_ID", "TU_PLANTILLA_ID", {
+                    to_email: cliente.correo,
+                    to_name: cliente.nombre,
+                    from_email: TU_CORREO,
+                    pdf_url: urlPDF,
+                    message: cliente.mensaje || "Sin comentarios adicionales"
+                }, "TU_USER_ID")
+                .then(() => console.log("Correo enviado"), (err) => console.error("Error correo:", err));
+            } catch (e) {
+                console.log("Para enviar por correo, configura EmailJS");
+            }
+        }
+
+        // Evento de clic en botón
+        btnGenerarFactura.addEventListener('click', async () => {
+            // Validar campos
             const nombre = document.getElementById('datoNombre').value.trim();
+            const correo = document.getElementById('datoCorreo').value.trim();
             const direccion = document.getElementById('datoDireccion').value.trim();
             const ciudad = document.getElementById('datoCiudad').value.trim();
             const telefono = document.getElementById('datoTelefono').value.trim();
             const mensaje = document.getElementById('datoMensaje').value.trim();
-            const { productos, total } = obtenerDatosCarrito();
+            const datosCarrito = obtenerDatosCarrito();
 
-            if (!nombre || !direccion || !ciudad || !telefono || productos.length === 0) {
-                alert('Completa todos los campos obligatorios y agrega productos al carrito');
+            if (!nombre || !correo || !direccion || !ciudad || !telefono || datosCarrito.items.length === 0) {
+                alert('⚠️ Completa todos los campos obligatorios y agrega productos al carrito!');
                 return;
             }
 
-            // Formatear mensaje del pedido
-            let mensajePedido = `📦 NUEVO PEDIDO - VIVA TEAM SHOP 📦\n\n`;
-            mensajePedido += `Cliente: ${nombre}\n`;
-            mensajePedido += `Teléfono: ${telefono}\n`;
-            mensajePedido +=
+            // Mostrar carga
+            contenidoFactura.innerHTML = '<p><i class="fa fa-spinner fa-spin"></i> Generando y enviando factura...</p>';
+            areaFactura.style.display = 'block';
 
-El texto del archivo es muy largo. Cici solo leyó el primer 45%.
+            // Generar factura
+            const datosCliente = { nombre, correo, direccion, ciudad, telefono, mensaje };
+            const urlPDF = await generarFacturaManyapis(datosCliente, datosCarrito);
+
+            if (urlPDF) {
+                contenidoFactura.innerHTML = `
+                    <p>Factura generada correctamente!</p>
+                    <p><a href="${urlPDF}" target="_blank" class="btn-descargar">
+                        <i class="fa fa-download"></i> Descargar Factura
+                    </a></p>
+                    <p>Se está enviando una copia a tu WhatsApp y correo.</p>
+                `;
+                // Enviar al cliente
+                await enviarFactura(datosCliente, urlPDF);
+            } else {
+                contenidoFactura.innerHTML = `<p style="color: red;">Error al generar factura. Intenta de nuevo o usa la opción local.</p>
+                <button id="btnFacturaLocal" class="btn-factura">Generar Factura Local</button>`;
+                // Opción de respaldo local
+                document.getElementById('btnFacturaLocal').addEventListener('click', () => generarFacturaLocal(datosCliente, datosCarrito));
+            }
+        });
+
+        // Función de respaldo local
+        function generarFacturaLocal(datosCliente, datosCarrito) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Contenido del PDF
+            doc.setFontSize(16);
+            doc.setTextColor(37, 211, 102);
+            doc.text("FACTURA VIVA TEAM SHOP", 105, 15, null, null, 'center');
+            doc.setFontSize(10);
+            doc.setTextColor(0);
+            doc.text("Barranquilla, Atlántico - Colombia", 105, 25, null, null, 'center');
+            doc.line(10, 30, 200, 30);
+
+            // Datos cliente
+            doc.text("DATOS DEL CLIENTE", 10, 45);
+            doc.text(`Nombre: ${datosCliente.nombre}`, 10, 55);
+            doc.text(`Correo: ${datosCliente.correo}`, 10, 65);
+            doc.text(`Dirección: ${datosCliente.direccion}`, 10, 75);
+            doc.text(`Ciudad: ${datosCliente.ciudad}`, 10, 85);
+            doc.text(`Teléfono: ${datosCliente.telefono}`, 10, 95);
+            doc.line(10, 115, 200, 115);
+
+            // Productos
+            doc.text("DETALLE DE PRODUCTOS", 10, 130);
+            doc.text("Producto", 10, 145);
+            doc.text("Cant.", 70, 145);
+            doc.text("Precio Unit.", 100, 145);
+            doc.text("Subtotal", 150, 145);
+            doc.line(10, 150, 200, 150);
+            let yPos = 160;
+            datosCarrito.items.forEach(item => {
+                doc.text(item.name.substring(0, 20), 10, yPos);
+                doc.text(item.quantity, 70, yPos);
+                doc.text(`$${item.price.toLocaleString('es-CO')}`, 100, yPos);
+                doc.text(`$${item.total}`, 150, yPos);
+                yPos += 10;
+            });
+            doc.line(10, yPos, 200, yPos);
+            yPos += 5;
+            doc.setFontWeight('bold');
+            doc.text("TOTAL A PAGAR", 100, yPos);
+            doc.text(`$${datosCarrito.total.toLocaleString('es-CO')}`, 150, yPos);
+
+            // Guardar y mostrar
+            const nombrePDF = `Factura_VivaTeamShop_${datosCliente.nombre.replace(/\s+/g, '_')}.pdf`;
+            doc.save(nombrePDF);
+            contenidoFactura.innerHTML = `<p>✅ Factura local generada y descargada!</p>
+            <p>Envíala manualmente al cliente por WhatsApp o correo.</p>`;
+        }
+    </script>
+
+    <!-- Script para EmailJS (para envío por correo) -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Config
