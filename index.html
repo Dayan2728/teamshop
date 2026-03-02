@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Facturas</title>
+    <title>Generador de Facturas - COP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -33,7 +33,7 @@
             color: #2c3e50;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 2px solid #005883; /* Color bandera Colombia */
         }
         .form-group {
             margin-bottom: 15px;
@@ -79,18 +79,19 @@
             background-color: #27ae60;
         }
         .btn-generate {
-            background-color: #3498db;
+            background-color: #005883; /* Color bandera Colombia */
             color: white;
             width: 100%;
             margin-top: 10px;
         }
         .btn-generate:hover {
-            background-color: #2980b9;
+            background-color: #003c5c;
         }
         .btn-print {
             background-color: #f39c12;
             color: white;
             margin-top: 20px;
+            display: none;
         }
         .btn-print:hover {
             background-color: #e67e22;
@@ -102,7 +103,7 @@
             align-items: center;
         }
         .invoice-logo h1 {
-            color: #3498db;
+            color: #005883; /* Color bandera Colombia */
         }
         .invoice-info p {
             margin-bottom: 5px;
@@ -142,7 +143,19 @@
             font-size: 20px;
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 2px solid #3498db;
+            border-top: 2px solid #005883; /* Color bandera Colombia */
+        }
+        .error-msg {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        .currency-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 2px;
+            display: block;
         }
         @media print {
             .form-section, .btn-print, .btn-add, .btn-generate {
@@ -156,6 +169,11 @@
                 padding: 0;
             }
         }
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -165,42 +183,60 @@
             <h2><i class="fas fa-file-invoice"></i> Datos de la Factura</h2>
             
             <div class="form-group">
-                <label for="business-name">Nombre de la Empresa</label>
-                <input type="text" id="business-name" placeholder="Nombre de tu empresa">
+                <label for="business-name">Nombre de la Empresa *</label>
+                <!-- 👉 AQUÍ AGREGA TU NOMBRE DE EMPRESA -->
+                <input type="text" id="business-name" placeholder="Nombre de tu empresa" value="NOMBRE DE TU EMPRESA AQUÍ">
+                <div class="error-msg" id="err-business">Este campo es obligatorio</div>
             </div>
             <div class="form-group">
-                <label for="business-address">Dirección de la Empresa</label>
-                <textarea id="business-address" rows="2" placeholder="Dirección completa"></textarea>
+                <label for="business-address">Dirección de la Empresa *</label>
+                <!-- 👉 AQUÍ AGREGA TU DIRECCIÓN -->
+                <textarea id="business-address" rows="2" placeholder="Dirección completa">DIRECCIÓN DE TU EMPRESA AQUÍ</textarea>
+                <div class="error-msg" id="err-address">Este campo es obligatorio</div>
             </div>
             <div class="form-group">
                 <label for="business-phone">Teléfono de la Empresa</label>
-                <input type="text" id="business-phone" placeholder="Número de teléfono">
+                <!-- 👉 AQUÍ AGREGA TU TELÉFONO (OPCIONAL) -->
+                <input type="text" id="business-phone" placeholder="Número de teléfono" value="TELÉFONO DE TU EMPRESA AQUÍ">
+            </div>
+            <div class="form-group">
+                <label for="business-nit">NIT de la Empresa</label>
+                <!-- 👉 AQUÍ AGREGA TU NIT (OPCIONAL PERO RECOMENDADO EN COLOMBIA) -->
+                <input type="text" id="business-nit" placeholder="NIT de la empresa" value="NIT DE TU EMPRESA AQUÍ">
             </div>
 
             <hr>
 
             <div class="form-group">
-                <label for="client-name">Nombre del Cliente</label>
+                <label for="client-name">Nombre del Cliente *</label>
                 <input type="text" id="client-name" placeholder="Nombre completo del cliente">
+                <div class="error-msg" id="err-client">Este campo es obligatorio</div>
             </div>
             <div class="form-group">
-                <label for="client-address">Dirección del Cliente</label>
+                <label for="client-address">Dirección del Cliente *</label>
                 <textarea id="client-address" rows="2" placeholder="Dirección completa del cliente"></textarea>
+                <div class="error-msg" id="err-client-address">Este campo es obligatorio</div>
             </div>
             <div class="form-group">
                 <label for="client-email">Email del Cliente</label>
                 <input type="email" id="client-email" placeholder="Email del cliente">
             </div>
+            <div class="form-group">
+                <label for="client-doc">NIT/CC del Cliente</label>
+                <input type="text" id="client-doc" placeholder="NIT o Cédula del cliente">
+            </div>
 
             <hr>
 
             <div class="form-group">
-                <label for="invoice-number">Número de Factura</label>
+                <label for="invoice-number">Número de Factura *</label>
                 <input type="text" id="invoice-number" placeholder="Número único de factura">
+                <div class="error-msg" id="err-invoice">Este campo es obligatorio</div>
             </div>
             <div class="form-group">
-                <label for="invoice-date">Fecha de Factura</label>
+                <label for="invoice-date">Fecha de Factura *</label>
                 <input type="date" id="invoice-date">
+                <div class="error-msg" id="err-date">Este campo es obligatorio</div>
             </div>
             <div class="form-group">
                 <label for="payment-terms">Términos de Pago</label>
@@ -209,20 +245,24 @@
                     <option value="7 días">7 días</option>
                     <option value="15 días">15 días</option>
                     <option value="30 días">30 días</option>
+                    <option value="Transferencia bancaria">Transferencia bancaria</option>
+                    <option value="PSE">PSE</option>
                 </select>
             </div>
 
             <hr>
 
-            <h3><i class="fas fa-shopping-cart"></i> Artículos</h3>
+            <h3><i class="fas fa-shopping-cart"></i> Artículos *</h3>
             <div class="items-container" id="items-container">
                 <div class="item-row">
                     <input type="text" class="item-description" placeholder="Descripción del artículo">
                     <input type="number" class="item-quantity" placeholder="Cantidad" min="1" value="1">
-                    <input type="number" class="item-price" placeholder="Precio unitario" min="0" step="0.01">
+                    <input type="number" class="item-price" placeholder="Precio unitario (COP)" min="0" step="1">
                     <button type="button" class="btn-remove" onclick="removeItem(this)"><i class="fas fa-trash"></i></button>
                 </div>
             </div>
+            <div class="currency-label">* Valores en Pesos Colombianos ($)</div>
+            <div class="error-msg" id="err-items">Completa todos los datos de los artículos</div>
             <button type="button" class="btn-add" onclick="addItem()"><i class="fas fa-plus"></i> Agregar Artículo</button>
 
             <button type="button" class="btn-generate" onclick="generateInvoice()"><i class="fas fa-magic"></i> Generar Factura</button>
@@ -230,7 +270,7 @@
 
         <!-- Sección de la factura -->
         <div class="invoice-section">
-            <h2><i class="fas fa-file-pdf"></i> Factura Generada</h2>
+            <h2><i class="fas fa-file-pdf"></i> Factura Generada (COP)</h2>
             <div id="invoice-preview">
                 <p style="text-align: center; color: #7f8c8d; padding: 50px 0;">Completa los datos y haz clic en "Generar Factura"</p>
             </div>
@@ -242,6 +282,24 @@
         // Establecer fecha actual por defecto
         document.getElementById('invoice-date').valueAsDate = new Date();
 
+        // Ocultar todos los mensajes de error al inicio
+        const allErrors = document.querySelectorAll('.error-msg');
+        allErrors.forEach(err => err.style.display = 'none');
+
+        // Configuración para Colombia
+        const TAX_RATE = 0.19; // IVA 19% según normativa colombiana
+        const CURRENCY_FORMATTER = new Intl.NumberFormat('es-CO', {
+            style: 'currency',
+            currency: 'COP',
+            minimumFractionDigits: 0, // En Colombia no se usan centavos
+            maximumFractionDigits: 0
+        });
+
+        // Función para formatear valores en COP
+        function formatCOP(value) {
+            return CURRENCY_FORMATTER.format(value).replace('COP', '$'); // Mostrar $ en lugar de COP
+        }
+
         // Agregar nuevo artículo
         function addItem() {
             const container = document.getElementById('items-container');
@@ -250,7 +308,7 @@
             newRow.innerHTML = `
                 <input type="text" class="item-description" placeholder="Descripción del artículo">
                 <input type="number" class="item-quantity" placeholder="Cantidad" min="1" value="1">
-                <input type="number" class="item-price" placeholder="Precio unitario" min="0" step="0.01">
+                <input type="number" class="item-price" placeholder="Precio unitario (COP)" min="0" step="1">
                 <button type="button" class="btn-remove" onclick="removeItem(this)"><i class="fas fa-trash"></i></button>
             `;
             container.appendChild(newRow);
@@ -266,107 +324,86 @@
             }
         }
 
-        // Generar factura
-        function generateInvoice() {
-            // Obtener datos del formulario
-            const businessName = document.getElementById('business-name').value;
-            const businessAddress = document.getElementById('business-address').value;
-            const businessPhone = document.getElementById('business-phone').value;
-            const clientName = document.getElementById('client-name').value;
-            const clientAddress = document.getElementById('client-address').value;
-            const clientEmail = document.getElementById('client-email').value;
-            const invoiceNumber = document.getElementById('invoice-number').value;
-            const invoiceDate = document.getElementById('invoice-date').value;
-            const paymentTerms = document.getElementById('payment-terms').value;
+        // Validar campos obligatorios
+        function validateFields() {
+            let isValid = true;
 
-            // Obtener artículos
-            const itemRows = document.querySelectorAll('.item-row');
-            let itemsHTML = '';
-            let subtotal = 0;
-
-            for (let i = 0; i < itemRows.length; i++) {
-                const description = itemRows[i].querySelector('.item-description').value;
-                const quantity = parseInt(itemRows[i].querySelector('.item-quantity').value);
-                const price = parseFloat(itemRows[i].querySelector('.item-price').value);
-                const total = quantity * price;
-                subtotal += total;
-
-                if (!description || isNaN(quantity) || isNaN(price)) {
-                    alert('Por favor completa todos los datos de los artículos');
-                    return;
-                }
-
-                itemsHTML += `
-                    <tr>
-                        <td>${description}</td>
-                        <td>${quantity}</td>
-                        <td>$${price.toFixed(2)}</td>
-                        <td>$${total.toFixed(2)}</td>
-                    </tr>
-                `;
+            // Validar datos de empresa
+            if (!document.getElementById('business-name').value.trim()) {
+                document.getElementById('err-business').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('err-business').style.display = 'none';
             }
 
-            // Calcular impuestos y total (19% IVA por defecto)
-            const taxRate = 0.19;
-            const tax = subtotal * taxRate;
-            const grandTotal = subtotal + tax;
+            if (!document.getElementById('business-address').value.trim()) {
+                document.getElementById('err-address').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('err-address').style.display = 'none';
+            }
 
-            // Construir HTML de la factura
-            const invoiceHTML = `
-                <div class="invoice-header">
-                    <div class="invoice-logo">
-                        <h1>${businessName || 'Empresa Sin Nombre'}</h1>
-                    </div>
-                    <div class="invoice-info">
-                        <p><strong>Factura #:</strong> ${invoiceNumber || '00000'}</p>
-                        <p><strong>Fecha:</strong> ${invoiceDate || new Date().toLocaleDateString()}</p>
-                        <p><strong>Términos:</strong> ${paymentTerms}</p>
-                    </div>
-                </div>
+            // Validar datos de cliente
+            if (!document.getElementById('client-name').value.trim()) {
+                document.getElementById('err-client').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('err-client').style.display = 'none';
+            }
 
-                <div class="invoice-client">
-                    <div>
-                        <h3>De:</h3>
-                        <p>${businessName || 'Empresa Sin Nombre'}</p>
-                        <p>${businessAddress || 'Dirección no proporcionada'}</p>
-                        <p>${businessPhone || 'Teléfono no proporcionado'}</p>
-                    </div>
-                    <div>
-                        <h3>Para:</h3>
-                        <p>${clientName || 'Cliente Sin Nombre'}</p>
-                        <p>${clientAddress || 'Dirección no proporcionada'}</p>
-                        <p>${clientEmail || 'Email no proporcionado'}</p>
-                    </div>
-                </div>
+            if (!document.getElementById('client-address').value.trim()) {
+                document.getElementById('err-client-address').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('err-client-address').style.display = 'none';
+            }
 
-                <table class="invoice-table">
-                    <thead>
-                        <tr>
-                            <th>Descripción</th>
-                            <th>Cantidad</th>
-                            <th>Precio Unitario</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${itemsHTML}
-                    </tbody>
-                </table>
+            // Validar datos de factura
+            if (!document.getElementById('invoice-number').value.trim()) {
+                document.getElementById('err-invoice').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('err-invoice').style.display = 'none';
+            }
 
-                <div class="invoice-total">
-                    <div><strong>Subtotal:</strong> $${subtotal.toFixed(2)}</div>
-                    <div><strong>IVA (19%):</strong> $${tax.toFixed(2)}</div>
-                    <div class="grand-total"><strong>Total a Pagar:</strong> $${grandTotal.toFixed(2)}</div>
-                </div>
+            if (!document.getElementById('invoice-date').value) {
+                document.getElementById('err-date').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('err-date').style.display = 'none';
+            }
 
-                <div style="margin-top: 40px; font-size: 14px; color: #7f8c8d; text-align: center;">
-                    <p>¡Gracias por tu negocio!</p>
-                </div>
-            `;
+            // Validar artículos
+            const itemRows = document.querySelectorAll('.item-row');
+            let itemsValid = true;
+            
+            itemRows.forEach(row => {
+                const desc = row.querySelector('.item-description').value.trim();
+                const qty = row.querySelector('.item-quantity').value;
+                const price = row.querySelector('.item-price').value;
 
-            // Mostrar factura
-            document.getElementById('invoice-preview').innerHTML = invoiceHTML;
+                if (!desc || !qty || qty < 1 || !price || price < 0) {
+                    itemsValid = false;
+                }
+            });
+
+            if (!itemsValid) {
+                document.getElementById('err-items').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('err-items').style.display = 'none';
+            }
+
+            return isValid;
         }
-    </script>
-</body>
-</html>
+
+        // Generar factura
+        function generateInvoice() {
+            // Primero validar campos
+            if (!validateFields()) {
+                return;
+            }
+
+            // Obtener datos del formulario
+            const businessName = document.getElementById('business-name').value.trim();
+            const businessAddress = document.getElementById('business
