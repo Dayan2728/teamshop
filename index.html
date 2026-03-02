@@ -44,26 +44,175 @@
             font-size: 0.9rem;
         }
 
-        main {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        <main>
+    <!-- SECCIÓN DE DESTACADOS -->
+    <section class="productos-section">
+        <div class="container">
+            <h2>Productos Destacados</h2>
+            <div class="productos-grid" id="productos-destacados">
+                <!-- Producto 1: Camiseta Equipo -->
+                <div class="producto-card">
+                    <img 
+                        class="producto-imagen" 
+                        src="img/camiseta-destacada.jpg" 
+                        alt="Camiseta Equipo Oficial - Temporada 2026"
+                        loading="lazy"
+                    >
+                    <h3>Camiseta Equipo Oficial</h3>
+                    <p class="producto-descripcion">
+                        Tela de algodón premium con tecnología de transpiración. Incluye logo bordado y nombres personalizables.
+                    </p>
+                    <p class="producto-precio">$45.000 COP</p>
+                    <button class="agregar-carrito" data-id="1">Agregar al Carrito</button>
+                </div>
 
-        .productos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
+                <!-- Producto 2: Botines de Fútbol -->
+                <div class="producto-card">
+                    <img 
+                        class="producto-imagen" 
+                        src="img/botines-destacados.jpg" 
+                        alt="Botines de Fútbol Tracción Pro"
+                        loading="lazy"
+                    >
+                    <h3>Botines Tracción Pro</h3>
+                    <p class="producto-descripcion">
+                        Suela de caucho reforzada para terrenos mixtos. Diseño ergonómico y cierre con cordones resistentes.
+                    </p>
+                    <p class="producto-precio">$150.000 COP</p>
+                    <button class="agregar-carrito" data-id="2">Agregar al Carrito</button>
+                </div>
 
-        .producto-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 1rem;
-            text-align: center;
-            transition: box-shadow 0.3s;
-        }
+                <!-- Producto 3: Gorra Team Edición Limitada -->
+                <div class="producto-card">
+                    <img 
+                        class="producto-imagen" 
+                        src="img/gorra-limitada.jpg" 
+                        alt="Gorra Team Edición Limitada"
+                        loading="lazy"
+                    >
+                    <h3>Gorra Edición Limitada</h3>
+                    <p class="producto-descripcion">
+                        Ajustable con cierre de velcro. Bordado 3D del logo del equipo y detalle en tonos metálicos.
+                    </p>
+                    <p class="producto-precio">$35.000 COP</p>
+                    <button class="agregar-carrito" data-id="3">Agregar al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE ROPA -->
+    <section class="productos-section">
+        <div class="container">
+            <h2>Ropa Deportiva</h2>
+            <div class="productos-grid" id="productos-ropa">
+                <!-- Producto 4: Pantalón Deportivo -->
+                <div class="producto-card">
+                    <img 
+                        class="producto-imagen" 
+                        src="img/pantalon-deportivo.jpg" 
+                        alt="Pantalón Deportivo Transpirable"
+                        loading="lazy"
+                    >
+                    <h3>Pantalón Deportivo Flex</h3>
+                    <p class="producto-descripcion">
+                        Tela elástica transpirable. Ideal para entrenamientos o uso diario. Incluye bolsillos laterales.
+                    </p>
+                    <p class="producto-precio">$80.000 COP</p>
+                    <button class="agregar-carrito" data-id="4">Agregar al Carrito</button>
+                </div>
+
+                <!-- Producto 5: Sudadera Team -->
+                <div class="producto-card">
+                    <img 
+                        class="producto-imagen" 
+                        src="img/sudadera-team.jpg" 
+                        alt="Sudadera Team con Capucha"
+                        loading="lazy"
+                    >
+                    <h3>Sudadera con Capucha</h3>
+                    <p class="producto-descripcion">
+                        Forro polar suave y cálido. Cierre frontal con cremallera resistente y bolsillos frontales.
+                    </p>
+                    <p class="producto-precio">$95.000 COP</p>
+                    <button class="agregar-carrito" data-id="5">Agregar al Carrito</button>
+                </div>
+
+                <!-- Producto 6: Short de Entrenamiento -->
+                <div class="producto-card">
+                    <img 
+                        class="producto-imagen" 
+                        src="img/short-entrenamiento.jpg" 
+                        alt="Short de Entrenamiento Ligero"
+                        loading="lazy"
+                    >
+                    <h3>Short de Entrenamiento</h3>
+                    <p class="producto-descripcion">
+                        Tela ligera y resistente al desgaste. Incluye forro interno y cordón de ajuste.
+                    </p>
+                    <p class="producto-precio">$40.000 COP</p>
+                    <button class="agregar-carrito" data-id="6">Agregar al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE ACCESORIOS -->
+    <section class="productos-section">
+        <div class="container">
+            <h2>Accesorios</h2>
+            <div class="productos-grid" id="productos-accesorios">
+                <!-- Producto 7: Mochila Team -->
+                <div class="producto-card">
+                    <img 
+                        class="producto-imagen" 
+                        src="img/mochila-team.jpg" 
+                        alt="Mochila Team con Compartimento para Laptop"
+                        loading="lazy"
+                    >
+                    <h3>Mochila Deportiva</h3>
+                    <p class="producto-descripcion">
+                        Capacidad de 30L. Compartimento aislado para botellas y espacio para laptop hasta 15".
+                    </p>
+                    <p class="producto-precio">$75.000 COP</p>
+                    <button class="agregar-carrito" data-id="7">Agregar al Carrito</button>
+                </div>
+
+                <!-- Producto 8: Brazaletes de Silicona -->
+                <div class="producto-card">
+                    <img 
+                        class="producto-imagen" 
+                        src="img/brazaletes-team.jpg" 
+                        alt="Set de Brazaletes de Silicona Team"
+                        loading="lazy"
+                    >
+                    <h3>Set de Brazaletes (3 unidades)</h3>
+                    <p class="producto-descripcion">
+                        Diseño con logo del equipo en colores contrastantes. Resistentes al agua y al desgaste.
+                    </p>
+                    <p class="producto-precio">$15.000 COP</p>
+                    <button class="agregar-carrito" data-id="8">Agregar al Carrito</button>
+                </div>
+
+                <!-- Producto 9: Termo Team -->
+                <div class="producto-card">
+                    <img 
+                        class="producto-imagen" 
+                        src="img/termo-team.jpg" 
+                        alt="Termo Team de Acero Inoxidable"
+                        loading="lazy"
+                    >
+                    <h3>Termo de Acero Inoxidable</h3>
+                    <p class="producto-descripcion">
+                        Capacidad de 500ml. Mantiene líquidos calientes por 6h y fríos por 12h.
+                    </p>
+                    <p class="producto-precio">$55.000 COP</p>
+                    <button class="agregar-carrito" data-id="9">Agregar al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 
         .producto-card:hover {
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
