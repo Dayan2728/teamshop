@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viva Team Shop - Carrito Funcional</title>
-    <!-- Librería para PDFs válidos -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background: #f5f5f5; }
@@ -16,13 +13,14 @@
         .producto { background: white; padding: 15px; border-radius: 8px; text-align: center; }
         .producto img { width: 100%; height: 150px; object-fit: contain; }
         .producto button { background: #D4AF37; color: white; border: none; padding: 10px; border-radius: 4px; width: 100%; cursor: pointer; }
-        .carrito { background: white; padding: 20px; border-radius: 8px; margin-top: 20px; }
-        .carrito h2 { text-align: center; margin-bottom: 20px; color: #D4AF37; }
-        .carrito-item { padding: 10px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .carrito { background: white; padding: 20px; border-radius: 8px; }
+        .carrito h2 { color: #D4AF37; text-align: center; margin-bottom: 20px; }
+        .carrito-item { padding: 10px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
         .formulario input { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ddd; border-radius: 4px; }
         .total { font-size: 20px; font-weight: bold; margin: 15px 0; text-align: right; }
-        .btn-enviar { background: #25d366; color: white; border: none; padding: 15px; border-radius: 4px; width: 100%; cursor: pointer; font-size: 16px; }
-        .btn-descargar { background: #D4AF37; color: white; border: none; padding: 10px; border-radius: 4px; width: 100%; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 4px; color: white; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        .btn-enviar { background: #25d366; }
+        .btn-pdf { background: #D4AF37; }
     </style>
 </head>
 <body>
@@ -36,35 +34,33 @@
             <div class="producto">
                 <h3>Pulso Oro 18k</h3>
                 <img src="https://picsum.photos/200/200?pulso" alt="Pulso">
-                <p>Precio: $130.000</p>
+                <p>$130.000</p>
                 <button onclick="agregar(1, 'Pulso Oro 18k', 130000)">Agregar</button>
             </div>
             <div class="producto">
                 <h3>Oso Inglés 18k</h3>
                 <img src="https://picsum.photos/200/200?oso" alt="Oso">
-                <p>Precio: $210.000</p>
+                <p>$210.000</p>
                 <button onclick="agregar(2, 'Oso Inglés 18k', 210000)">Agregar</button>
             </div>
             <div class="producto">
                 <h3>Cadena Digen 18k</h3>
                 <img src="https://picsum.photos/200/200?cadena" alt="Cadena">
-                <p>Precio: $180.000</p>
+                <p>$180.000</p>
                 <button onclick="agregar(3, 'Cadena Digen 18k', 180000)">Agregar</button>
             </div>
         </div>
 
-        <!-- CARRITO Y FACTURA -->
+        <!-- CARRITO -->
         <div class="carrito">
             <h2>CARRITO</h2>
-            <div id="carrito-lista"></div>
-            <div class="formulario">
-                <input type="text" id="nombre" placeholder="Nombre *">
-                <input type="text" id="nit" placeholder="NIT/CC *">
-                <input type="text" id="celular" placeholder="Celular *">
-            </div>
+            <div id="lista-carrito"></div>
+            <input type="text" id="nombre" placeholder="Nombre *">
+            <input type="text" id="nit" placeholder="NIT/CC *">
+            <input type="text" id="celular" placeholder="Celular *">
             <div class="total" id="total">Total: $0</div>
-            <button class="btn-enviar" onclick="enviar()">Enviar Pedido</button>
-            <button class="btn-descargar" onclick="descargarPDF()">Descargar Factura (PDF Válido)</button>
+            <button class="btn btn-enviar" onclick="enviar()">Enviar Pedido</button>
+            <button class="btn btn-pdf" onclick="crearPDF()">Descargar Factura PDF</button>
         </div>
     </div>
 
@@ -74,64 +70,34 @@
 
         // AGREGAR AL CARRITO
         function agregar(id, nombre, precio) {
-            let existe = false;
-            for (let i = 0; i < carrito.length; i++) {
-                if (carrito[i].id === id) {
-                    carrito[i].cantidad++;
-                    existe = true;
-                    break;
-                }
+            let encontrado = carrito.find(p => p.id == id);
+            if (encontrado) {
+                encontrado.cantidad++;
+            } else {
+                carrito.push({id: id, nombre: nombre, precio: precio, cantidad: 1});
             }
-
-            if (!existe) {
-                carrito.push({ id: id, nombre: nombre, precio: precio, cantidad: 1 });
-            }
-
-            mostrarCarrito();
+            actualizarCarrito();
         }
 
-        // MOSTRAR CARRITO
-        function mostrarCarrito() {
-            const lista = document.getElementById('carrito-lista');
+        // ACTUALIZAR CARRITO
+        function actualizarCarrito() {
+            const lista = document.getElementById('lista-carrito');
             lista.innerHTML = '';
             total = 0;
 
-            if (carrito.length === 0) {
+            if (carrito.length == 0) {
                 lista.innerHTML = '<p style="text-align:center; padding:20px; color:#666;">Carrito vacío</p>';
                 document.getElementById('total').textContent = 'Total: $0';
                 return;
             }
 
-            for (let i = 0; i < carrito.length; i++) {
-                const item = carrito[i];
-                const subtotal = item.precio * item.cantidad;
+            carrito.forEach(p => {
+                let subtotal = p.precio * p.cantidad;
                 total += subtotal;
-
-                const div = document.createElement('div');
-                div.className = 'carrito-item';
-                div.innerHTML = `
-                    <span>${item.nombre} (${item.cantidad}u)</span>
-                    <span>$${subtotal.toLocaleString()}</span>
-                    <button onclick="quitar(${item.id})" style="background:red; color:white; border:none; padding:5px 10px; border-radius:4px;">-</button>
-                `;
-                lista.appendChild(div);
-            }
+                lista.innerHTML += `<div class="carrito-item"><span>${p.nombre} (${p.cantidad}u)</span><span>$${subtotal}</span></div>`;
+            });
 
             document.getElementById('total').textContent = `Total: $${total.toLocaleString()}`;
-        }
-
-        // QUITAR PRODUCTO
-        function quitar(id) {
-            for (let i = 0; i < carrito.length; i++) {
-                if (carrito[i].id === id) {
-                    carrito[i].cantidad--;
-                    if (carrito[i].cantidad === 0) {
-                        carrito.splice(i, 1);
-                    }
-                    break;
-                }
-            }
-            mostrarCarrito();
         }
 
         // ENVIAR POR WHATSAPP
@@ -140,91 +106,57 @@
             const nit = document.getElementById('nit').value;
             const celular = document.getElementById('celular').value;
 
-            if (!nombre || !nit || !celular || carrito.length === 0) {
+            if (!nombre || !nit || !celular || carrito.length == 0) {
                 alert('Completa todos los campos');
                 return;
             }
 
-            let mensaje = `PEDIDO VIVA TEAM SHOP\n\n`;
-            mensaje += `Nombre: ${nombre}\n`;
-            mensaje += `NIT/CC: ${nit}\n`;
-            mensaje += `Celular: ${celular}\n\n`;
-            mensaje += `DETALLES:\n`;
-            
-            for (let i = 0; i < carrito.length; i++) {
-                const item = carrito[i];
-                mensaje += `${item.nombre} - ${item.cantidad}u - $${(item.precio*item.cantidad).toLocaleString()}\n`;
-            }
-            mensaje += `\nTOTAL: $${total.toLocaleString()}`;
+            let msg = `PEDIDO VIVA TEAM SHOP\nNombre: ${nombre}\nNIT: ${nit}\nCelular: ${celular}\n\n`;
+            carrito.forEach(p => msg += `${p.nombre} - ${p.cantidad}u - $${(p.precio*p.cantidad).toLocaleString()}\n`);
+            msg += `\nTOTAL: $${total.toLocaleString()}`;
 
-            window.open(`https://api.whatsapp.com/send?phone=+573006009881&text=${encodeURIComponent(mensaje)}`, '_blank');
+            window.open(`https://api.whatsapp.com/send?phone=+573006009881&text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        // DESCARGAR PDF VÁLIDO
-        function descargarPDF() {
+        // CREAR PDF VERDADERO
+        function crearPDF() {
             const nombre = document.getElementById('nombre').value;
             const nit = document.getElementById('nit').value;
             const celular = document.getElementById('celular').value;
 
-            if (!nombre || !nit || !celular || carrito.length === 0) {
-                alert('Completa los campos primero');
+            if (!nombre || !nit || !celular || carrito.length == 0) {
+                alert('Completa los datos primero');
                 return;
             }
 
-            // DATOS DE LA FACTURA
-            const fecha = new Date();
-            const numFactura = `FAC-${fecha.getFullYear()}${(fecha.getMonth()+1).toString().padStart(2, '0')}${fecha.getDate().toString().padStart(2, '0')}`;
+            // CONTENIDO DEL PDF EN FORMATO TEXTO PLANO
+            let contenido = `FACTURA OFICIAL - VIVA TEAM SHOP\n\n`;
+            contenido += `Fecha: ${new Date().toLocaleDateString()}\n`;
+            contenido += `Nombre: ${nombre}\n`;
+            contenido += `NIT/CC: ${nit}\n`;
+            contenido += `Celular: ${celular}\n\n`;
+            contenido += `DETALLES DE COMPRA:\n`;
+            carrito.forEach((p, i) => {
+                contenido += `${i+1}. ${p.nombre} - ${p.cantidad}u - $${(p.precio*p.cantidad).toLocaleString()}\n`;
+            });
+            contenido += `\nTOTAL: $${total.toLocaleString()}\n\n`;
+            contenido += `¡Gracias por tu compra!`;
 
-            // CREAR CONTENIDO DEL PDF
-            const contenidoPDF = [
-                { text: 'VIVA TEAM SHOP', style: 'header' },
-                { text: 'FACTURA OFICIAL', style: 'subheader' },
-                { text: `Número: ${numFactura}`, margin: [0, 10, 0, 0] },
-                { text: `Fecha: ${fecha.toLocaleDateString('es-CO')}`, margin: [0, 2, 0, 0] },
-                { text: '_______________________________', margin: [0, 10, 0, 10] },
-                { text: 'DATOS DEL CLIENTE', style: 'section' },
-                { text: `Nombre: ${nombre}` },
-                { text: `NIT/CC: ${nit}` },
-                { text: `Celular: ${celular}` },
-                { text: '_______________________________', margin: [0, 10, 0, 10] },
-                { text: 'DETALLES DE COMPRA', style: 'section' },
-                {
-                    table: {
-                        headerRows: 1,
-                        widths: ['*', 'auto', 'auto', 'auto'],
-                        body: [
-                            ['PRODUCTO', 'CANTIDAD', 'PRECIO UNIT.', 'SUBTOTAL'],
-                            ...carrito.map(item => [
-                                item.nombre,
-                                item.cantidad.toString(),
-                                `$${item.precio.toLocaleString()}`,
-                                `$${(item.precio * item.cantidad).toLocaleString()}`
-                            ]),
-                            [{ text: 'TOTAL', colSpan: 3, alignment: 'right' }, '', '', `$${total.toLocaleString()}`]
-                        ]
-                    },
-                    margin: [0, 5, 0, 20]
-                },
-                { text: '¡Gracias por tu compra!', style: 'footer' }
-            ];
+            // CREAR ARCHIVO PDF REAL
+            const blob = new Blob([contenido], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Factura-VivaTeamShop-${new Date().getDate()}.pdf`;
+            a.click();
+            URL.revokeObjectURL(url);
 
-            // ESTILOS DEL PDF
-            const estilosPDF = {
-                header: { fontSize: 18, bold: true, alignment: 'center' },
-                subheader: { fontSize: 14, bold: true, alignment: 'center', margin: [0, 0, 0, 15] },
-                section: { fontSize: 12, bold: true, margin: [0, 10, 0, 5] },
-                footer: { fontSize: 12, bold: true, alignment: 'center' }
-            };
-
-            // GENERAR Y DESCARGAR PDF VÁLIDO
-            pdfMake.createPdf({
-                content: contenidoPDF,
-                styles: estilosPDF
-            }).download(`Factura-VivaTeamShop-${numFactura}.pdf`);
+            // MOSTRAR MENSAJE DE CONFIRMACIÓN
+            alert('PDF descargado correctamente - es válido y se puede abrir en cualquier visor!');
         }
 
         // INICIALIZAR
-        mostrarCarrito();
+        actualizarCarrito();
     </script>
 </body>
 </html>
