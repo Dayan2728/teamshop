@@ -1,277 +1,431 @@
-/* BASE */
+/* ==============================
+   RESET Y ESTILOS GENERALES
+============================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+:root {
+    --color-principal: #2c3e50;    /* Azul oscuro */
+    --color-secundario: #3498db;  /* Azul claro */
+    --color-exito: #27ae60;       /* Verde */
+    --color-whatsapp: #25d366;    /* Verde WhatsApp */
+    --color-factura: #9b59b6;     /* Morado */
+    --color-alerta: #e74c3c;      /* Rojo */
+    --color-fondo: #f8f9fa;       /* Gris muy claro */
+    --color-bordes: #ddd;         /* Gris claro */
+    --color-texto: #333;          /* Texto principal */
 }
 
 body {
-    background-color: #f8f9fa;
+    color: var(--color-texto);
+    line-height: 1.6;
 }
 
-/* Botón WhatsApp */
-.btn-wsp {
-    position: fixed;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    bottom: 25px;
-    right: 25px;
-    background: #25d366;
-    color: #fff;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 35px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-    z-index: 100;
-    text-decoration: none;
-}
-
-/* Header */
-header {
-    background: url(img/golds.png);
-    background-size: cover;
-    background-position: center;
-    height: 300px;
-    color: #fff;
-    text-align: center;
-}
-
-header h1 {
-    font-size: 35px;
-    padding: 30px 0;
-    text-shadow: 0 0 5px #000;
-}
-
-header p {
-    font-size: 18px;
-    background-color: rgba(0,0,0,0.5);
-    padding: 5px;
-    max-width: 500px;
-    margin: 0 auto;
-    border-radius: 5px;
-}
-
-/* Contenedor Principal */
-.contenedor {
+.container {
     max-width: 1200px;
-    padding: 10px;
-    margin: auto;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+
+/* ==============================
+   ENCABEZADO (HEADER)
+============================== */
+header {
+    background-color: var(--color-principal);
+    color: white;
+    padding: 1.2rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header-content {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-/* Productos */
-.contenedor-items {
-    margin-top: 30px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    grid-gap: 30px;
-    width: 100%;
-}
-
-.item {
-    max-width: 200px;
-    margin: auto;
-    border: 1px solid #949e00;
-    border-radius: 10px;
-    padding: 20px;
-    transition: all 0.3s ease;
-}
-
-.item:hover {
-    box-shadow: 0 0 10px #b4b4b4;
-    transform: scale(1.05);
-}
-
-.img-item {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 5px;
-}
-
-.titulo-item {
-    display: block;
-    font-weight: 600;
-    text-align: center;
-    text-transform: uppercase;
-    margin: 10px 0;
-}
-
-.precio-item {
-    display: block;
-    text-align: center;
-    font-weight: bold;
-    font-size: 22px;
-}
-
-.boton-item {
-    display: block;
-    margin: 10px auto;
-    border: none;
-    background-color: rgb(211, 214, 23);
-    color: #000;
-    padding: 5px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Carrito */
-.carrito {
-    border: 1px solid #666;
-    width: 35%;
-    margin-top: 30px;
-    border-radius: 10px;
-    overflow: hidden;
-    position: sticky;
-    top: 0;
-}
-
-.header-carrito {
-    background-color: #eecb07;
-    color: #000;
-    text-align: center;
-    padding: 30px 0;
-}
-
-.carrito-items {
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.carrito-item {
+.logo {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #666;
-    padding: 20px;
+    gap: 1rem;
 }
 
-.carrito-item img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    margin-right: 20px;
+.logo-img {
+    height: 55px;
+    width: auto;
+    border-radius: 5px;
 }
 
-.carrito-item-titulo {
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 14px;
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
 }
 
-.selector-cantidad {
-    display: inline-block;
-    margin-right: 25px;
-}
-
-.carrito-item-cantidad {
+.carrito-btn {
+    background-color: var(--color-secundario);
     border: none;
-    font-size: 18px;
-    width: 30px;
-    text-align: center;
-}
-
-.selector-cantidad i {
-    font-size: 18px;
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
-    text-align: center;
-    border-radius: 50%;
-    border: 1px solid #e4e709;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
     cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
 }
 
-.btn-eliminar {
+.carrito-btn:hover {
+    background-color: #2980b9;
+}
+
+.carrito-contador {
+    background-color: var(--color-exito);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ==============================
+   SECCIÓN DE PRODUCTOS
+============================== */
+.productos-section {
+    padding: 3rem 0;
+}
+
+.productos-section h2 {
+    font-size: 1.7rem;
+    color: var(--color-principal);
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--color-secundario);
+    display: inline-block;
+}
+
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.producto-card {
+    background-color: white;
+    border: 1px solid var(--color-bordes);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.producto-card:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+}
+
+.producto-imagen {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background-color: var(--color-fondo);
+}
+
+.producto-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-principal);
+}
+
+.producto-descripcion {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+    min-height: 40px;
+}
+
+.producto-precio {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-exito);
+    margin-bottom: 1.2rem;
+}
+
+.agregar-carrito {
+    background-color: var(--color-secundario);
+    border: none;
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease;
+}
+
+.agregar-carrito:hover {
+    background-color: #2980b9;
+}
+
+
+/* ==============================
+   MODAL DEL CARRITO
+============================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.modal-contenido {
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
+    margin: 4rem auto;
+    border-radius: 10px;
+    padding: 2rem;
+    position: relative;
+}
+
+.cerrar-modal {
     position: absolute;
-    right: 15px;
-    top: 15px;
-    color: #ff0606;
-    font-size: 20px;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    border-radius: 50%;
-    border: 1px solid #e5ff00;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.8rem;
     cursor: pointer;
-    background: transparent;
+    color: #666;
+    transition: color 0.3s ease;
 }
 
-.carrito-total {
-    background-color: #f3f3f3;
-    padding: 30px;
+.cerrar-modal:hover {
+    color: var(--color-alerta);
 }
 
-.fila {
+.modal-contenido h2 {
+    font-size: 1.5rem;
+    color: var(--color-principal);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-bordes);
+}
+
+#carrito-items {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+    padding-right: 0.5rem;
+}
+
+.item-carrito {
     display: flex;
     justify-content: space-between;
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 10px;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-fondo);
 }
 
-/* Formulario */
-.formulario-cliente {
-    padding: 20px;
-    border-top: 1px solid #666;
+.item-carrito:last-child {
+    border-bottom: none;
 }
 
-.formulario-cliente label {
+.item-carrito div:first-child {
+    font-size: 0.95rem;
+}
+
+.item-carrito div:last-child {
+    font-weight: 600;
+    color: var(--color-principal);
+}
+
+.total-carrito {
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: right;
+    margin-bottom: 2rem;
+    color: var(--color-principal);
+}
+
+#datos-formulario {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: var(--color-fondo);
+    border-radius: 8px;
+}
+
+#datos-formulario h3 {
+    font-size: 1.1rem;
+    color: var(--color-principal);
+    margin-bottom: 1.2rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
     display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    color: #555;
 }
 
-.formulario-cliente input,
-.formulario-cliente textarea {
+.form-group input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
+    padding: 0.8rem;
+    border: 1px solid var(--color-bordes);
     border-radius: 5px;
+    font-size: 1rem;
 }
 
-.btn-pagar {
-    width: 100%;
+.form-group input:focus {
+    outline: none;
+    border-color: var(--color-secundario);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.acciones-carrito {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.btn-pedido, .btn-factura {
+    padding: 0.9rem 1.5rem;
     border: none;
-    background: #2bff00;
-    color: #000;
-    border-radius: 5px;
-    font-size: 18px;
-    padding: 20px;
+    border-radius: 25px;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    font-size: 1rem;
+    transition: opacity 0.3s ease;
 }
 
-.btn-pagar:hover {
-    transform: scale(1.05);
+.btn-pedido {
+    background-color: var(--color-whatsapp);
+    color: white;
 }
 
-/* Footer */
+.btn-factura {
+    background-color: var(--color-factura);
+    color: white;
+}
+
+.btn-pedido:hover, .btn-factura:hover {
+    opacity: 0.9;
+}
+
+
+/* ==============================
+   NOTIFICACIONES
+============================== */
+.notificacion {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    z-index: 1100;
+    animation: slideIn 0.3s ease forwards;
+}
+
+.notificacion-exito {
+    background-color: var(--color-exito);
+}
+
+.notificacion-alerta {
+    background-color: var(--color-alerta);
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+
+/* ==============================
+   PIE DE PÁGINA (FOOTER)
+============================== */
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: var(--color-principal);
+    color: white;
     text-align: center;
-    padding: 15px 0;
-    margin-top: 30px;
+    padding: 2rem 0;
+    margin-top: 4rem;
 }
 
-footer a {
-    color: #eecb07;
-    text-decoration: none;
+footer p {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
 }
 
-/* RESPONSIVE */
-@media screen and (max-width: 850px) {
-    .contenedor {
-        display: block;
+footer p:last-child {
+    margin-bottom: 0;
+    opacity: 0.8;
+}
+
+
+/* ==============================
+   RESPONSIVO (DISPOSITIVOS PEQUEÑOS)
+============================== */
+@media (max-width: 768px) {
+    .header-content {
+        justify-content: center;
+        text-align: center;
     }
-    .carrito {
-        width: 100%;
-        position: relative;
-        margin-top: 30px;
+
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+
+    .productos-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .modal-contenido {
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+
+    .acciones-carrito {
+        justify-content: center;
+    }
+
+    .notificacion {
+        left: 2rem;
+        right: 2rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .productos-section h2 {
+        font-size: 1.4rem;
+    }
+
+    .producto-card {
+        padding: 1rem;
+    }
+
+    .modal-contenido h2 {
+        font-size: 1.3rem;
     }
 }
