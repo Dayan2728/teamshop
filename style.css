@@ -1,0 +1,447 @@
+/* Importa una fuente de Google Fonts si deseas un estilo específico */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif; /* Fuente para el cuerpo del texto */
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8; /* Color de fondo general */
+    color: #333; /* Color de texto principal */
+}
+
+/* --- Barra Superior (Top Bar) --- */
+.top-bar {
+    background-color: #000000; /* Fondo rojo oscuro */
+    color: white;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+/* --- Encabezado Principal (Main Header) --- */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: white;
+    border-bottom: 1px solid #eee; /* Línea separadora inferior */
+}
+
+.logo h1 {
+    font-family: 'Playfair Display', serif; /* Fuente para el logo */
+    font-size: 2.5em;
+    color: #9E6C4D; /* Color del logo */
+    margin: 0;
+}
+
+.main-nav ul {
+    list-style: none; /* Quita los puntos de la lista */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 30px; /* Espacio entre los elementos de navegación */
+}
+
+.main-nav ul li a {
+    text-decoration: none; /* Quita el subrayado del enlace */
+    color: #9E6C4D;
+    font-weight: 600;
+    font-size: 0.95em;
+    transition: color 0.3s ease; /* Transición suave al pasar el ratón */
+}
+
+.main-nav ul li a:hover {
+    color: #000000; /* Color al pasar el ratón */
+}
+
+.user-actions {
+    display: flex;
+    gap: 20px;
+    font-size: 1.2em;
+}
+
+.user-actions a {
+    color: #333;
+    text-decoration: none;
+    position: relative; /* Para posicionar el contador del carrito */
+}
+
+.user-actions a:hover {
+    color: #000000;
+}
+
+#contador-carrito {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #5a0000;
+    color: white;
+    border-radius: 50%; /* Forma circular */
+    padding: 2px 6px;
+    font-size: 0.7em;
+    line-height: 1; /* Centra el número verticalmente */
+    min-width: 1em; /* Asegura que se vea bien incluso con un solo dígito */
+    text-align: center;
+}
+
+/* --- Contenido Principal (Main Content) y Filtros --- */
+.catalogo-productos {
+    display: flex;
+    max-width: 1200px; /* Ancho máximo del catálogo */
+    margin: 30px auto; /* Centra el catálogo horizontalmente */
+    gap: 30px; /* Espacio entre la sección de filtros y productos */
+}
+
+.filters {
+    flex: 0 0 200px; /* Ancho fijo para la columna de filtros */
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Sombra sutil */
+    align-self: flex-start; /* Se alinea al inicio del contenedor flex */
+    min-width: 180px; /* Ancho mínimo para que no se comprima demasiado */
+}
+
+.filters h3 {
+    color: #000000;
+    font-size: 1.1em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.filter-group ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.filter-group ul li a {
+    text-decoration: none;
+    color: #555;
+    display: block;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.filter-group ul li a:hover {
+    color: #9E6C4D;
+}
+
+.products-display {
+    flex-grow: 1; /* Ocupa el espacio restante */
+}
+
+.products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.products-header h2 {
+    font-size: 1.1em;
+    margin: 0;
+    color: #000000;
+}
+
+.sort-by span {
+    margin-right: 10px;
+    color: #000000;
+}
+
+.sort-by select {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.lista-productos {
+    display: grid;
+    /* Crea columnas que se ajustan automáticamente, mínimo 280px, máximo 1fr (espacio disponible) */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px; /* Espacio entre las tarjetas de producto */
+}
+
+/* --- Estilos de Producto Individual --- */
+.producto {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08); /* Sombra más pronunciada */
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out; /* Efecto suave al pasar el ratón */
+}
+
+.producto:hover {
+    transform: translateY(-5px); /* Eleva la tarjeta al pasar el ratón */
+}
+
+.imagen-producto {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.nombre-producto {
+    font-size: 1.4em;}
+
+    /* --- Botón Añadir al Carrito --- */
+.btn-agregar {
+    background-color: #000000; /* Fondo rojo oscuro */
+    color: white; /* Texto blanco */
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
+}
+
+.btn-agregar:hover {
+    background-color: #7b0000; /* Un rojo un poco más claro al pasar el ratón */
+}
+
+/* --- Botón "Realizar Pedido por WhatsApp" --- */
+.btn-whatsapp {
+    display: flex; /* Para alinear el icono y el texto */
+    align-items: center; /* Centra verticalmente el icono y el texto */
+    justify-content: center; /* Centra horizontalmente el contenido */
+    gap: 8px; /* Espacio entre el icono y el texto */
+
+    width: 100%; /* Ocupa todo el ancho disponible */
+    background-color: #25d366; /* Color verde de WhatsApp */
+    color: white; /* Texto blanco */
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
+}
+
+.btn-whatsapp:hover {
+    background-color: #128c7e; /* Verde más oscuro al pasar el ratón */
+}
+
+.btn-whatsapp .fab {
+    font-size: 1.3em; /* Tamaño del icono de WhatsApp */
+}
+/* --- Estilos para el Modal del Carrito --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Permanece en la misma posición al desplazarse */
+    z-index: 1000; /* Se superpone a otros elementos (¡número alto para que esté encima de todo!) */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    overflow: auto; /* Habilita el scroll si el contenido es demasiado largo */
+    background-color: rgba(0,0,0,0.6); /* Fondo semi-transparente oscuro */
+    display: flex; /* Usamos flexbox para centrar el contenido */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    opacity: 0; /* Inicialmente transparente para la animación */
+    visibility: hidden; /* Inicialmente oculto para la animación */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transición para aparecer/desaparecer */
+}
+
+.modal.show {
+    opacity: 1; /* Completamente visible */
+    visibility: visible; /* Hace que el modal sea visible */
+}
+
+/* ESTILOS CLAVE PARA EL PARECIDO A TARJETA */
+.modal-content {
+    background-color: #ffffff; /* Fondo blanco, como la tarjeta */
+    padding: 30px;
+    border-radius: 8px; /* Bordes redondeados, similar a la tarjeta */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra más suave y extendida */
+    width: 90%; /* Ancho del contenido del modal en móviles */
+    max-width: 450px; /* Ancho máximo un poco más ajustado para que parezca más una "tarjeta grande" */
+    position: relative; /* Para posicionar el botón de cerrar */
+    transform: translateY(-50px); /* Inicialmente un poco arriba para la animación */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para la animación de entrada y sombra */
+    border: 1px solid #ddd; /* Borde sutil, como las tarjetas de producto */
+}
+
+.modal.show .modal-content {
+    transform: translateY(0); /* Vuelve a su posición normal */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15); /* Sombra ligeramente más pronunciada al mostrarse */
+}
+
+.close-button {
+    color: #888; /* Color gris más suave para la 'X' */
+    position: absolute; /* Posiciona la 'X' en la esquina superior derecha */
+    top: 15px;
+    right: 20px; /* Ajustado para dar un poco más de margen */
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #9E6C4D; /* Color AlmaMia al pasar el ratón */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    color: #333; /* Color de texto más neutral para el título */
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 1px solid #eee; /* Línea decorativa sutil */
+    padding-bottom: 10px;
+    font-size: 1.6em; /* Tamaño de fuente ligeramente más grande */
+}
+
+#items-carrito {
+    margin-bottom: 20px;
+    max-height: 250px; /* Ajustada la altura máxima para un modal más compacto */
+    overflow-y: auto; /* Habilita el scroll si hay muchos ítems */
+    padding-right: 10px; /* Espacio para el scrollbar */
+    border-bottom: 1px solid #eee; /* Línea sutil al final de la lista de ítems */
+    padding-bottom: 15px;
+}
+
+.item-en-carrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee; /* Línea divisoria entre ítems */
+    font-size: 0.9em; /* Fuente ligeramente más pequeña para los ítems */
+}
+
+.item-en-carrito:last-child {
+    border-bottom: none; /* No hay línea divisoria para el último ítem */
+}
+
+.item-en-carrito p {
+    margin: 0;
+    color: #555;
+}
+
+/* Estilos para el botón de eliminar individual */
+.btn-eliminar-item {
+    background-color: #f8d7da; /* Fondo rojo claro */
+    color: #dc3545; /* Texto rojo oscuro */
+    border: 1px solid #f5c6cb; /* Borde rojo sutil */
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75em;
+    transition: all 0.2s ease;
+}
+
+.btn-eliminar-item:hover {
+    background-color: #dc3545; /* Rojo más fuerte al pasar el ratón */
+    color: white;
+    border-color: #dc3545;
+}
+
+.carrito-total {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 1.3em; /* Tamaño de fuente más prominente para el total */
+    font-weight: bold;
+    color: #050404; /* Color de texto principal */
+    padding-top: 10px;
+}
+
+.carrito-total span {
+    color: #0a0909; /* Color AlmaMia para el valor total */
+}
+
+/* --- Botón "Realizar Pedido por WhatsApp" (manteniendo el diseño previo) --- */
+.btn-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background-color: #25d366; /* Color verde de WhatsApp */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+    background-color: #128c7e; /* Verde más oscuro al pasar el ratón */
+}
+
+.btn-whatsapp .fab {
+    font-size: 1.3em;
+}
+/* --- Estilos para el Mini Reproductor --- */
+.mini-player {
+    /* Para que no rompa el diseño con los otros iconos */
+    display: flex; 
+    align-items: center;
+    margin-right: 15px; /* Espacio a la derecha si hay otros iconos */
+}
+
+.mini-player a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #5a0000; /* Color AlmaMia para el icono/texto */
+    font-size: 1.2em; /* Tamaño base */
+    transition: color 0.3s ease;
+}
+
+.mini-player a:hover {
+    color: #333; /* Color al pasar el ratón */
+}
+
+/* --- Reproductor de YouTube de Fondo --- */
+#background-youtube-player {
+    position: fixed; /* Fijo en la pantalla */
+    top: 0;
+    left: 0;
+    width: 100vw; /* 100% del ancho de la ventana */
+    height: 100vh; /* 100% del alto de la ventana */
+    overflow: hidden; /* Oculta cualquier parte del iframe que se desborde */
+    z-index: -1; /* Lo envía al fondo, detrás de todo el contenido de tu página */
+    pointer-events: none; /* Hace que los eventos del ratón (clicks) pasen a través del iframe */
+}
+
+#background-youtube-player iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que el video cubra todo el espacio sin distorsionarse */
+    transform: scale(1.1); /* Un pequeño zoom para asegurar que no se vean bordes y cubra bien */
+}
+
+.volume-toggle-btn {
+    color: #333;
+    font-size: 1.2em;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+}
+.volume-toggle-btn:hover {
+    color: #5a0000;
+}

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Luxe Boutique Shop</title>
+    <!-- Enlace a tu archivo CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Enlace a Font Awesome para los iconos (usuario, búsqueda, bolsa de compras, cerrar modal) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+
+
+    <body>
+    <!-- Reproductor de YouTube de Fondo (Autoplay Silenciado) -->
+    <div id="background-youtube-player">
+        <iframe id="youtube-bg-player"
+            src="https://www.youtube.com/embed/k4VhvZLB2Qo?autoplay=1&mute=1&loop=1&playlist=k4VhvZLB2Qo&controls=0&showinfo=0&autohide=1&modestbranding=1&rel=0&enablejsapi=1"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- EL RESTO DE TU CÓDIGO HTML (header, main, footer, etc.) -->
+    <!-- ... -->
+</body>
+
+    <header>
+        <div class="top-bar">
+            <span>USA EL CUPÓN: "PRIMERACOMPRA" Y OBTÉN 10% DE DESCUENTO</span>
+        </div>
+        <div class="main-header">
+            <div class="logo">
+                <h1>The Luxe Boutique Shop</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">INICIO</a></li>
+                    <li><a href="#">MÁS VENDIDOS</a></li>
+                    <li><a href="#">BOLSOS</a></li>
+                    <li><a href="#">ACCESORIOS</a></li>
+                    <li><a href="#">NUEVA COLECCIÓN</a></li>
+                </ul>
+            </nav>
+            
+
+<div class="user-actions">
+    <a href="#" class="volume-toggle-btn" id="toggle-music-volume" title="Control de Música">
+        <i class="fas fa-volume-mute"></i> <!-- Icono de mute por defecto -->
+    </a>
+    <a href="#" class="search-icon"><i class="fas fa-search"></i></a>
+    <a href="#" class="cart-icon" id="ver-carrito-btn"><i class="fas fa-shopping-bag"></i> <span id="contador-carrito">0</span></a>
+</div>
+
+
+
+
+
+
+
+
+
+        </div>
+    </header>
+
+    <main class="catalogo-productos">
+        <div class="filters">
+            <div class="filter-group">
+                <h3>Categoría</h3>
+                <ul>
+                    <li><a href="#">Bolsos de Mano</a></li>
+                    <li><a href="#">Bandoleras</a></li>
+                    <li><a href="#">Mochilas</a></li>
+                </ul>
+            </div>
+            <div class="filter-group">
+                <h3>Color</h3>
+                <ul>
+                    <li><a href="#">Rojo</a></li>
+                    <li><a href="#">Negro</a></li>
+                    <li><a href="#">Gris</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="products-display">
+            <div class="products-header">
+                <h2>25 PRODUCTOS</h2>
+                <div class="sort-by">
+                    <span>Ordenar por</span>
+                    <select>
+                        <option value="relevancia">Relevancia</option>
+                        <option value="precio-asc">Precio: Menor a Mayor</option>
+                        <option value="precio-desc">Precio: Mayor a Menor</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="lista-productos" id="lista-productos">
+                <!-- Producto 1: Bolso Shopper Rojo -->
+                <div class="producto">
+                    <img src="img/bolso_rojo.jpg" alt="Bolso Rojo Elegante" class="imagen-producto">
+                    <h3 class="nombre-producto">Bolso Shopper Rojo</h3>
+                    <p class="descripcion-producto">Elegante bolso shopper en tono rojo vino, ideal para el día a día.</p>
+                    <p class="precio-producto" data-precio="120000">$120.000 COP</p>
+
+                    <div class="controles-carrito">
+                        <input type="number" value="1" min="1" class="cantidad-producto">
+                        <button class="btn-agregar" data-id="bolsoRojo" data-nombre="Bolso Shopper Rojo" data-precio="120000">Agregar al Carrito</button>
+                    </div>
+                </div>
+
+                <!-- Producto 2: Bolso Duffle Negro -->
+                <div class="producto">
+                    <img src="img/bolso_negro_duffle.jpg" alt="Bolso Negro Duffle" class="imagen-producto">
+                    <h3 class="nombre-producto">Bolso Duffle Negro</h3>
+                    <p class="descripcion-producto">Bolso de viaje compacto y estiloso en color negro, con correa ajustable.</p>
+                    <p class="precio-producto" data-precio="150000">$150.000 COP</p>
+
+                    <div class="controles-carrito">
+                        <input type="number" value="1" min="1" class="cantidad-producto">
+                        <button class="btn-agregar" data-id="bolsoNegro" data-nombre="Bolso Duffle Negro" data-precio="150000">Agregar al Carrito</button>
+                    </div>
+                </div>
+
+                <!-- Producto 3: Neceser con Correa Estampada -->
+                <div class="producto">
+                    <img src="img/neceser_estampado.jpg" alt="Neceser Estampado" class="imagen-producto">
+                    <h3 class="nombre-producto">Neceser con Correa Estampada</h3>
+                    <p class="descripcion-producto">Neceser funcional con diseño elegante y correa removible estampada.</p>
+                    <p class="precio-producto" data-precio="95000">$95.000 COP</p>
+
+                    <div class="controles-carrito">
+                        <input type="number" value="1" min="1" class="cantidad-producto">
+                        <button class="btn-agregar" data-id="neceserEstampado" data-nombre="Neceser con Correa Estampada" data-precio="95000">Agregar al Carrito</button>
+                    </div>
+                </div>
+                <!-- Producto 4: Neceser con Correa Estampada -->
+                <div class="producto">
+                    <img src="img/neceser_estampado.jpg" alt="Neceser Estampado" class="imagen-producto">
+                    <h3 class="nombre-producto">Neceser con Correa Estampada</h3>
+                    <p class="descripcion-producto">Neceser funcional con diseño elegante y correa removible estampada.</p>
+                    <p class="precio-producto" data-precio="95000">$95.000 COP</p>
+
+                    <div class="controles-carrito">
+                        <input type="number" value="1" min="1" class="cantidad-producto">
+                        <button class="btn-agregar" data-id="neceserEstampado" data-nombre="Neceser con Correa Estampada" data-precio="95000">Agregar al Carrito</button>
+                    </div>
+                </div>
+
+                <!-- Puedes añadir más productos aquí con la misma estructura -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Carrito de Compras Modal -->
+    <div id="modal-carrito" class="modal">
+        <div class="modal-content">
+            <!-- Botón de cerrar el modal, ahora es un icono de Font Awesome -->
+            <span class="close-button"><i class="fas fa-times"></i></span>
+            <h2>Tu Carrito de Compras</h2>
+            <div id="items-carrito">
+                <!-- Los productos del carrito se insertarán aquí con JavaScript -->
+                <p>El carrito está vacío.</p>
+            </div>
+            <div class="carrito-total">
+                <p>Total: <span id="total-carrito">$0.00 COP</span></p>
+            </div>
+            <button id="realizar-pedido-whatsapp" class="btn-whatsapp">
+    <i class="fab fa-whatsapp"></i> Realizar Pedido por WhatsApp
+</button>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>&copy; 2026 The Luxe Boutique Shop Todos los derechos reservados.</p>
+        
+   
+    <p>Hora actual: <span id="hora-actual"></span></p> <!-- Aquí se mostrará la hora -->
+</footer>
+    </footer>
+
+    <!-- Enlace a tu archivo JavaScript, DEBE IR AL FINAL DEL BODY -->
+    <script src="script.js"></script>
+</body>
+</html>
